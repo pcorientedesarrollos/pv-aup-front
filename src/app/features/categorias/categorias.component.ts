@@ -270,6 +270,35 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
+  mostrarModalProductos = signal(false);
+  categoriaSeleccionada = signal<any>(null);
+  productosCategoria = signal<any[]>([]);
+  cargandoProductos = signal(false);
+
+  abrirProductosCategoria(cat: any) {
+    this.categoriaSeleccionada.set(cat);
+    this.mostrarModalProductos.set(true);
+    this.cargandoProductos.set(true);
+    this.productosCategoria.set([]);
+    this.http.get<any>(`${environment.apiUrl}/pos/productos?limit=10000&idCategoria=${cat.idCategoria}`).subscribe({
+      next: (res) => {
+        const all = res.data || res;
+        const filtrados = all.filter((p: any) => p.categoria?.idCategoria === cat.idCategoria);
+        this.productosCategoria.set(filtrados);
+        this.cargandoProductos.set(false);
+      },
+      error: () => {
+        this.cargandoProductos.set(false);
+      }
+    });
+  }
+
+  cerrarModalProductos() {
+    this.mostrarModalProductos.set(false);
+    this.categoriaSeleccionada.set(null);
+    this.productosCategoria.set([]);
+  }
+
   verProductos(idCategoria: number) {
     this.router.navigate(['/productos'], { queryParams: { categoria: idCategoria } });
   }
