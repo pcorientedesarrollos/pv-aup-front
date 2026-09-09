@@ -99,6 +99,24 @@ export class ProductosComponent implements OnInit {
     });
   });
 
+  resumenInventario = computed(() => {
+    let valorCompra = 0;
+    let valorVenta = 0;
+    const productos = this.productosFiltrados();
+    for (const p of productos) {
+      const stock = Number(p.stockActual) || 0;
+      if (stock > 0) {
+        valorCompra += stock * (Number(p.costo) || 0);
+        valorVenta += stock * (Number(p.precioPublico) || 0);
+      }
+    }
+    return {
+      valorCompra,
+      valorVenta,
+      utilidad: valorVenta - valorCompra
+    };
+  });
+
   // --- PAGINACIÓN ---
   paginaActual = signal(1);
   tamanoPagina = signal(10);
