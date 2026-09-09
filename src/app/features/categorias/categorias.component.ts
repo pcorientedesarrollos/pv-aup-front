@@ -212,6 +212,69 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
           </form>
         </div>
       </div>
+    
+    @if (mostrarModalProductos()) {
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" (click)="cerrarModalProductos()"></div>
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
+          <div class="flex items-center justify-between p-5 border-b border-slate-100">
+            <div>
+              <h2 class="text-lg font-bold text-slate-800">Productos de "{{ categoriaSeleccionada()?.nombre }}"</h2>
+              <p class="text-xs text-slate-500 mt-0.5">{{ productosCategoria().length }} producto(s) encontrado(s)</p>
+            </div>
+            <button (click)="cerrarModalProductos()" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="overflow-y-auto flex-1 p-0">
+            @if (cargandoProductos()) {
+              <div class="flex items-center justify-center p-10">
+                <svg class="animate-spin w-8 h-8 text-amber-500" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </div>
+            } @else if (productosCategoria().length === 0) {
+              <div class="flex flex-col items-center justify-center p-10 text-slate-400">
+                <svg class="w-12 h-12 mb-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+                <p class="font-medium">No hay productos en esta categora</p>
+              </div>
+            } @else {
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50 sticky top-0">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase">Cd.</th>
+                    <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase">Nombre</th>
+                    <th class="px-4 py-3 text-right text-xs font-bold text-slate-500 uppercase">Stock</th>
+                    <th class="px-4 py-3 text-right text-xs font-bold text-slate-500 uppercase">Precio Venta</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-slate-500 uppercase">Estado</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  @for (p of productosCategoria(); track p.idProducto) {
+                    <tr class="hover:bg-slate-50 transition-colors">
+                      <td class="px-4 py-3 text-slate-500 font-mono text-xs">{{ p.codigoBarras || 'N/A' }}</td>
+                      <td class="px-4 py-3 font-semibold text-slate-800">{{ p.nombre }}</td>
+                      <td class="px-4 py-3 text-right font-bold" [class.text-red-600]="p.stockActual <= 0" [class.text-slate-700]="p.stockActual > 0">{{ p.stockActual || 0 }}</td>
+                      <td class="px-4 py-3 text-right text-slate-700">{{ p.precioPublico | currency:'MXN':'symbol-narrow':'1.2-2' }}</td>
+                      <td class="px-4 py-3 text-center">
+                        <span class="px-2 py-0.5 rounded text-xs font-bold" [ngClass]="p.activo ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'">
+                          {{ p.activo ? 'Activo' : 'Inactivo' }}
+                        </span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            }
+          </div>
+        </div>
+      </div>
+    }
     }
   `
 })

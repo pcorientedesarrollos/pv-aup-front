@@ -66,35 +66,37 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-5 relative"
+      </div>
+
+      <!-- Columna Derecha: Carrito -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        
+        <!-- BUSCADOR -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 relative"
              [ngClass]="{'opacity-50 pointer-events-none': !idSucursalOrigen()}">
-          <h2 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Agregar Producto</h2>
           <div class="relative">
             <input type="text" [ngModel]="busquedaProducto()" (ngModelChange)="busquedaProducto.set($event)"
-                   placeholder="Buscar por nombre o código..."
-                   class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-honey-primary outline-none">
-            <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                   placeholder="Escribe el nombre, clave o escanea el código de barras..."
+                   class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-honey-primary outline-none transition-shadow">
+            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           </div>
 
           @if (busquedaProducto() && productosFiltrados().length > 0) {
-            <div class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 max-h-60 overflow-y-auto">
+            <div class="absolute z-20 w-[calc(100%-2rem)] left-4 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 max-h-64 overflow-y-auto custom-scrollbar">
               @for (prod of productosFiltrados(); track prod.idProducto) {
                 <button (click)="agregarAlCarrito(prod)"
-                        class="w-full text-left px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0 flex justify-between items-center transition-colors">
+                        class="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0 flex justify-between items-center transition-colors">
                   <div>
                     <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ prod.nombre }}</p>
-                    <p class="text-xs text-gray-400">{{ prod.codigoBarras || 'Sin código' }}</p>
+                    <p class="text-[11px] text-gray-400 mt-0.5">{{ prod.codigoBarras || 'Sin código' }}</p>
                   </div>
-                  <span class="text-xs font-bold bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">Stock: {{ prod.stockActual }}</span>
+                  <span class="text-xs font-bold bg-honey-primary/10 text-honey-primary px-2.5 py-1 rounded-full">Stock: {{ prod.stockActual }}</span>
                 </button>
               }
             </div>
           }
         </div>
-      </div>
 
-      <!-- Columna Derecha: Carrito -->
-      <div class="lg:col-span-2">
         <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 flex flex-col h-full min-h-[400px]">
           <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-900/50 rounded-t-xl">
              <h2 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
