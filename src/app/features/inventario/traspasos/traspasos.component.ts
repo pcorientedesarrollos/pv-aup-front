@@ -30,8 +30,8 @@ export class TraspasosComponent implements OnInit {
     const term = this.busquedaProducto().toLowerCase().trim();
     if (!term) return [];
     return this.productosDisponibles().filter(p => 
-      p.nombre.toLowerCase().includes(term) || 
-      (p.codigoBarras && p.codigoBarras.toLowerCase().includes(term))
+      p.nombre?.toLowerCase().includes(term) || 
+      (p.codigoBarras && p.codigoBarras?.toLowerCase().includes(term))
     );
   });
   
@@ -48,6 +48,7 @@ export class TraspasosComponent implements OnInit {
   }
 
   onOrigenChange(origen: number | null) {
+    this.idSucursalOrigen.set(origen);
     if (origen) {
       this.cargarProductosOrigen(origen);
       this.carrito.set([]); // Resetear carrito al cambiar origen
@@ -67,9 +68,9 @@ export class TraspasosComponent implements OnInit {
   cargarProductosOrigen(idSucursal: number) {
     this.cargando.set(true);
     // Asumiendo que el endpoint de productos acepta idSucursal para filtrar el inventario específico
-    this.http.get<any[]>(`${environment.apiUrl}/pos/productos?limit=10000&idSucursal=${idSucursal}`).subscribe({
+    this.http.get<any>(`${environment.apiUrl}/pos/productos?limit=10000&idSucursal=${idSucursal}`).subscribe({
       next: (data) => {
-        this.productosDisponibles.set(data);
+        this.productosDisponibles.set(data.data || data);
         this.cargando.set(false);
       },
       error: (err) => {
