@@ -106,7 +106,8 @@ export class ProductosComponent implements OnInit {
     for (const p of productos) {
       const stock = Number(p.stockActual) || 0;
       if (stock > 0) {
-        valorCompra += stock * (Number(p.costo) || 0);
+        const costo = Number(p.precioCompra) || Number(p.precioUnitario) || 0;
+        valorCompra += stock * costo;
         valorVenta += stock * (Number(p.precioPublico) || 0);
       }
     }
