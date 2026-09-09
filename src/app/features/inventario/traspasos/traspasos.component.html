@@ -70,7 +70,7 @@
              [ngClass]="{'opacity-50 pointer-events-none': !idSucursalOrigen()}">
           <h2 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Agregar Producto</h2>
           <div class="relative">
-            <input type="text" [(ngModel)]="busquedaProducto"
+            <input type="text" [ngModel]="busquedaProducto()" (ngModelChange)="busquedaProducto.set($event)"
                    placeholder="Buscar por nombre o código..."
                    class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-honey-primary outline-none">
             <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>

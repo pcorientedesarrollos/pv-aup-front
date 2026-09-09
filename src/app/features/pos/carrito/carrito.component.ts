@@ -202,8 +202,9 @@ export class CarritoComponent implements OnInit {
       descuentoMonto = (this.pos.totalPagar() * desc) / 100;
     }
 
-    if (descuentoMonto > utilidadDisponible) {
-      alert(`El descuento global ($${descuentoMonto.toFixed(2)}) supera la utilidad disponible de la venta ($${utilidadDisponible.toFixed(2)}). No se puede aplicar.`);
+    const maxDescuento = this.pos.totalIva();
+    if (descuentoMonto > maxDescuento) {
+      this.toast.show(`El descuento (${descuentoMonto.toFixed(2)}) no puede ser mayor al IVA de la venta (${maxDescuento.toFixed(2)}).`, 'warning');
       return;
     }
 

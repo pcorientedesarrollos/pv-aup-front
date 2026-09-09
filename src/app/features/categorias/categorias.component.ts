@@ -77,8 +77,14 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
                       <td class="py-3 px-4 font-semibold text-slate-800">
                         {{cat.nombre}}
                       </td>
-                      <td class="py-3 px-4 text-center font-bold text-slate-600">
-                        {{cat.totalProductos || 0}}
+                      <td class="py-3 px-4 text-center">
+                        @if (cat.totalProductos > 0) {
+                          <button (click)="abrirProductosCategoria(cat)" class="font-bold text-blue-600 hover:text-blue-800 hover:underline transition-colors" title="Ver productos de esta categoría">
+                            {{cat.totalProductos}}
+                          </button>
+                        } @else {
+                          <span class="font-bold text-slate-400">0</span>
+                        }
                       </td>
                       <td class="py-3 px-4">
                         <span class="px-2 py-1 rounded text-xs font-bold" 
@@ -123,7 +129,11 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
                   <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
                     <div class="flex flex-col">
                       <span class="text-xs text-slate-500 font-medium">Productos</span>
-                      <span class="text-sm font-black text-slate-700">{{cat.totalProductos || 0}}</span>
+                       @if (cat.totalProductos > 0) {
+                         <button (click)="abrirProductosCategoria(cat)" class="text-sm font-black text-blue-600 hover:underline transition-colors text-left">{{cat.totalProductos}}</button>
+                       } @else {
+                         <span class="text-sm font-black text-slate-400">0</span>
+                       }
                     </div>
                     <button (click)="abrirModal(cat)" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 hover:bg-amber-50 text-slate-400 hover:text-amber-500 transition-colors border border-slate-200 hover:border-amber-200" title="Editar">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>

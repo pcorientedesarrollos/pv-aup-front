@@ -522,10 +522,10 @@ export class ProductosComponent implements OnInit {
     // Si se desmarca el IVA, limpiar el valor para evitar acumulaciones
     if (!this.nuevoProducto.aplicaIva) {
       this.nuevoProducto.iva = 0;
-    } else if (this.nuevoProducto.aplicaIva && (!this.nuevoProducto.iva || this.nuevoProducto.iva === 0)) {
-      // Si se vuelve a activar y el iva está en 0, restaurar el 16% por defecto
-      this.nuevoProducto.iva = 16;
-    }
+    } else if (this.nuevoProducto.aplicaIva && (this.nuevoProducto.iva === null || this.nuevoProducto.iva === undefined)) {
+        // Solo restaurar a 16% si no se ha especificado IVA (no cuando el usuario eligió Tasa Cero = 0%)
+        this.nuevoProducto.iva = 16;
+      }
 
     const baseIva = precioPublico - descuentoEfectivo;
     const ivaCalc = this.nuevoProducto.aplicaIva ? (baseIva * (Number(this.nuevoProducto.iva !== undefined ? this.nuevoProducto.iva : 16) / 100)) : 0;
