@@ -744,8 +744,24 @@ export class ProductosComponent implements OnInit {
     }, 200);
   }
 
+  
+  private getProductosOrdenadosParaExportar() {
+    return [...this.productosFiltrados()].sort((a: any, b: any) => {
+      const catA = (a.categoria?.nombre || 'ZZZ').toLowerCase();
+      const catB = (b.categoria?.nombre || 'ZZZ').toLowerCase();
+      if (catA < catB) return -1;
+      if (catA > catB) return 1;
+      
+      const nomA = (a.nombre || '').toLowerCase();
+      const nomB = (b.nombre || '').toLowerCase();
+      if (nomA < nomB) return -1;
+      if (nomA > nomB) return 1;
+      return 0;
+    });
+  }
+
   exportarExcel() {
-    const data = this.productosFiltrados().map((p: any) => ({
+    const data = this.getProductosOrdenadosParaExportar().map((p: any) => ({
       'Código': p.codigoBarras || 'N/A',
       'Nombre': p.nombre,
       'Categoría': p.categoria?.nombre || 'N/A',
@@ -758,13 +774,13 @@ export class ProductosComponent implements OnInit {
 
   exportarPDF() {
     const headers = ['Código', 'Nombre', 'Categoría', 'Stock', 'Precio', 'Costo'];
-    const data = this.productosFiltrados().map((p: any) => [
+    const data = this.getProductosOrdenadosParaExportar().map((p: any) => [
       p.codigoBarras || 'N/A',
       p.nombre,
       p.categoria?.nombre || 'N/A',
       p.stockActual?.toString() || '0',
-      `$${p.precioPublico || 0}`,
-      `$${p.precioUnitario || 0}`
+      `${p.precioPublico || 0}`,
+      `${p.precioUnitario || 0}`
     ]);
     this.exportService.exportToPdf(headers, data, 'Catálogo de Productos', 'Productos', 'l');
   }
