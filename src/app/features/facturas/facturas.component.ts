@@ -606,15 +606,18 @@ export class FacturasComponent implements OnInit {
       <head>
           <meta charset="UTF-8">
           <style>
+              html { background-color: #525659; min-height: 100%; }
               body { 
                 font-family: 'Helvetica', 'Arial', sans-serif; 
                 color: #333; 
                 line-height: 1.5; 
                 margin: 0; 
-                padding: 20px; 
-                background-color: #525659; /* Color de fondo del visor PDF */
+                padding: 40px 20px; 
+                background-color: #525659;
                 display: flex;
                 justify-content: center;
+                min-height: 100vh;
+                box-sizing: border-box;
               }
               .page {
                 background-color: white;
