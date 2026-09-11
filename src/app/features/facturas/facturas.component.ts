@@ -99,6 +99,7 @@ export class FacturasComponent implements OnInit {
 
   // Modal para Nueva Factura
   mostrarModal = signal(false);
+  previsualizadorAbierto = signal(false);
   facturando = signal(false);
   errorFactura = signal('');
 
