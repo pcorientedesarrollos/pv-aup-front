@@ -574,6 +574,7 @@ export class FacturasComponent implements OnInit {
       next: (res) => {
         this.facturando.set(false);
         this.cerrarModal();
+          
         this.cargarFacturas();
         if (res && res.urlPdf) {
           this.descargarPdf(res.urlPdf);
@@ -592,27 +593,69 @@ export class FacturasComponent implements OnInit {
     });
   }
 
-  
-  abrirVisorPdf(url: string) {
-    this.previsualizadorAbierto.set(true);
-    let fullUrl = url;
-    if (url.startsWith('/pos/facturas')) {
-      fullUrl = `${environment.apiUrl}${url}`;
-    }
-    setTimeout(() => {
-      const iframe = document.getElementById('iframePreview') as HTMLIFrameElement;
-      if (iframe) {
-        iframe.src = fullUrl;
-      }
-    }, 50);
-  }
-
   descargarPdf(url: string) {
     if(url) {
-      this.abrirVisorPdf(url);
+      if (url.startsWith('/pos/facturas')) {
+        window.open(`${environment.apiUrl}${url}`, '_blank');
+      } else {
+        window.open(url, '_blank');
+      }
     }
   }
 
+  descargarPaqueteCancelacion(idFactura: number) {
+    if (idFactura) {
+      window.open(`${environment.apiUrl}/pos/facturas/${idFactura}/paquete-cancelacion`, '_blank');
+    }
+  }
+
+  descargarXml(url: string) {
+    if(url) {
+      if (url.startsWith('/pos/facturas')) {
+        window.open(`${environment.apiUrl}${url}`, '_blank');
+        return;
+      }
+
+      const encodedUrl = encodeURIComponent(url);
+      
+      this.http.get(`${environment.apiUrl}/pos/proxy/descargar-xml?url=${encodedUrl}`, {
+        responseType: 'blob'
+      }).subscribe({
+        next: (blob) => {
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = 'factura.xml';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(downloadUrl);
+        },
+        error: (err) => {
+          alert('Error al descargar el XML. El servidor no permite la descarga directa o el enlace ya no es válido.');
+        }
+      });
+    }
+  }
+
+  exportarExcel() {
+    const data = this.facturas().map((f: any) => ({
+      'UUID': f.uuid,
+      'Fecha': new Date(f.fecha).toLocaleString(),
+      'Total': f.total,
+      'RFC Receptor': f.rfcReceptor,
+      'Estatus': f.estatus,
+      'ID Venta': f.venta?.idVenta || 'N/A'
+    }));
+    this.exportService.exportToExcel(data, 'Facturas');
+  }
+
+
+  generarPrefacturaDesdeModal() {
+    if (this.ventaSeleccionada()) {
+      this.generarPrefactura(this.ventaSeleccionada());
+    }
+  }
 
   generarPrefactura(venta: any) {
     if (!venta) return;
