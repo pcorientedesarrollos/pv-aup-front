@@ -107,6 +107,7 @@
                 <th class="px-6 py-3">Producto</th>
                 <th class="px-6 py-3 text-center">Cantidad</th>
                 <th class="px-6 py-3 text-right">Costo Unit.</th>
+                <th class="px-6 py-3 text-center">¿Auto-Precio?</th>
                 <th class="px-6 py-3 text-right">Subtotal</th>
                 <th class="px-4 py-3"></th>
               </tr>
@@ -122,17 +123,34 @@
                   </td>
                   <td class="px-6 py-4">
                     <div class="flex justify-center">
-                      <input type="number" [(ngModel)]="item.cantidad" class="w-20 p-2 text-center bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" min="1">
+                      <input type="number" 
+                             [ngModel]="item.cantidad" 
+                             (ngModelChange)="actualizarCantidad(item.idProducto, $event)"
+                             min="1"
+                             class="w-20 text-center border-slate-200 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm font-bold">
                     </div>
                   </td>
                   <td class="px-6 py-4">
-                    <div class="relative w-28 ml-auto">
-                      <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-bold">$</span>
-                      <input type="number" [(ngModel)]="item.precioCosto" class="w-full pl-7 p-2 text-right bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" min="0" step="0.01">
+                    <div class="flex justify-end">
+                      <div class="relative w-28">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
+                        <input type="number" 
+                               [ngModel]="item.precioCosto" 
+                               (ngModelChange)="actualizarCosto(item.idProducto, $event)"
+                               min="0" step="0.01"
+                               class="w-full text-right pl-6 border-slate-200 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-sm font-bold text-emerald-600">
+                      </div>
                     </div>
                   </td>
+                  <td class="px-6 py-4 text-center">
+                    <label class="flex items-center justify-center gap-2 cursor-pointer" title="Actualiza el costo y precio de venta automáticamente (solo si el costo nuevo es mayor)">
+                      <input type="checkbox" 
+                             [(ngModel)]="item.actualizarCosto"
+                             class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                    </label>
+                  </td>
                   <td class="px-6 py-4 text-right font-black text-slate-900">
-                    {{ (item.cantidad * item.precioCosto) | currency:'MXN' }}
+                    {{ (item.cantidad * item.precioCosto) | currency:'MXN':'symbol-narrow':'1.2-2' }}
                   </td>
                   <td class="px-4 py-4 text-center">
                     <button (click)="removerDelCarrito(item.idProducto)" class="w-8 h-8 inline-flex items-center justify-center rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors">

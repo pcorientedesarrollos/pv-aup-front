@@ -108,6 +108,25 @@ export class NuevaCompraComponent implements OnInit {
   totalCompra = computed(() => {
     return this.carrito().reduce((sum, item) => sum + (item.cantidad * item.precioCosto), 0);
   });
+  }
+
+  actualizarCantidad(idProducto: number, cantidad: number) {
+    const items = [...this.carrito()];
+    const item = items.find(i => i.idProducto === idProducto);
+    if (item) {
+      item.cantidad = cantidad;
+      this.carrito.set(items);
+    }
+  }
+
+  actualizarCosto(idProducto: number, costo: number) {
+    const items = [...this.carrito()];
+    const item = items.find(i => i.idProducto === idProducto);
+    if (item) {
+      item.precioCosto = costo;
+      this.carrito.set(items);
+    }
+  };
 
   importarXml(event: any) {
     const file = event.target.files[0];

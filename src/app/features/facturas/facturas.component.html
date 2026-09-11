@@ -174,13 +174,18 @@
                          Cancelar
                       </button>
                     }
-                  } @else {
-                    @if (auth.tienePermiso('facturar')) {
-                      <button (click)="facturarVentaPendiente(f)" class="text-xs text-white bg-indigo-600 hover:bg-indigo-700 font-bold px-3 py-1 rounded shadow-sm transition-colors">
-                        Facturar
-                      </button>
+                    } @else {
+                      @if (auth.tienePermiso('facturar')) {
+                        <div class="flex gap-2">
+                          <button (click)="generarPrefactura(f)" class="text-xs text-indigo-600 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 font-bold px-3 py-1 rounded shadow-sm transition-colors" title="Ver Borrador (PDF sin validez fiscal)">
+                            Prefactura
+                          </button>
+                          <button (click)="facturarVentaPendiente(f)" class="text-xs text-white bg-indigo-600 hover:bg-indigo-700 font-bold px-3 py-1 rounded shadow-sm transition-colors">
+                            Facturar
+                          </button>
+                        </div>
+                      }
                     }
-                  }
                   </div>
                 </td>
               </tr>
@@ -540,13 +545,17 @@
           </div>
         </div>
 
-        <div class="modal-footer">
-          <button (click)="cerrarModal()" class="btn-cancel">Cancelar</button>
-          <button 
-            (click)="emitirFactura()" 
-            [disabled]="facturando() || !idVenta()"
-            class="btn-submit flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <div class="modal-footer flex gap-2">
+            <button (click)="cerrarModal()" class="btn-cancel">Cancelar</button>
+            <button (click)="generarPrefacturaDesdeModal()" [disabled]="facturando() || !idVenta()" class="btn-cancel border border-indigo-600 text-indigo-600 flex items-center justify-center gap-2" style="flex: 1;">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              Ver Prefactura
+            </button>
+            <button 
+              (click)="emitirFactura()" 
+              [disabled]="facturando() || !idVenta()"
+              class="btn-submit flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" style="flex: 1;"
+            >
             @if (facturando()) {
               <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
               Timbrando con el SAT...
