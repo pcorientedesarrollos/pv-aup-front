@@ -606,8 +606,25 @@ export class FacturasComponent implements OnInit {
       <head>
           <meta charset="UTF-8">
           <style>
-              body { font-family: 'Helvetica', 'Arial', sans-serif; color: #333; line-height: 1.5; margin: 0; padding: 0; }
-              .container { padding: 40px; position: relative; }
+              body { 
+                font-family: 'Helvetica', 'Arial', sans-serif; 
+                color: #333; 
+                line-height: 1.5; 
+                margin: 0; 
+                padding: 20px; 
+                background-color: #525659; /* Color de fondo del visor PDF */
+                display: flex;
+                justify-content: center;
+              }
+              .page {
+                background-color: white;
+                width: 210mm;
+                min-height: 297mm;
+                padding: 15mm 20mm;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                box-sizing: border-box;
+                position: relative;
+              }
               
               .watermark {
                 position: absolute;
@@ -616,11 +633,13 @@ export class FacturasComponent implements OnInit {
                 transform: translate(-50%, -50%) rotate(-45deg);
                 font-size: 60px;
                 color: rgba(200, 200, 200, 0.15);
-                z-index: -1;
+                z-index: 0;
                 white-space: nowrap;
                 font-weight: bold;
                 pointer-events: none;
               }
+
+              .content-wrapper { position: relative; z-index: 1; }
 
               /* Encabezado */
               .header { width: 100%; margin-bottom: 30px; }
@@ -628,7 +647,7 @@ export class FacturasComponent implements OnInit {
               .company-info { text-align: right; font-size: 12px; }
 
               /* Titulo y Datos */
-              .quote-title { font-size: 24px; color: ${colorPrincipal}; font-weight: bold; margin-bottom: 10px; }
+              .quote-title { font-size: 24px; color: ${colorPrincipal}; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
               .meta-table { width: 100%; margin-bottom: 20px; }
               .meta-table td { vertical-align: top; }
               
@@ -652,7 +671,8 @@ export class FacturasComponent implements OnInit {
           </style>
       </head>
       <body>
-          <div class="container">
+          <div class="page">
+            <div class="content-wrapper">
               <div class="watermark">VISTA PREVIA DE FACTURA</div>
               <table class="header">
                   <tr>
@@ -783,6 +803,7 @@ export class FacturasComponent implements OnInit {
                   </tr>
               </table>
               <div class="clearfix"></div>
+          </div>
           </div>
       </body>
       </html>
