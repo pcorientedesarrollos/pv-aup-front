@@ -554,275 +554,6 @@ export class FacturasComponent implements OnInit {
   }
 
   
-  abrirPrevisualizador() {
-    if (!this.idVenta()) return;
-    
-    if (!this.formData.rfc || !this.formData.razonSocial || !this.formData.cp || !this.formData.regimen || !this.formData.usoCfdi) {
-      this.errorFactura.set('Todos los campos del cliente son obligatorios para la factura 4.0');
-      return;
-    }
-
-    if (this.formData.rfc.length < 12 || this.formData.rfc.length > 13) {
-      this.errorFactura.set('El RFC debe tener 12 o 13 caracteres');
-      return;
-    }
-
-    this.previsualizadorAbierto.set(true);
-    
-    // Generar el HTML y ponerlo en el iframe
-    setTimeout(() => {
-      this.inyectarHtmlPreview(this.ventaSeleccionada());
-    }, 100);
-  }
-
-  cerrarPrevisualizador() {
-    this.previsualizadorAbierto.set(false);
-  }
-
-  emitirFacturaDesdePreview() {
-    // Cerrar previsualizador si es necesario o dejarlo abierto mientras timbra
-    this.emitirFactura();
-  }
-
-  inyectarHtmlPreview(venta: any) {
-    if (!venta) return;
-    
-    const sesion = this.auth.sesion();
-    const empresaNombre = sesion?.empresa?.nombre || 'Tu Empresa S.A. de C.V.';
-    const logoUrl = sesion?.empresa?.logoUrl || '';
-    const colorPrincipal = sesion?.empresa?.colorPrincipal || '#2c3e50';
-    const direccion = sesion?.sucursalNombre || 'Dirección no especificada';
-
-    // Usar los datos del form si están editados, sino los de la venta
-    const clienteNombre = this.formData.razonSocial || venta.cliente?.razonSocial || venta.cliente?.nombreCompleto || 'Público General';
-    const clienteRfc = this.formData.rfc || venta.cliente?.rfc || '';
-    const clienteCp = this.formData.cp || venta.cliente?.cp || '';
-    
-    const folioStr = venta.folio || `VTA-${venta.idVenta || venta.idCajaChica}`;
-    
-    let html = `
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-          <meta charset="UTF-8">
-          <style>
-              html { background-color: #525659; min-height: 100%; }
-              body { 
-                font-family: 'Helvetica', 'Arial', sans-serif; 
-                color: #333; 
-                line-height: 1.5; 
-                margin: 0; 
-                padding: 40px 20px; 
-                background-color: #525659;
-                display: flex;
-                justify-content: center;
-                min-height: 100vh;
-                box-sizing: border-box;
-              }
-              .page {
-                background-color: white;
-                width: 210mm;
-                min-height: 297mm;
-                padding: 15mm 20mm;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                box-sizing: border-box;
-                position: relative;
-              }
-              
-              .watermark {
-                position: absolute;
-                top: 40%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(-45deg);
-                font-size: 60px;
-                color: rgba(200, 200, 200, 0.15);
-                z-index: 0;
-                white-space: nowrap;
-                font-weight: bold;
-                pointer-events: none;
-              }
-
-              .content-wrapper { position: relative; z-index: 1; }
-
-              /* Encabezado */
-              .header { width: 100%; margin-bottom: 30px; }
-              .logo { max-width: 150px; max-height: 80px; }
-              .company-info { text-align: right; font-size: 12px; }
-
-              /* Titulo y Datos */
-              .quote-title { font-size: 24px; color: ${colorPrincipal}; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
-              .meta-table { width: 100%; margin-bottom: 20px; }
-              .meta-table td { vertical-align: top; }
-              
-              /* Datos del Cliente */
-              .client-box { background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid ${colorPrincipal}; }
-              .client-label { font-weight: bold; color: #7f8c8d; font-size: 10px; text-transform: uppercase; }
-              
-              /* Tabla de Productos */
-              .items-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-              .items-table th { background: ${colorPrincipal}; color: white; padding: 10px; text-align: left; font-size: 12px; }
-              .items-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 12px; }
-              .items-table tr:nth-child(even) { background: #fafafa; }
-              
-              /* Totales */
-              .totals-table { width: 300px; float: right; border-collapse: collapse; }
-              .totals-table td { padding: 8px; border-bottom: 1px solid #eee; font-size: 13px; }
-              .totals-table .total-row { font-weight: bold; font-size: 16px; color: ${colorPrincipal}; border-bottom: none; }
-              .clearfix { clear: both; }
-              
-              .footer { margin-top: 50px; text-align: center; font-size: 11px; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 20px; }
-          </style>
-      </head>
-      <body>
-          <div class="page">
-            <div class="content-wrapper">
-              <div class="watermark">VISTA PREVIA DE FACTURA</div>
-              <table class="header">
-                  <tr>
-                      <td style="width: 50%;">
-                          ${logoUrl ? `<img src="${logoUrl}" class="logo" />` : `<h2 style="color: ${colorPrincipal}; margin: 0;">${empresaNombre}</h2>`}
-                      </td>
-                      <td class="company-info">
-                          <strong>${empresaNombre}</strong><br>
-                          ${direccion}<br>
-                          Documento Previo (Sin Valor Fiscal)
-                      </td>
-                  </tr>
-              </table>
-
-              <table class="meta-table">
-                  <tr>
-                      <td style="width: 50%;">
-                          <div class="client-box">
-                              <div class="client-label">Receptor (Facturar a):</div>
-                              <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">${clienteNombre}</div>
-                              ${clienteRfc ? `<div>RFC: ${clienteRfc}</div>` : ''}
-                              ${clienteCp ? `<div>CP: ${clienteCp}</div>` : ''}
-                              <div>Uso CFDI: ${this.formData.usoCfdi}</div>
-                              <div>Régimen: ${this.formData.regimen}</div>
-                          </div>
-                      </td>
-                      <td style="width: 50%; text-align: right; padding-left: 20px;">
-                          <div class="quote-title">FACTURA DE VENTA</div>
-                          <div style="font-size: 13px;"><strong>Folio Interno:</strong> ${folioStr}</div>
-                          <div style="font-size: 13px;"><strong>Fecha Emisión:</strong> ${new Date().toLocaleDateString()}</div>
-                          <div style="font-size: 13px;"><strong>Método de Pago:</strong> ${this.formData.metodoPago || venta.metodoPago || 'Efectivo'}</div>
-                          <div style="font-size: 13px;"><strong>Forma de Pago:</strong> ${this.formData.formaPago || 'PUE - Pago en una sola exhibición'}</div>
-                      </td>
-                  </tr>
-              </table>
-
-              <table class="items-table">
-                  <thead>
-                      <tr>
-                          <th>Cant.</th>
-                          <th>Descripción</th>
-                          <th style="text-align: right;">Precio Unit.</th>
-                          <th style="text-align: right;">Importe</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-  `;
-
-  let subtotal = 0;
-  let totalIva = 0;
-  let totalDescuento = 0;
-
-  const detalles = venta.detalles || [];
-  
-  if (detalles.length === 0) {
-    const baseTotal = Number(venta.total);
-    const mIva = venta.iva || 0;
-    const sTotal = baseTotal - mIva;
-    html += `
-        <tr>
-            <td>1</td>
-            <td>Consumo General (Venta ${folioStr})</td>
-            <td style="text-align: right;">${Number(sTotal).toFixed(2)}</td>
-            <td style="text-align: right;">${Number(sTotal).toFixed(2)}</td>
-        </tr>
-    `;
-    subtotal = sTotal;
-    totalIva = mIva;
-  } else {
-      detalles.forEach((d: any) => {
-          const qty = Number(d.cantidad || 1);
-          const unitPrice = Number(d.precioUnitario || d.importe || 0);
-          const desc = Number(d.descuento || 0);
-          
-          const brutoItem = qty * unitPrice;
-          const baseItem = brutoItem - desc;
-          const isAplicaIva = d.aplicaIva ?? true;
-          const ivaItem = isAplicaIva ? baseItem * 0.16 : 0;
-
-          subtotal += brutoItem;
-          totalDescuento += desc;
-          totalIva += ivaItem;
-
-          html += `
-              <tr>
-                  <td>${qty}</td>
-                  <td>
-                      <strong>${d.producto?.nombre || 'Producto'}</strong>
-                      ${d.producto?.codigoBarras ? `<br><span style="color:#7f8c8d; font-size:10px;">${d.producto.codigoBarras}</span>` : ''}
-                  </td>
-                  <td style="text-align: right;">${unitPrice.toFixed(2)}</td>
-                  <td style="text-align: right;">${brutoItem.toFixed(2)}</td>
-              </tr>
-          `;
-      });
-  }
-
-  let granTotal = (subtotal - totalDescuento) + totalIva;
-  
-  if (Math.abs(granTotal - Number(venta.total)) > 0.5) {
-    granTotal = Number(venta.total);
-    totalIva = venta.iva || (granTotal - (granTotal / 1.16));
-    subtotal = granTotal - totalIva;
-  }
-
-  html += `
-                  </tbody>
-              </table>
-
-              <table class="totals-table">
-                  <tr>
-                      <td style="text-align: right;"><strong>Subtotal:</strong></td>
-                      <td style="text-align: right; width: 100px;">${subtotal.toFixed(2)}</td>
-                  </tr>
-                  ${totalDescuento > 0 ? `
-                  <tr>
-                      <td style="text-align: right; color: red;"><strong>Descuento:</strong></td>
-                      <td style="text-align: right; width: 100px; color: red;">-${totalDescuento.toFixed(2)}</td>
-                  </tr>
-                  ` : ''}
-                  <tr>
-                      <td style="text-align: right;"><strong>IVA (16%):</strong></td>
-                      <td style="text-align: right;">${totalIva.toFixed(2)}</td>
-                  </tr>
-                  <tr class="total-row">
-                      <td style="text-align: right;">TOTAL:</td>
-                      <td style="text-align: right;">${granTotal.toFixed(2)}</td>
-                  </tr>
-              </table>
-              <div class="clearfix"></div>
-          </div>
-          </div>
-      </body>
-      </html>
-    `;
-
-    const iframe = document.getElementById('iframePreview') as HTMLIFrameElement;
-    if (iframe) {
-      const doc = iframe.contentWindow?.document;
-      if (doc) {
-        doc.open();
-        doc.write(html);
-        doc.close();
-      }
-    }
-  }
-
   emitirFactura() {
     if (!this.idVenta()) return;
     
@@ -843,7 +574,6 @@ export class FacturasComponent implements OnInit {
       next: (res) => {
         this.facturando.set(false);
         this.cerrarModal();
-          this.cerrarPrevisualizador();
         this.cargarFacturas();
         if (res && res.urlPdf) {
           this.descargarPdf(res.urlPdf);
@@ -862,69 +592,27 @@ export class FacturasComponent implements OnInit {
     });
   }
 
+  
+  abrirVisorPdf(url: string) {
+    this.previsualizadorAbierto.set(true);
+    let fullUrl = url;
+    if (url.startsWith('/pos/facturas')) {
+      fullUrl = `${environment.apiUrl}${url}`;
+    }
+    setTimeout(() => {
+      const iframe = document.getElementById('iframePreview') as HTMLIFrameElement;
+      if (iframe) {
+        iframe.src = fullUrl;
+      }
+    }, 50);
+  }
+
   descargarPdf(url: string) {
     if(url) {
-      if (url.startsWith('/pos/facturas')) {
-        window.open(`${environment.apiUrl}${url}`, '_blank');
-      } else {
-        window.open(url, '_blank');
-      }
+      this.abrirVisorPdf(url);
     }
   }
 
-  descargarPaqueteCancelacion(idFactura: number) {
-    if (idFactura) {
-      window.open(`${environment.apiUrl}/pos/facturas/${idFactura}/paquete-cancelacion`, '_blank');
-    }
-  }
-
-  descargarXml(url: string) {
-    if(url) {
-      if (url.startsWith('/pos/facturas')) {
-        window.open(`${environment.apiUrl}${url}`, '_blank');
-        return;
-      }
-
-      const encodedUrl = encodeURIComponent(url);
-      
-      this.http.get(`${environment.apiUrl}/pos/proxy/descargar-xml?url=${encodedUrl}`, {
-        responseType: 'blob'
-      }).subscribe({
-        next: (blob) => {
-          const downloadUrl = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = downloadUrl;
-          a.download = 'factura.xml';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(downloadUrl);
-        },
-        error: (err) => {
-          alert('Error al descargar el XML. El servidor no permite la descarga directa o el enlace ya no es válido.');
-        }
-      });
-    }
-  }
-
-  exportarExcel() {
-    const data = this.facturas().map((f: any) => ({
-      'UUID': f.uuid,
-      'Fecha': new Date(f.fecha).toLocaleString(),
-      'Total': f.total,
-      'RFC Receptor': f.rfcReceptor,
-      'Estatus': f.estatus,
-      'ID Venta': f.venta?.idVenta || 'N/A'
-    }));
-    this.exportService.exportToExcel(data, 'Facturas');
-  }
-
-
-  generarPrefacturaDesdeModal() {
-    if (this.ventaSeleccionada()) {
-      this.generarPrefactura(this.ventaSeleccionada());
-    }
-  }
 
   generarPrefactura(venta: any) {
     if (!venta) return;
