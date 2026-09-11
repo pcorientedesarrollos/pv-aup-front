@@ -108,7 +108,7 @@ export class NuevaCompraComponent implements OnInit {
   totalCompra = computed(() => {
     return this.carrito().reduce((sum, item) => sum + (item.cantidad * item.precioCosto), 0);
   });
-  }
+  
 
   actualizarCantidad(idProducto: number, cantidad: number) {
     const items = [...this.carrito()];
@@ -126,7 +126,7 @@ export class NuevaCompraComponent implements OnInit {
       item.precioCosto = costo;
       this.carrito.set(items);
     }
-  };
+  }
 
   importarXml(event: any) {
     const file = event.target.files[0];
