@@ -593,13 +593,23 @@ export class FacturasComponent implements OnInit {
     });
   }
 
+  abrirVisorPdf(url: string) {
+    this.previsualizadorAbierto.set(true);
+    let fullUrl = url;
+    if (url.startsWith('/pos/facturas')) {
+      fullUrl = `${environment.apiUrl}${url}?inline=true`;
+    }
+    setTimeout(() => {
+      const iframe = document.getElementById('iframePreview') as HTMLIFrameElement;
+      if (iframe) {
+        iframe.src = fullUrl;
+      }
+    }, 50);
+  }
+
   descargarPdf(url: string) {
     if(url) {
-      if (url.startsWith('/pos/facturas')) {
-        window.open(`${environment.apiUrl}${url}`, '_blank');
-      } else {
-        window.open(url, '_blank');
-      }
+      this.abrirVisorPdf(url);
     }
   }
 
