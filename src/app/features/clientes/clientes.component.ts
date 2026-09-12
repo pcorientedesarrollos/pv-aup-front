@@ -230,7 +230,7 @@ export class ClientesComponent implements OnInit {
           usoCfdi: c.usoCfdi,
           formaPago: c.formaPago,
           metodoPago: c.metodoPago,
-          estado: c.activo !== false ? 1 : 0,
+          estado: (c.activo === false || c.activo === 0 || c.activo === '0') ? 0 : 1,
           sucursal: c.sucursal
         }));
         this.clientesOriginales.set(mapeados);

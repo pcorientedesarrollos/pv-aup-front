@@ -48,8 +48,8 @@ export class ProveedoresComponent implements OnInit {
   proveedoresFiltrados = computed(() => {
     let result = this.proveedores();
     const estado = this.filtroEstado();
-    if (estado === 'activos') result = result.filter(p => p.activo !== false);
-    if (estado === 'inactivos') result = result.filter(p => p.activo === false);
+    if (estado === 'activos') result = result.filter(p => !(p.activo === false || p.activo === 0 || p.activo === '0'));
+    if (estado === 'inactivos') result = result.filter(p => (p.activo === false || p.activo === 0 || p.activo === '0'));
 
     const term = this.busqueda().toLowerCase();
     if (term) {
