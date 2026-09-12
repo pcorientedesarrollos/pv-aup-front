@@ -353,11 +353,23 @@ export class ProveedoresComponent implements OnInit {
     });
   }
 
-  eliminarProveedor(p: any) {
-    if (!confirm(`¿Eliminar a ${p.nombre}?`)) return;
-    this.http.delete(`${this.API}/proveedores/${p.idProveedor}`, { headers: this.headers }).subscribe({
-      next: () => this.cargarProveedores(),
-      error: () => alert('Error al eliminar')
+  async toggleEstadoProveedor(p: any) {
+    const accion = p.activo ? 'desactivar' : 'activar';
+    const confirmed = await this.confirmService.confirm({
+      title: `${accion === 'desactivar' ? 'Desactivar' : 'Activar'} Proveedor`,
+      message: `¿Estás seguro de que deseas ${accion} a ${p.nombre}?`,
+      confirmText: accion === 'desactivar' ? 'Desactivar' : 'Activar',
+      cancelText: 'Cancelar',
+      isDanger: p.activo
+    });
+    if (!confirmed) return;
+
+    this.http.put(`${this.API}/proveedores/${p.idProveedor}`, { ...p, activo: !p.activo }, { headers: this.headers }).subscribe({
+      next: () => {
+        this.toast.show(`Proveedor ${accion === 'desactivar' ? 'desactivado' : 'activado'} exitosamente.`, 'success');
+        this.cargarProveedores();
+      },
+      error: () => this.toast.show('Error al cambiar el estado', 'error')
     });
   }
 
