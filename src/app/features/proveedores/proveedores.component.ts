@@ -277,7 +277,7 @@ export class ProveedoresComponent implements OnInit {
         }
       }
     }
-    this.cerrarModalProveedor(true);
+    this.mostrarModalProveedor.set(false);
   }
 
   abrirModalCrear() {
