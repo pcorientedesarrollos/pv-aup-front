@@ -36,6 +36,23 @@ export class TraspasosComponent implements OnInit {
   });
   
   carrito = signal<{ producto: any, cantidad: number }[]>([]);
+
+  tipoTraspaso = signal<'Simple' | 'ConCosto' | 'Intercambio'>('Simple');
+  montoTotal = signal<number>(0);
+  metodoPago = signal<string>('Efectivo');
+  
+  // Para intercambio
+  carritoRecibe = signal<{ producto: any, cantidad: number }[]>([]);
+  busquedaProductoRecibe = signal('');
+  productosFiltradosRecibe = computed(() => {
+    const term = this.busquedaProductoRecibe().toLowerCase().trim();
+    if (!term) return [];
+    return this.productosDisponibles().filter(p => 
+      p.nombre?.toLowerCase().includes(term) || 
+      (p.codigoBarras && p.codigoBarras?.toLowerCase().includes(term))
+    );
+  });
+
   
   cargando = signal(false);
   guardando = signal(false);
@@ -52,6 +69,7 @@ export class TraspasosComponent implements OnInit {
     if (origen) {
       this.cargarProductosOrigen(origen);
       this.carrito.set([]); // Resetear carrito al cambiar origen
+      this.carritoRecibe.set([]);
     } else {
       this.productosDisponibles.set([]);
       this.carrito.set([]);
@@ -104,6 +122,21 @@ export class TraspasosComponent implements OnInit {
     this.carrito.update(c => c.filter(i => i.producto.idProducto !== idProducto));
   }
 
+  agregarAlCarritoRecibe(producto: any) {
+    const existe = this.carritoRecibe().find(i => i.producto.idProducto === producto.idProducto);
+    if (existe) {
+      alert('El producto ya estǭ en la lista de recibidos.');
+      return;
+    }
+    this.carritoRecibe.update(c => [...c, { producto, cantidad: 1 }]);
+    this.busquedaProductoRecibe.set('');
+  }
+
+  removerDelCarritoRecibe(idProducto: number) {
+    this.carritoRecibe.update(c => c.filter(i => i.producto.idProducto !== idProducto));
+  }
+
+
   confirmarTraspaso() {
     if (!this.idSucursalOrigen() || !this.idSucursalDestino()) {
       alert('Debes seleccionar las sucursales de origen y destino.');
@@ -133,6 +166,9 @@ export class TraspasosComponent implements OnInit {
       idSucursalOrigen: this.idSucursalOrigen(),
       idSucursalDestino: this.idSucursalDestino(),
       observaciones: this.observaciones(),
+      tipoTraspaso: this.tipoTraspaso(),
+      montoTotal: this.tipoTraspaso() === 'ConCosto' ? this.montoTotal() : 0,
+      metodoPago: this.tipoTraspaso() === 'ConCosto' ? this.metodoPago() : null,
       productos: this.carrito().map(i => ({
         idProducto: i.producto.idProducto,
         cantidad: i.cantidad
