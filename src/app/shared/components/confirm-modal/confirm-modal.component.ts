@@ -1,4 +1,4 @@
-﻿import { Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfirmService } from '../../../core/services/confirm.service';
 
@@ -15,7 +15,7 @@ import { ConfirmService } from '../../../core/services/confirm.service';
             <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">
               {{ confirmService.modalState()!.config.title }}
             </h3>
-            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
+            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 whitespace-pre-line">
               {{ confirmService.modalState()!.config.message }}
             </p>
             

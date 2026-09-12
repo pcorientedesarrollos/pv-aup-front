@@ -1,3 +1,4 @@
+import { ConfirmService } from '../../../core/services/confirm.service';
 import { Component, signal, computed, OnInit, effect, inject } from '@angular/core';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
@@ -17,6 +18,8 @@ import { environment } from '../../../environments/environment';
   templateUrl: './clientes.component.html',
 })
 export class ClientesComponent implements OnInit {
+  confirmService = inject(ConfirmService);
+
   toast = inject(ToastService);
   // Estado Principal
   clientesOriginales = signal<any[]>([]);
@@ -364,12 +367,17 @@ export class ClientesComponent implements OnInit {
     this.mostrarModal.set(true);
   }
 
-  cerrarModal(forzar = false) {
+  async cerrarModal(forzar = false) {
     if (!forzar && this.clienteOriginal && this.mostrarModal()) {
       if (JSON.stringify(this.clienteActual) !== JSON.stringify(this.clienteOriginal)) {
-        if (!confirm('¿Estás seguro que deseas salir? Tienes cambios sin guardar.')) {
-          return;
-        }
+        const confirmed = await this.confirmService.confirm({
+          title: 'Cambios sin guardar',
+          message: this.confirmService.generarDiffText(this.clienteOriginal, this.clienteActual),
+          confirmText: 'Salir sin guardar',
+          cancelText: 'Cancelar',
+          isDanger: true
+        });
+        if (!confirmed) return;
       }
     }
     this.mostrarModal.set(false);

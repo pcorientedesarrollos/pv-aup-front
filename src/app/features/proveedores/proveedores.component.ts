@@ -1,4 +1,5 @@
 import { environment } from '../../../environments/environment';
+import { ConfirmService } from '../../../core/services/confirm.service';
 import { Component, signal, computed, effect, OnInit, inject } from '@angular/core';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';
@@ -16,6 +17,8 @@ import { ImportarModalComponent } from '../../shared/components/importar-modal/i
   templateUrl: './proveedores.component.html',
 })
 export class ProveedoresComponent implements OnInit {
+  confirmService = inject(ConfirmService);
+
   apiUrl = environment.apiUrl;
   readonly API = environment.apiUrl + '/pos';
   toast = inject(ToastService);
@@ -269,12 +272,17 @@ export class ProveedoresComponent implements OnInit {
   }
 
   
-  cerrarModalProveedor(forzar = false) {
+  async cerrarModalProveedor(forzar = false) {
     if (!forzar && this.proveedorOriginal && this.mostrarModalProveedor()) {
       if (JSON.stringify(this.proveedorActual) !== JSON.stringify(this.proveedorOriginal)) {
-        if (!confirm('¿Estás seguro que deseas salir? Tienes cambios sin guardar.')) {
-          return;
-        }
+        const confirmed = await this.confirmService.confirm({
+          title: 'Cambios sin guardar',
+          message: this.confirmService.generarDiffText(this.proveedorOriginal, this.proveedorActual),
+          confirmText: 'Salir sin guardar',
+          cancelText: 'Cancelar',
+          isDanger: true
+        });
+        if (!confirmed) return;
       }
     }
     this.mostrarModalProveedor.set(false);

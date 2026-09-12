@@ -1,5 +1,6 @@
 import { environment } from '../../../environments/environment';
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { ConfirmService } from '../../../core/services/confirm.service';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -279,6 +280,8 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
   `
 })
 export class CategoriasComponent implements OnInit {
+  confirmService = inject(ConfirmService);
+
   categorias = signal<any[]>([]);
   empresas = signal<any[]>([]);
   filtroEmpresa = signal<number | 'todas'>('todas');
@@ -404,13 +407,18 @@ export class CategoriasComponent implements OnInit {
     this.modalAbierto.set(true);
   }
 
-  cerrarModal(forzar = false) {
+  async cerrarModal(forzar = false) {
     if (!forzar && this.categoriaOriginal && this.modalAbierto()) {
       const current = JSON.parse(JSON.stringify(this.catActual() || { nombre: "", descripcion: "" }));
       if (JSON.stringify(current) !== JSON.stringify(this.categoriaOriginal)) {
-        if (!confirm('¿Estás seguro que deseas salir? Tienes cambios sin guardar.')) {
-          return;
-        }
+        const confirmed = await this.confirmService.confirm({
+          title: 'Cambios sin guardar',
+          message: this.confirmService.generarDiffText(this.categoriaOriginal, current),
+          confirmText: 'Salir sin guardar',
+          cancelText: 'Cancelar',
+          isDanger: true
+        });
+        if (!confirmed) return;
       }
     }
     this.modalAbierto.set(false);

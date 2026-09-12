@@ -1,3 +1,4 @@
+import { ConfirmService } from '../../../core/services/confirm.service';
 import { Component, signal, computed, effect, OnInit } from '@angular/core';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
@@ -19,6 +20,8 @@ import { SearchableSelectComponent } from '../../shared/components/searchable-se
   templateUrl: './productos.component.html',
 })
 export class ProductosComponent implements OnInit {
+  confirmService = inject(ConfirmService);
+
   apiUrl = environment.apiUrl;
   
   productos = signal<any[]>([]);
@@ -418,12 +421,17 @@ export class ProductosComponent implements OnInit {
     this.mostrarModal.set(true);
   }
 
-  cerrarModal(forzar = false) {
+  async cerrarModal(forzar = false) {
     if (!forzar && this.productoOriginal && this.mostrarModal()) {
       if (JSON.stringify(this.nuevoProducto) !== JSON.stringify(this.productoOriginal)) {
-        if (!confirm('¿Estás seguro que deseas salir? Tienes cambios sin guardar.')) {
-          return;
-        }
+        const confirmed = await this.confirmService.confirm({
+          title: 'Cambios sin guardar',
+          message: this.confirmService.generarDiffText(this.productoOriginal, this.nuevoProducto),
+          confirmText: 'Salir sin guardar',
+          cancelText: 'Cancelar',
+          isDanger: true
+        });
+        if (!confirmed) return;
       }
     }
     this.mostrarModal.set(false);
