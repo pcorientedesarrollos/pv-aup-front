@@ -103,11 +103,16 @@ export class InventarioComponent implements OnInit {
     const term = this.busqueda().toLowerCase();
     if (term) {
       list = list.filter(r => 
-        (r.concepto || '').toLowerCase().includes(term) ||
-        (r.descripcion || r.subcuenta || '').toLowerCase().includes(term) ||
-        (r.codigoBarras || '').toLowerCase().includes(term) ||
-        (r.idProducto?.toString() || '').includes(term)
-      );
+          (r.concepto || '').toLowerCase().includes(term) ||
+          (r.descripcion || r.subcuenta || '').toLowerCase().includes(term) ||
+          (r.codigoBarras || '').toLowerCase().includes(term) ||
+          (r.idProducto?.toString() || '').includes(term) ||
+          (r.fecha || '').toLowerCase().includes(term) ||
+          (r.movimiento || '').toLowerCase().includes(term) ||
+          (r.cantidad?.toString() || '').includes(term) ||
+          (r.entradas?.toString() || '').includes(term) ||
+          (r.usuario?.nombreCompleto || r.usuario?.nombreUsuario || '').toLowerCase().includes(term)
+        );
     }
     return list;
   });
