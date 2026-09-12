@@ -1,4 +1,4 @@
-import { ConfirmService } from '../../../core/services/confirm.service';
+import { ConfirmService } from '../../core/services/confirm.service';
 import { Component, signal, computed, OnInit, effect, inject } from '@angular/core';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';

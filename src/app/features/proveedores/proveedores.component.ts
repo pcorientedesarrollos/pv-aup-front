@@ -1,5 +1,5 @@
 import { environment } from '../../../environments/environment';
-import { ConfirmService } from '../../../core/services/confirm.service';
+import { ConfirmService } from '../../core/services/confirm.service';
 import { Component, signal, computed, effect, OnInit, inject } from '@angular/core';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';

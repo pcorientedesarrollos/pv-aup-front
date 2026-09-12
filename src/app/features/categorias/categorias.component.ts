@@ -1,5 +1,5 @@
 import { environment } from '../../../environments/environment';
-import { ConfirmService } from '../../../core/services/confirm.service';
+import { ConfirmService } from '../../core/services/confirm.service';
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';

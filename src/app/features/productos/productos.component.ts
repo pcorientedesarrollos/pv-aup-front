@@ -1,5 +1,5 @@
-import { ConfirmService } from '../../../core/services/confirm.service';
-import { Component, signal, computed, effect, OnInit } from '@angular/core';
+import { ConfirmService } from '../../core/services/confirm.service';
+import { Component, inject, signal, computed, effect, OnInit } from '@angular/core';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';
