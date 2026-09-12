@@ -44,14 +44,22 @@ export class ProveedoresComponent implements OnInit {
   productosXmlPendientes: any[] = [];
 
   busqueda = signal('');
+  filtroEstado = signal<'todos' | 'activos' | 'inactivos'>('todos');
   proveedoresFiltrados = computed(() => {
-    const q = this.busqueda().toLowerCase();
-    if (!q) return this.proveedores();
-    return this.proveedores().filter(p =>
-      p.nombre?.toLowerCase().includes(q) ||
-      p.rfc?.toLowerCase().includes(q) ||
-      p.contacto?.toLowerCase().includes(q)
-    );
+    let result = this.proveedores();
+    const estado = this.filtroEstado();
+    if (estado === 'activos') result = result.filter(p => p.activo !== false);
+    if (estado === 'inactivos') result = result.filter(p => p.activo === false);
+
+    const term = this.busqueda().toLowerCase();
+    if (term) {
+      result = result.filter(p => 
+        (p.nombre && p.nombre.toLowerCase().includes(term)) ||
+        (p.rfc && p.rfc.toLowerCase().includes(term)) ||
+        (p.contacto && p.contacto.toLowerCase().includes(term))
+      );
+    }
+    return result;
   });
 
   // --- PAGINACIÓN ---
@@ -175,6 +183,7 @@ export class ProveedoresComponent implements OnInit {
   constructor(private http: HttpClient, private auth: AuthService, private router: Router) {
     effect(() => {
       this.busqueda();
+      this.filtroEstado();
       this.paginaActual.set(1);
     });
   }

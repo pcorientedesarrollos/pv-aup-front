@@ -230,7 +230,7 @@ export class ClientesComponent implements OnInit {
           usoCfdi: c.usoCfdi,
           formaPago: c.formaPago,
           metodoPago: c.metodoPago,
-          estado: 1, // No status column in DB yet, default to active
+          estado: c.activo !== false ? 1 : 0,
           sucursal: c.sucursal
         }));
         this.clientesOriginales.set(mapeados);
@@ -449,38 +449,24 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  eliminarCliente(id: number) {
-    if (confirm('¿Estás seguro de que deseas desactivar este cliente?')) {
-      this.http.delete(`${environment.apiUrl}/pos/clientes/${id}`).subscribe({
-        next: () => this.cargarClientes(),
-        error: (err) => {
-          (function(...args: any[]){})('Error desactivando', err);
-          alert('No se pudo desactivar el cliente.');
-        }
-      });
-    }
-  }
+  async toggleEstadoCliente(c: any) {
+    const accion = c.estado === 1 ? 'desactivar' : 'activar';
+    const confirmed = await this.confirmService.confirm({
+      title: `${accion === 'desactivar' ? 'Desactivar' : 'Activar'} Cliente`,
+      message: `¿Estás seguro de que deseas ${accion} a ${c.nombre}?`,
+      confirmText: accion === 'desactivar' ? 'Desactivar' : 'Activar',
+      cancelText: 'Cancelar',
+      isDanger: c.estado === 1
+    });
+    if (!confirmed) return;
 
-  getNombreFormaPago(codigo: string): string {
-    const formas: Record<string, string> = {
-      '01': '01 - Efectivo',
-      '02': '02 - Cheque nominativo',
-      '03': '03 - Transferencia electrónica de fondos',
-      '04': '04 - Tarjeta de crédito',
-      '28': '28 - Tarjeta de débito',
-      '99': '99 - Por definir'
-    };
-    return formas[codigo] || codigo;
-  }
-
-  getNombreUsoCfdi(codigo: string): string {
-    const usos: Record<string, string> = {
-      'G01': 'G01 - Adquisición de mercancías',
-      'G03': 'G03 - Gastos en general',
-      'S01': 'S01 - Sin efectos fiscales',
-      'P01': 'P01 - Por definir'
-    };
-    return usos[codigo] || codigo;
+    this.http.patch(`${environment.apiUrl}/pos/clientes/${c.idCliente}`, { activo: c.estado !== 1 }).subscribe({
+      next: () => {
+        this.toast.show(`Cliente ${accion === 'desactivar' ? 'desactivado' : 'activado'} exitosamente.`, 'success');
+        this.cargarClientes();
+      },
+      error: () => this.toast.show('Error al cambiar el estado del cliente', 'error')
+    });
   }
 
   exportarExcel() {
