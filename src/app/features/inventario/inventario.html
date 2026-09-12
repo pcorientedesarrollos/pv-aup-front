@@ -75,15 +75,7 @@
         </div>
         
         
-          <div class="filter-control">
-            <label class="filter-label">Filtro Producto</label>
-            <select [(ngModel)]="filtroProducto" (change)="aplicarFiltrosKardex()" class="filter-input w-full">
-              <option [ngValue]="null">-- Todos --</option>
-              @for (p of catalogoProductos(); track p.idProducto) {
-                <option [ngValue]="p.idProducto">{{ p.nombre || p.codigoBarras }}</option>
-              }
-            </select>
-          </div>
+          
           <div class="filter-control">
             <label class="filter-label">Desde</label>
             <input type="date" [(ngModel)]="filtroFechaInicio" (change)="aplicarFiltrosKardex()" class="filter-input w-full">
@@ -103,6 +95,10 @@
             <option value="devolucion">Devoluciones</option>
             <option value="ajuste">Ajustes</option>
             <option value="merma">Mermas</option>
+              <option value="produccion_in">Producción (Entrada)</option>
+              <option value="produccion_out">Producción (Salida)</option>
+              <option value="fraccionamiento_in">Fraccionamiento (Entrada)</option>
+              <option value="fraccionamiento_out">Fraccionamiento (Salida)</option>
           </select>
         </div>
       </div>
