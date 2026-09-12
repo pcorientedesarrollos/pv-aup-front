@@ -18,24 +18,21 @@
     
     <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 w-full xl:w-auto xl:justify-end">
       
-      <!-- Contador de Movimientos -->
-      <div class="metric-card bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 px-5 py-2.5 flex items-center justify-center sm:justify-start gap-4 sm:mr-2 w-full sm:w-auto">
-        <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-inner shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Movimientos</span>
-          <span class="text-xl font-black text-gray-800 leading-tight">{{ registros().length }}</span>
-        </div>
-      </div>
+      
 
       <!-- Grupo de Botones Secundarios -->
       <div class="flex gap-2 w-full sm:w-auto">
-        <button (click)="irAProductos()" class="flex-1 sm:flex-none btn-cancel text-gray-700 font-semibold flex items-center justify-center gap-1 sm:gap-2 group">
-          <span class="text-indigo-500 group-hover:scale-110 transition-transform text-sm sm:text-base"></span>
-          <span>Producto</span>
-        </button>
         
+        <button (click)="abrirModalAjuste()" class="flex-1 sm:flex-none btn-cancel text-gray-700 font-semibold flex items-center justify-center gap-1 sm:gap-2 group">
+          <span class="text-gray-400 group-hover:text-gray-600 transition-colors">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </span>
+          <span>Ajuste</span>
+        </button>
+        <button (click)="abrirModalMerma()" class="flex-1 sm:flex-none btn-cancel hover:bg-red-50 text-gray-700 hover:text-red-700 font-semibold flex items-center justify-center gap-1 sm:gap-2 group">
+          <span class="text-red-400 group-hover:text-red-600 transition-colors text-sm sm:text-base"></span>
+          <span>Merma</span>
+        </button>
       </div>
 
       <!-- Botón Principal -->
