@@ -577,7 +577,7 @@ export class InventarioComponent implements OnInit {
   }
 
   exportarExcel() {
-    const data = this.registros().map((mov: any) => ({
+    const data = this.registrosFiltrados().map((mov: any) => ({
       'Fecha': mov.fecha ? new Date(mov.fecha).toLocaleString() : 'N/A',
       'Concepto': mov.concepto || 'N/A',
       'Descripción': mov.descripcion || 'N/A',
@@ -593,7 +593,7 @@ export class InventarioComponent implements OnInit {
 
   exportarPDF() {
     const headers = ['Fecha', 'Concepto', 'Descripción', 'Cant.', 'Tipo', 'Existencia'];
-    const data = this.registros().map((mov: any) => [
+    const data = this.registrosFiltrados().map((mov: any) => [
       mov.fecha ? new Date(mov.fecha).toLocaleDateString() : 'N/A',
       mov.concepto || 'N/A',
       mov.descripcion || 'N/A',
