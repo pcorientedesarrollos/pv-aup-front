@@ -1,23 +1,13 @@
-<div class="form-container h-full flex flex-col">
+﻿<div class="form-container h-full flex flex-col">
   
-  <!-- Encabezado con Botones de Acción -->
+  <!-- Encabezado con Botones de AcciÃƒÂ³n -->
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
     <div>
       <h1 class="page-title">Dashboard</h1>
-      <p class="page-subtitle">Resumen de actividad y métricas clave</p>
+      <p class="page-subtitle">Resumen de actividad y mÃƒÂ©tricas clave</p>
     </div>
     
-    <div class="flex items-center gap-3">
-      <button routerLink="/historial" class="btn-cancel flex items-center gap-2">
-        <span>📅</span> Ver Reportes
-      </button>
-      <button routerLink="/clientes" class="btn-cancel flex items-center gap-2">
-        <span>👤</span> Nuevo Cliente
-      </button>
-      <button routerLink="/pos" class="btn-submit flex items-center gap-2">
-        <span>🛒</span> Nueva Venta
-      </button>
-    </div>
+    
   </div>
 
   <div class="flex-1 relative">
@@ -71,13 +61,13 @@
 
       </div>
 
-      <!-- Gráfica y Lista de Movimientos -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- GrÃƒÂ¡fica y Lista de Movimientos -->
+      <div class="grid grid-cols-1 gap-8">
         
         <div class="flex flex-col gap-8">
-          <!-- Últimos Movimientos -->
+          <!-- ÃƒÅ¡ltimos Movimientos -->
           <div class="form-section bg-white rounded-lg shadow-md p-6">
-            <h2 class="section-title">Últimos Movimientos</h2>
+            <h2 class="section-title">ÃƒÅ¡ltimos Movimientos</h2>
             
             <div class="honey-table-container">
               <div class="table-wrapper overflow-x-auto w-full">
@@ -124,7 +114,7 @@
           <!-- Top 5 Productos -->
           <div class="form-section bg-white rounded-lg shadow-md p-6">
             <h2 class="section-title">
-              <span class="text-amber-500">🏆</span> Top 5 del Mes
+              <span class="text-amber-500">Ã°Å¸Ââ€ </span> Top 5 del Mes
             </h2>
             <div class="space-y-4 mt-4">
               @for (prod of resumen()?.topProductos; track prod.nombre; let idx = $index) {
@@ -141,28 +131,9 @@
                   </div>
                 </div>
               } @empty {
-                <p class="text-center py-4 text-gray-400 text-sm">Aún no hay ventas este mes</p>
+                <p class="text-center py-4 text-gray-400 text-sm">AÃƒÂºn no hay ventas este mes</p>
               }
             </div>
-          </div>
-        </div>
-
-        <!-- Gráfica -->
-        <div class="form-section bg-white rounded-lg shadow-md p-6 flex flex-col h-[420px] self-start w-full border-amber-100 border-t-4">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="section-title">
-              <span class="text-amber-500">🕒</span> Resumen Semanal
-            </h2>
-            <button routerLink="/historial" class="text-sm font-bold text-amber-500 hover:text-amber-600 transition-colors focus:outline-none">
-              Ver Todos →
-            </button>
-          </div>
-          <div class="flex-1 relative bg-white p-4 rounded-lg border border-gray-200">
-            <canvas baseChart
-              [data]="lineChartData"
-              [options]="lineChartOptions"
-              [type]="'line'">
-            </canvas>
           </div>
         </div>
 
@@ -170,3 +141,4 @@
     }
   </div>
 </div>
+
