@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+﻿import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -49,7 +49,7 @@ export class TicketPrinterService {
       direccion: '',
       telefono: '',
       rfc: '',
-      mensajeTicket: '¡Gracias por su compra!',
+      mensajeTicket: 'Â¡Gracias por su compra!',
       anchoTicket: '80mm',
       imprimirLogo: false,
     };
@@ -131,7 +131,7 @@ export class TicketPrinterService {
           <div>Ticket #${venta.folio || venta.idCajaChica || venta.id || 'N/A'}</div>
           <div>Fecha: ${venta.fecha || new Date().toLocaleString()}</div>
           <div>Cajero: ${venta.usuarioNombre || venta.nombreUsuario || 'Admin'}</div>
-          <div>Cliente: ${venta.nombreCliente || venta.cliente?.nombreCompleto || 'P�blico en General'}</div>
+          <div>Cliente: ${venta.nombreCliente || venta.cliente?.nombreCompleto || 'Pï¿½blico en General'}</div>
         </div>
         <div class="divider"></div>
 
@@ -216,7 +216,7 @@ export class TicketPrinterService {
         </div>
         
         <div class="text-center bold" style="margin-top: 15px;">
-          ${config.mensajeTicket || '¡Gracias por su compra!'}
+          ${config.mensajeTicket || 'Â¡Gracias por su compra!'}
         </div>
         <br>
       </body>
@@ -266,6 +266,12 @@ export class TicketPrinterService {
         </div>
         <div class="item">
           <span>Devoluciones:</span>
+            <span>${Number(data.totalCancelado || data.devoluciones || 0).toFixed(2)}</span>
+          </div>
+          <div class="item">
+            <span>(-) Gastos Turno:</span>
+            <span>-${Number(data.totalGastos || 0).toFixed(2)}</span>
+          <!-- REPLACED -->
           <span>$${Number(data.totalCancelado || data.devoluciones || 0).toFixed(2)}</span>
         </div>
 
@@ -300,21 +306,21 @@ export class TicketPrinterService {
     return html;
   }
 
-  // --- HTML Vale de Almacén ---
+  // --- HTML Vale de AlmacÃ©n ---
   generarHTMLValeAlmacen(data: any, config: TicketConfig): string {
-    let html = this.getBaseHtmlHeader('Vale de Almacén', config);
+    let html = this.getBaseHtmlHeader('Vale de AlmacÃ©n', config);
 
     html += `
         <div class="text-center mb-1">
-          <h2 class="bold" style="margin: 0; font-size: 1.1em;">COMPROBANTE DE ALMACÉN</h2>
-          <p style="margin: 5px 0;">Almacén: ${data.almacen || ''}</p>
+          <h2 class="bold" style="margin: 0; font-size: 1.1em;">COMPROBANTE DE ALMACÃ‰N</h2>
+          <p style="margin: 5px 0;">AlmacÃ©n: ${data.almacen || ''}</p>
         </div>
         
         <div class="divider"></div>
         <div class="text-left mb-1">
           <p class="mb-1"><strong>ID Movi:</strong> #${data.id}</p>
           <p class="mb-1"><strong>Concepto:</strong> ${data.concepto || 'S/N'}</p>
-          <p class="mb-1"><strong>Descripción:</strong> ${data.descripcion}</p>
+          <p class="mb-1"><strong>DescripciÃ³n:</strong> ${data.descripcion}</p>
           <p class="mb-1"><strong>Tipo:</strong> ${data.tipo}</p>
           <p class="mb-1"><strong>Cantidad:</strong> ${data.cantidad}</p>
           <p class="mb-1"><strong>Costo U.:</strong> $${Number(data.costoUnitario).toFixed(2)}</p>
@@ -323,7 +329,7 @@ export class TicketPrinterService {
         <div class="divider"></div>
         
         <div class="text-center" style="margin-top: 30px;">
-          <p>Firma de Recepción / Entrega</p>
+          <p>Firma de RecepciÃ³n / Entrega</p>
           <br><br>
           <p>____________________</p>
         </div>
@@ -417,7 +423,7 @@ export class TicketPrinterService {
         iframe.contentWindow?.focus();
         iframe.contentWindow?.print();
         
-        // Limpiar el iframe del DOM poco después de abrir el cuadro de impresión
+        // Limpiar el iframe del DOM poco despuÃ©s de abrir el cuadro de impresiÃ³n
         setTimeout(() => {
           if (document.body.contains(iframe)) {
             document.body.removeChild(iframe);
@@ -427,5 +433,6 @@ export class TicketPrinterService {
     }
   }
 }
+
 
 

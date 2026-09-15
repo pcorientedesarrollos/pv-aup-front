@@ -1,14 +1,16 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PosService } from '../../core/services/pos.service';
 import { AuthService } from '../../core/services/auth.service';
+import { AuthModalComponent } from '../../shared/components/auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-sucursales',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AuthModalComponent],
   template: `
+    <app-auth-modal (onConfirm)="confirmarImpersonacion($event)"></app-auth-modal>
     <div class="h-full flex flex-col bg-transparent max-w-7xl mx-auto w-full gap-4">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -253,6 +255,8 @@ export class SucursalesComponent implements OnInit {
   private posService = inject(PosService);
   private auth = inject(AuthService);
 
+  @ViewChild(AuthModalComponent) authModal!: AuthModalComponent;
+
   isSoporte = computed(() => this.auth.sesion()?.idPerfil === 3);
   filtroEmpresa = signal<number | 'todas'>('todas');
 
@@ -288,11 +292,15 @@ export class SucursalesComponent implements OnInit {
   usuarioAVincularId: number | null = null;
 
   impersonarSucursal(sucursal: any) {
+    this.authModal.open(sucursal);
+  }
+
+  confirmarImpersonacion(sucursal: any) {
     this.auth.impersonar({
       idSucursal: sucursal.idSucursal,
       sucursalNombre: sucursal.nombre,
       empresa: sucursal.empresa,
-      idPerfil: 1 
+      idPerfil: this.isSoporte() ? 3 : 1 
     });
   }
 

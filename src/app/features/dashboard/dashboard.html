@@ -187,6 +187,16 @@
           Corte de Caja
         </button>
 
+        <!-- Gastos -->
+        <button [hidden]="!matchSearch('gastos Gastos')" (click)="navegar('/gastos')"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          [ngClass]="isActive('/gastos') ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Gastos
+        </button>
+
         <!-- ── Inventario ── -->
         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 pt-4 pb-1 select-none">
           Inventario

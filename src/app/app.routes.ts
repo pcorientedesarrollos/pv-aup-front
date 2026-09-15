@@ -51,6 +51,11 @@ export const routes: Routes = [
           import('./features/corte-caja/corte-caja.component').then((m) => m.CorteCajaComponent),
       },
       {
+        path: 'gastos',
+        loadComponent: () =>
+          import('./features/gastos/gastos.component').then((m) => m.GastosComponent),
+      },
+      {
         path: 'sucursales',
         canActivate: [adminGuard],
         loadComponent: () =>
@@ -167,3 +172,4 @@ export const routes: Routes = [
     redirectTo: '',
   },
 ];
+

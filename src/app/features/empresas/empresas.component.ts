@@ -1,16 +1,18 @@
-﻿import { environment } from '../../../environments/environment';
-import { Component, OnInit, signal } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { Component, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PosService } from '../../core/services/pos.service';
 import { AuthService } from '../../core/services/auth.service';
+import { AuthModalComponent } from '../../shared/components/auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-empresas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AuthModalComponent],
   template: `
+    <app-auth-modal (onConfirm)="confirmarImpersonacion($event)"></app-auth-modal>
     <div class="h-full flex flex-col bg-transparent max-w-7xl mx-auto w-full gap-4">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -146,6 +148,8 @@ import { AuthService } from '../../core/services/auth.service';
   `
 })
 export class EmpresasComponent implements OnInit {
+  @ViewChild(AuthModalComponent) authModal!: AuthModalComponent;
+
   empresas = signal<any[]>([]);
   modalAbierto = signal(false);
   empActual = signal<any>(null);
@@ -161,6 +165,10 @@ export class EmpresasComponent implements OnInit {
   constructor(private posService: PosService, private http: HttpClient, private auth: AuthService) {}
 
   impersonarEmpresa(empresa: any) {
+    this.authModal.open(empresa);
+  }
+
+  confirmarImpersonacion(empresa: any) {
     this.auth.impersonar({
       empresa: empresa,
       idPerfil: 1, // Actua como admin de esta empresa
