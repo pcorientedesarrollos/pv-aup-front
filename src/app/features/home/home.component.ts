@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+﻿import { environment } from '../../../environments/environment';
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -21,33 +21,6 @@ export class HomeComponent implements OnInit {
 
   cargando = signal(true);
 
-  // Configuración de la gráfica
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-    datasets: [
-      {
-        data: [1200, 1900, 3000, 2500, 2200, 3200, 4500],
-        label: 'Ventas de la semana',
-        fill: true,
-        tension: 0.4,
-        borderColor: '#4f46e5',
-        backgroundColor: 'rgba(79, 70, 229, 0.2)',
-        pointBackgroundColor: '#4f46e5',
-      }
-    ]
-  };
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      y: { beginAtZero: true, grid: { display: true, color: '#f3f4f6' } },
-      x: { grid: { display: false } }
-    }
-  };
-
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -55,19 +28,9 @@ export class HomeComponent implements OnInit {
   }
 
   cargarResumen() {
-    this.http.get<any>(`/dashboard/resumen`).subscribe({
+    this.http.get<any>('/dashboard/resumen').subscribe({
       next: (data) => {
         this.resumen.set(data);
-        
-        if (data.ventasSemana) {
-          this.lineChartData = {
-            ...this.lineChartData,
-            datasets: [
-              { ...this.lineChartData.datasets[0], data: data.ventasSemana }
-            ]
-          };
-        }
-
         this.cargando.set(false);
       },
       error: (err) => {
