@@ -1,12 +1,13 @@
-﻿import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -20,11 +21,20 @@ export class HomeComponent implements OnInit {
   } | null>(null);
 
   cargando = signal(true);
+  stats = signal<any>(null);
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.cargarResumen();
+    this.cargarStats();
+  }
+
+  cargarStats() {
+    this.http.get<any>(`${environment.apiUrl}/pos/dashboard/stats`).subscribe({
+      next: (data) => this.stats.set(data),
+      error: (err) => console.error(err)
+    });
   }
 
   cargarResumen() {

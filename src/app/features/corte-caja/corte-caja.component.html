@@ -183,7 +183,7 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 @for (corte of cortesPaginados(); track corte.idCorte) {
-                  <tr>
+                  <tr (click)="verDetalle(corte)" class="cursor-pointer hover:bg-amber-50">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#{{ corte.idCorte }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ corte.usuario?.nombreUsuario }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ corte.fondoInicial | currency }}</td>
