@@ -33,7 +33,7 @@
         @if (nuevoUsuario.idPerfil == 2) {
           <div class="form-group mt-4">
             <label class="form-label mb-2">Permisos Especificos para Cajero</label>
-            <div class="grid grid-cols-1 gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
               @for (p of permisosDisponibles; track p.id) {
                 <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none">
                   <input type="checkbox" 
@@ -60,7 +60,7 @@
         @if (nuevoUsuario.idPerfil == 2) {
           <div class="form-group mt-4">
             <label class="form-label mb-2">Permisos Especificos para Cajero</label>
-            <div class="grid grid-cols-1 gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
               @for (p of permisosDisponibles; track p.id) {
                 <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none">
                   <input type="checkbox" 
@@ -227,7 +227,7 @@
         @if (nuevoUsuario.idPerfil == 2) {
           <div class="form-group mt-4">
             <label class="form-label mb-2">Permisos Especificos para Cajero</label>
-            <div class="grid grid-cols-1 gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
               @for (p of permisosDisponibles; track p.id) {
                 <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none">
                   <input type="checkbox" 

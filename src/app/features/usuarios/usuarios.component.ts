@@ -30,7 +30,25 @@ export class UsuariosComponent implements OnInit {
     { id: 'ver_reportes', nombre: 'Ver Reportes' },
     { id: 'cancelar_venta', nombre: 'Cancelar Ventas' },
     { id: 'facturar', nombre: 'Facturar Ventas' },
-    { id: 'aplicar_descuentos', nombre: 'Aplicar Descuentos' }
+    { id: 'aplicar_descuentos', nombre: 'Aplicar Descuentos' },
+    { id: 'menu_pos', nombre: 'Menú: Punto de Venta' },
+    { id: 'menu_historial', nombre: 'Menú: Historial Ventas' },
+    { id: 'menu_cotizaciones', nombre: 'Menú: Cotizaciones' },
+    { id: 'menu_facturas', nombre: 'Menú: Facturas' },
+    { id: 'menu_corte', nombre: 'Menú: Corte de Caja' },
+    { id: 'menu_gastos', nombre: 'Menú: Gastos' },
+    { id: 'menu_productos', nombre: 'Menú: Productos' },
+    { id: 'menu_categorias', nombre: 'Menú: Categorías' },
+    { id: 'menu_kardex', nombre: 'Menú: Kardex' },
+    { id: 'menu_traspasos', nombre: 'Menú: Traspasos' },
+    { id: 'menu_produccion', nombre: 'Menú: Producción' },
+    { id: 'menu_compras', nombre: 'Menú: Compras' },
+    { id: 'menu_proveedores', nombre: 'Menú: Proveedores' },
+    { id: 'menu_clientes', nombre: 'Menú: Clientes' },
+    { id: 'menu_sucursales', nombre: 'Menú: Sucursales' },
+    { id: 'menu_devoluciones', nombre: 'Menú: Devoluciones' },
+    { id: 'menu_usuarios', nombre: 'Menú: Usuarios' },
+    { id: 'menu_configuracion', nombre: 'Menú: Configuración' }
   ];
 
 

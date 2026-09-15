@@ -127,7 +127,7 @@
           Dashboard
         </button>
 
-        <button [hidden]="!matchSearch('pos')" (click)="navegar('/pos')"
+        <button [hidden]="!matchSearch('pos') || !auth.tienePermiso('menu_pos')" (click)="navegar('/pos')"
           class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/pos')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -141,7 +141,7 @@
           <span class="text-[9px] bg-honey-primary/20 text-honey-primary px-1.5 py-0.5 rounded font-bold">F1</span>
         </button>
 
-        <button [hidden]="!matchSearch('historial Historial Ventas')" (click)="navegar('/historial')"
+        <button [hidden]="!matchSearch('historial Historial Ventas') || !auth.tienePermiso('menu_historial')" (click)="navegar('/historial')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/historial')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -152,7 +152,7 @@
           Historial Ventas
         </button>
 
-        <button [hidden]="!matchSearch('cotizaciones')" (click)="navegar('/cotizaciones')"
+        <button [hidden]="!matchSearch('cotizaciones') || !auth.tienePermiso('menu_cotizaciones')" (click)="navegar('/cotizaciones')"
           class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/cotizaciones')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -165,7 +165,7 @@
           </span>
         </button>
 
-        <button [hidden]="!matchSearch('facturas Facturas CFDI')" (click)="navegar('/facturas')"
+        <button [hidden]="!matchSearch('facturas Facturas CFDI') || !auth.tienePermiso('menu_facturas')" (click)="navegar('/facturas')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/facturas')
                       ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -176,7 +176,7 @@
           Facturas CFDI
         </button>
 
-        <button [hidden]="!matchSearch('corte-caja Corte de Caja')" (click)="navegar('/corte-caja')"
+        <button [hidden]="!matchSearch('corte-caja Corte de Caja') || !auth.tienePermiso('menu_corte')" (click)="navegar('/corte-caja')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/corte-caja')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -188,7 +188,7 @@
         </button>
 
         <!-- Gastos -->
-        <button [hidden]="!matchSearch('gastos Gastos')" (click)="navegar('/gastos')"
+        <button [hidden]="!matchSearch('gastos Gastos') || !auth.tienePermiso('menu_gastos')" (click)="navegar('/gastos')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/gastos') ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -202,7 +202,7 @@
           Inventario
         </p>
 
-        <button [hidden]="!matchSearch('productos')" (click)="navegar('/productos')"
+        <button [hidden]="!matchSearch('productos') || !auth.tienePermiso('menu_productos')" (click)="navegar('/productos')"
           class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/productos')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -216,8 +216,8 @@
           <span class="text-[9px] bg-honey-primary/20 text-honey-primary px-1.5 py-0.5 rounded font-bold">F3</span>
         </button>
 
-        @if (auth.sesion()?.idPerfil === 1 || auth.sesion()?.idPerfil === 3) {
-        <button [hidden]="!matchSearch('categorias Categorías')" (click)="navegar('/categorias')"
+        
+        <button [hidden]="!matchSearch('categorias Categorías') || !auth.tienePermiso('menu_categorias')" (click)="navegar('/categorias')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/categorias')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -227,9 +227,8 @@
           </svg>
           Categorías
         </button>
-        }
 
-        <button [hidden]="!matchSearch('inventario')" (click)="navegar('/inventario')"
+        <button [hidden]="!matchSearch('inventario') || !auth.tienePermiso('menu_kardex')" (click)="navegar('/inventario')"
           class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/inventario')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -243,8 +242,8 @@
           <span class="text-[9px] bg-honey-primary/20 text-honey-primary px-1.5 py-0.5 rounded font-bold">F4</span>
         </button>
 
-        @if (auth.sesion()?.idPerfil === 1 || auth.sesion()?.idPerfil === 3) {
-        <button [hidden]="!matchSearch('inventario/traspasos Traspasos')" (click)="navegar('/inventario/traspasos')"
+        
+        <button [hidden]="!matchSearch('inventario/traspasos Traspasos') || !auth.tienePermiso('menu_traspasos')" (click)="navegar('/inventario/traspasos')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/inventario/traspasos')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -255,7 +254,7 @@
           Traspasos
         </button>
 
-        <button [hidden]="!matchSearch('produccion Producción')" (click)="navegar('/produccion')"
+        <button [hidden]="!matchSearch('produccion Producción') || !auth.tienePermiso('menu_produccion')" (click)="navegar('/produccion')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/produccion')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -267,10 +266,9 @@
           </svg>
           Producción
         </button>
-        }
 
-        @if (auth.sesion()?.idPerfil !== 2) {
-        <button [hidden]="!matchSearch('compras Compras')" (click)="navegar('/compras')"
+        
+        <button [hidden]="!matchSearch('compras Compras') || !auth.tienePermiso('menu_compras')" (click)="navegar('/compras')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/compras')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -280,10 +278,9 @@
           </svg>
           Compras
         </button>
-        }
 
-        @if (auth.sesion()?.idPerfil === 1 || auth.sesion()?.idPerfil === 3) {
-        <button [hidden]="!matchSearch('proveedores Proveedores')" (click)="navegar('/proveedores')"
+        
+        <button [hidden]="!matchSearch('proveedores Proveedores') || !auth.tienePermiso('menu_proveedores')" (click)="navegar('/proveedores')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/proveedores')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -293,14 +290,13 @@
           </svg>
           Proveedores
         </button>
-        }
 
         <!-- ── Administración ── -->
         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 pt-4 pb-1 select-none">
           Administración
         </p>
 
-        <button [hidden]="!matchSearch('clientes Clientes')" (click)="navegar('/clientes')"
+        <button [hidden]="!matchSearch('clientes Clientes') || !auth.tienePermiso('menu_clientes')" (click)="navegar('/clientes')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/clientes')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -311,8 +307,8 @@
           Clientes
         </button>
 
-        @if (auth.sesion()?.idPerfil === 1 || auth.sesion()?.idPerfil === 3) {
-        <button [hidden]="!matchSearch('sucursales Sucursales')" (click)="navegar('/sucursales')"
+        
+        <button [hidden]="!matchSearch('sucursales Sucursales') || !auth.tienePermiso('menu_sucursales')" (click)="navegar('/sucursales')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/sucursales')
           ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -327,7 +323,7 @@
           Sucursales
         </button>
 
-        <button [hidden]="!matchSearch('devoluciones Devoluciones')" (click)="navegar('/devoluciones')"
+        <button [hidden]="!matchSearch('devoluciones Devoluciones') || !auth.tienePermiso('menu_devoluciones')" (click)="navegar('/devoluciones')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/devoluciones')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -338,7 +334,7 @@
           Devoluciones
         </button>
 
-        <button [hidden]="!matchSearch('usuarios Usuarios')" (click)="navegar('/usuarios')"
+        <button [hidden]="!matchSearch('usuarios Usuarios') || !auth.tienePermiso('menu_usuarios')" (click)="navegar('/usuarios')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/usuarios')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -350,7 +346,7 @@
         </button>
 
         <!-- Configurar Ticket -->
-        <button [hidden]="!matchSearch('configurar ticket comprobante')" (click)="mostrarModalConfig = true"
+        <button [hidden]="!matchSearch('configurar ticket comprobante') || !auth.tienePermiso('menu_configuracion')" (click)="mostrarModalConfig = true"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="mostrarModalConfig
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -362,7 +358,7 @@
         </button>
 
         <!-- Config. Empresa -->
-        <button [hidden]="!matchSearch('configuracion Config. de Empresa')" (click)="navegar('/configuracion')"
+        <button [hidden]="!matchSearch('configuracion Config. de Empresa') || !auth.tienePermiso('menu_configuracion')" (click)="navegar('/configuracion')"
           class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
           [ngClass]="isActive('/configuracion')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
@@ -374,7 +370,6 @@
           </svg>
           Config. de Empresa
         </button>
-        }
 
         <!-- ══ SOPORTE — Centro de Control ══ -->
         @if (auth.sesion()?.idPerfil === 3) {
