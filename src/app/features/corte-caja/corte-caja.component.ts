@@ -1,4 +1,4 @@
-﻿import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Component, signal, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -126,7 +126,7 @@ export class CorteCajaComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al abrir turno:', err);
-        alert('OcurriÃ³ un error al abrir el turno.');
+        alert('Ocurrió un error al abrir el turno.');
         this.cargando.set(false);
       }
     });
@@ -134,7 +134,7 @@ export class CorteCajaComponent implements OnInit {
 
   calcularDiferencia(): number {
     if (this.efectivoContado() === null || !this.datosCorte()) return 0;
-    // Solo comparar contra lo que debe haber fÃ­sicamente en el cajÃ³n:
+    // Solo comparar contra lo que debe haber físicamente en el cajón:
     // fondo inicial de apertura + ventas cobradas en efectivo
     const esperadoEnCajon = (this.datosCorte().fondoCaja || 0) + (this.datosCorte().ventasEfectivo || 0) - (this.datosCorte().salidas || 0);
     return this.efectivoContado()! - esperadoEnCajon;
