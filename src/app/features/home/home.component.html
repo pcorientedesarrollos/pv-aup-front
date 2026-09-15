@@ -1,10 +1,10 @@
 <div class="form-container h-full flex flex-col">
   
-  <!-- Encabezado con Botones de AcciÒ³n -->
+  <!-- Encabezado con Botones de Acción -->
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
     <div>
       <h1 class="page-title">Dashboard</h1>
-      <p class="page-subtitle">Resumen de actividad y mÒ©tricas clave</p>
+      <p class="page-subtitle">Resumen de actividad y métricas clave</p>
     </div>
     
     
@@ -61,13 +61,15 @@
 
       </div>
 
-      <!-- GrÒ¡fica y Lista de Movimientos -->
+      <!-- Gráfica y Lista de Movimientos -->
       <div class="grid grid-cols-1 gap-8">
         
         <div class="flex flex-col gap-8">
-          <!-- Òšltimos Movimientos -->
+          <!-- Últimos Movimientos -->
           <div class="form-section bg-white rounded-lg shadow-md p-6">
-            <h2 class="section-title">Òšltimos Movimientos</h2>
+            <h2 class="section-title">
+              <span class="text-amber-500">🔄</span> Últimos Movimientos
+            </h2>
             
             <div class="honey-table-container">
               <div class="table-wrapper overflow-x-auto w-full">
@@ -114,7 +116,7 @@
           <!-- Top 5 Productos -->
           <div class="form-section bg-white rounded-lg shadow-md p-6">
             <h2 class="section-title">
-              <span class="text-amber-500">ðŸ⬠</span> Top 5 del Mes
+              <span class="text-amber-500">🏆</span> Top 5 del Mes
             </h2>
             <div class="space-y-4 mt-4">
               @for (prod of resumen()?.topProductos; track prod.nombre; let idx = $index) {
@@ -131,7 +133,7 @@
                   </div>
                 </div>
               } @empty {
-                <p class="text-center py-4 text-gray-400 text-sm">AÒºn no hay ventas este mes</p>
+                <p class="text-center py-4 text-gray-400 text-sm">Aún no hay ventas este mes</p>
               }
             </div>
           </div>
