@@ -16,7 +16,7 @@ import { ConfiguracionTicketComponent } from '../configuracion-ticket/configurac
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, ConfiguracionTicketComponent, BaseChartDirective],
+  imports: [CommonModule, RouterModule, ConfiguracionTicketComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
