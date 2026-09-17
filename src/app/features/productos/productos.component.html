@@ -209,10 +209,10 @@
                     @if (prod.codigoBarras) {
                       <span (click)="codigoBarrasVisualizar.set(prod.codigoBarras)"
                             class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 transition-colors">
-                        ||| {{ prod.codigoBarras }}
+                        - {{ prod.codigoBarras }}
                       </span>
                     } @else {
-                      <span class="text-slate-300 text-xs italic">�</span>
+                      <span class="text-slate-300 text-xs italic"> </span>
                     }
                   </td>
                   <!-- Stock -->
