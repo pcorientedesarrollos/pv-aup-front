@@ -19,33 +19,7 @@
       <p class="text-sm text-slate-500 mt-0.5">Gestión de precios, stock y códigos de barras</p>
     </div>
 
-        <div class="flex gap-3 flex-wrap bg-gradient-to-r from-indigo-50 to-emerald-50 border border-indigo-100/50 rounded-xl p-3 shadow-sm items-center">
-      <div class="flex items-center gap-3 px-2">
-        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-wider">Costo Inventario</span>
-          <span class="text-xl font-black text-indigo-900">{{ resumenInventario().valorCompra | currency:'MXN':'symbol-narrow':'1.2-2' }}</span>
-        </div>
-      </div>
-      
-      <div class="hidden sm:block w-px h-10 bg-indigo-100/50"></div>
-  
-      <div class="flex items-center gap-3 px-2">
-        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-500">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Valor Venta (Total)</span>
-          <span class="text-xl font-black text-emerald-900">{{ resumenInventario().valorVenta | currency:'MXN':'symbol-narrow':'1.2-2' }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Resumen de Inventario (Tarjetas de Stock) -->
-  <div class="w-fit ml-auto flex gap-3 flex-wrap">
+    <div class="flex gap-3 flex-wrap">
       <button (click)="filtroStock.set('todos')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
               [ngClass]="filtroStock() === 'todos' ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-200'">
         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total</span>
@@ -66,17 +40,54 @@
         <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Disponible</span>
         <span class="text-2xl font-black text-emerald-600">{{ disponible() }}</span>
       </button>
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 px-4 py-2.5 min-w-[100px]">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 px-4 py-2.5 flex flex-col min-w-[100px]">
         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Visibles</span>
         <span class="text-2xl font-black text-slate-800">{{ productosFiltrados().length }}</span>
       </div>
+    </div>
   </div>
 
+  <!-- Resumen de Inventario -->
+  <div class="w-fit ml-auto bg-gradient-to-r from-indigo-50 to-emerald-50 border border-indigo-100/50 rounded-xl p-4 flex flex-wrap gap-x-8 gap-y-4 shadow-sm items-center">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-wider">Costo Inventario</span>
+        <span class="text-xl font-black text-indigo-900">{{ resumenInventario().valorCompra | currency:'MXN':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+    </div>
+    
+    <div class="hidden sm:block w-px h-10 bg-indigo-100/50"></div>
+
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Valor Venta (Total)</span>
+        <span class="text-xl font-black text-emerald-900">{{ resumenInventario().valorVenta | currency:'MXN':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <div class="hidden sm:block w-px h-10 bg-indigo-100/50"></div>
+
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Ganancia Proyectada</span>
+        <span class="text-xl font-black text-amber-900">{{ resumenInventario().utilidad | currency:'MXN':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
 
   @if (isSoporte()) {
     <div class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-900 rounded-xl shadow-inner border border-slate-700">
       <div class="flex items-center gap-3">
-        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">-x-- Empresa:</label>
+        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏢 Empresa:</label>
         <select [ngModel]="filtroEmpresa()" (ngModelChange)="filtroEmpresa.set($event)" class="bg-slate-800 border-slate-700 text-white rounded-lg px-3 py-1.5 focus:ring-amber-500 focus:border-amber-500">
           <option value="todas">Todas</option>
           @for (emp of empresas(); track emp.idEmpresa) {
@@ -85,7 +96,7 @@
         </select>
       </div>
       <div class="flex items-center gap-3">
-        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">-x-- Sucursal:</label>
+        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏪 Sucursal:</label>
         <select [ngModel]="filtroSucursal()" (ngModelChange)="filtroSucursal.set($event)" class="bg-slate-800 border-slate-700 text-white rounded-lg px-3 py-1.5 focus:ring-amber-500 focus:border-amber-500">
           <option value="todas">Todas</option>
           @for (suc of sucursalesFiltradas(); track suc.idSucursal) {
@@ -212,7 +223,7 @@
                         - {{ prod.codigoBarras }}
                       </span>
                     } @else {
-                      <span class="text-slate-300 text-xs italic"> </span>
+                      <span class="text-slate-300 text-xs italic">—</span>
                     }
                   </td>
                   <!-- Stock -->
@@ -240,7 +251,7 @@
                     @if (prod.aplicaDescuento && (prod.descuento || 0) > 0) {
                       <span class="text-xs font-bold text-rose-500">-{{ getDescuentoEfectivo(prod) | currency }}</span>
                     } @else {
-                      <span class="text-xs text-slate-300">-</span>
+                      <span class="text-xs text-slate-300">—</span>
                     }
                   </td>
                   <!-- IVA -->
@@ -248,7 +259,7 @@
                     @if (prod.aplicaIva) {
                       <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">{{ prod.iva || 16 }}%</span>
                     } @else {
-                      <span class="text-xs text-slate-300">-</span>
+                      <span class="text-xs text-slate-300">—</span>
                     }
                   </td>
                   <!-- Precio Público (precioVenta = precio final al cliente) -->
@@ -284,7 +295,7 @@
                 <tr>
                   <td colspan="8" class="px-6 py-4 text-sm text-gray-900 text-center">
                     <div class="empty-state">
-                      <span class="text-5xl">-x-</span>
+                      <span class="text-5xl">🔍</span>
                       <p class="font-semibold text-gray-500 mt-2">No se encontraron productos</p>
                       <p class="text-sm mt-1">Prueba con otro término de búsqueda o categoría</p>
                     </div>
@@ -306,7 +317,7 @@
           </div>
         } @else if (productosFiltrados().length === 0) {
           <div class="flex flex-col items-center gap-2 text-slate-400 py-16">
-            <span class="text-5xl">-x-</span>
+            <span class="text-5xl">🔍</span>
             <p class="font-semibold text-slate-500">No se encontraron productos</p>
           </div>
         } @else {
@@ -383,7 +394,7 @@
             </p>
           </div>
         </div>
-        <button (click)="cerrarComprasProducto()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">-S"</button>
+        <button (click)="cerrarComprasProducto()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
       </div>
       
       <div class="flex-1 overflow-auto max-h-[60vh]">
@@ -394,7 +405,7 @@
           </div>
         } @else if (comprasProducto().length === 0) {
           <div class="p-12 text-center text-slate-400">
-            <span class="text-5xl block mb-3">-x-</span>
+            <span class="text-5xl block mb-3">📭</span>
             <p class="font-bold text-slate-500">No hay compras registradas</p>
           </div>
         } @else {
@@ -462,7 +473,7 @@
             </h2>
           </div>
         </div>
-        <button (click)="cerrarDetalleCompra()" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-1.5 transition-colors focus:outline-none">-S"</button>
+        <button (click)="cerrarDetalleCompra()" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-1.5 transition-colors focus:outline-none">✕</button>
       </div>
 
       <div class="flex-1 overflow-auto p-6">
@@ -560,7 +571,7 @@
           @else { Completa los campos para dar de alta el producto. }
         </p>
       </div>
-        <button (click)="cerrarModal()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">-S"</button>
+        <button (click)="cerrarModal()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
       </div>
 
       <div class="modal-body flex-1 overflow-y-auto p-6 space-y-4 max-h-[70vh]">
@@ -571,7 +582,7 @@
               @if (imagenPreview()) {
                 <img [src]="imagenPreview()!" class="w-full h-full object-cover rounded-xl">
               } @else {
-                <span class="text-3xl">-x-</span>
+                <span class="text-3xl">📷</span>
               }
             </div>
             <div class="flex-1">
@@ -614,7 +625,7 @@
                      (input)="onSatProductSearch()" 
                      (focus)="onSatProductSearch(true)"
                      (blur)="onSatProductBlur()"
-                     placeholder="-x- Escribe para buscar entre 52,000+ claves SAT..."
+                     placeholder="🔍 Escribe para buscar entre 52,000+ claves SAT..."
                      class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500">
               
               @if (satProductQuery.length > 0 && satProductQuery.length < 3) {
@@ -641,7 +652,7 @@
                      (input)="onSatUnitSearch()"
                      (focus)="onSatUnitSearch(true)"
                      (blur)="onSatUnitBlur()"
-                     placeholder="-x- Buscar unidad..."
+                     placeholder="🔍 Buscar unidad..."
                      class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500">
               
               @if (satUnitQuery.length > 0 && satUnitQuery.length < 2) {
@@ -829,16 +840,16 @@
             'bg-emerald-50 border border-emerald-200': getStockClass(nuevoProducto) === 'stock-ok'
           }">
             <span class="text-2xl">
-              @if (getStockClass(nuevoProducto) === 'stock-cero') { -xa- }
-              @else if (getStockClass(nuevoProducto) === 'stock-bajo') { -a-️ }
-              @else { -S& }
+              @if (getStockClass(nuevoProducto) === 'stock-cero') { 🚨 }
+              @else if (getStockClass(nuevoProducto) === 'stock-bajo') { ⚠️ }
+              @else { ✅ }
             </span>
             <div>
               <p class="text-sm font-bold" [ngClass]="{
                 'text-red-700': getStockClass(nuevoProducto) === 'stock-cero',
                 'text-amber-700': getStockClass(nuevoProducto) === 'stock-bajo',
                 'text-emerald-700': getStockClass(nuevoProducto) === 'stock-ok'
-              }">{{ getStockLabel(nuevoProducto) }} - Stock actual: {{ nuevoProducto.stockActual | number:'1.0-0' }} unidades</p>
+              }">{{ getStockLabel(nuevoProducto) }} — Stock actual: {{ nuevoProducto.stockActual | number:'1.0-0' }} unidades</p>
               <p class="text-xs text-slate-500">Usa el campo <strong>Agregar al Stock</strong> de arriba para ajustar esta cantidad.</p>
             </div>
           </div>
@@ -850,7 +861,7 @@
         <div>
           @if (!esNuevoProducto()) {
             <button (click)="abrirModalReceta(nuevoProducto)" class="btn-cancel border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100 flex items-center gap-2">
-              <span>-x9</span> Gestionar Receta / Config.
+              <span>📋</span> Gestionar Receta / Config.
             </button>
           }
         </div>
@@ -861,7 +872,7 @@
               <div class="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white"></div>
               Guardando...
             } @else {
-              -x- Guardar Cambios
+              💾 Guardar Cambios
             }
           </button>
         </div>
@@ -875,7 +886,7 @@
   <div class="modal-overlay flex items-center justify-center z-[100]" (click)="codigoBarrasVisualizar.set(null)">
     <div class="bg-white rounded-2xl p-8 shadow-2xl relative max-w-sm w-full text-center slideInDown" (click)="$event.stopPropagation()">
       <button (click)="codigoBarrasVisualizar.set(null)"
-              class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors">-S"</button>
+              class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors">✕</button>
       <h3 class="font-black text-slate-900 mb-6 text-xl">Código de Barras</h3>
       <div class="flex justify-center bg-white p-6 rounded-xl border-2 border-dashed border-slate-200">
         <svg [appBarcode]="codigoBarrasVisualizar() || ''" class="w-full h-32"></svg>
@@ -902,7 +913,7 @@
             {{ productoReceta()?.nombre }}
           </p>
         </div>
-        <button (click)="cerrarModalReceta()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">-S"</button>
+        <button (click)="cerrarModalReceta()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
       </div>
 
       <div class="modal-body flex-1 overflow-y-auto p-6 bg-slate-50">
@@ -934,7 +945,7 @@
             </div>
           } @else if (ingredientes().length === 0) {
             <div class="text-center py-10 text-slate-400">
-              <span class="text-4xl block mb-2">-x--⬍-"️</span>
+              <span class="text-4xl block mb-2">🤷‍♂️</span>
               <p>No hay elementos registrados para este producto.</p>
             </div>
           } @else {
@@ -970,4 +981,3 @@
     </div>
   </div>
 }
-
