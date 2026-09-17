@@ -12,14 +12,7 @@ import { ChartConfiguration, ChartOptions } from 'chart.js';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  resumen = signal<{
-    ventasHoy: number;
-    totalClientes: number;
-    movimientosHoy: number;
-    ultimosMovimientos: any[];
-    ventasSemana: number[];
-    topProductos: any[];
-  } | null>(null);
+  resumen = signal<any>(null);
 
   cargando = signal(true);
 

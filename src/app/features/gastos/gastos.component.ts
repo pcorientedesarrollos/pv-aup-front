@@ -19,6 +19,9 @@ export class GastosComponent implements OnInit {
   mostrarModal = signal(false);
   concepto = signal('');
   monto = signal<number | null>(null);
+  idCategoria = signal<number | null>(null);
+  observaciones = signal('');
+  categorias = signal<any[]>([]);
   guardando = signal(false);
 
   busqueda = signal('');
@@ -43,6 +46,14 @@ export class GastosComponent implements OnInit {
 
   ngOnInit() {
     this.cargarGastos();
+    this.cargarCategorias();
+  }
+  
+  cargarCategorias() {
+    this.http.get<any[]>(environment.apiUrl + '/pos/gastos/categorias').subscribe({
+      next: (data) => this.categorias.set(data),
+      error: (e) => console.error(e)
+    });
   }
 
   cargarGastos() {
