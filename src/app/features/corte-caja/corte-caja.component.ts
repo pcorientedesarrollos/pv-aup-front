@@ -116,7 +116,7 @@ export class CorteCajaComponent implements OnInit {
     this.cargando.set(true);
     const payload = {
       nombre: this.nombreCajero(),
-      montoApertura: this.montoApertura(),\n      idUsuario: this.auth.sesion()?.idUsuario
+      montoApertura: this.montoApertura(), idUsuario: this.auth.sesion()?.idUsuario
     };
 
     this.http.post(`${environment.apiUrl}/pos/abrir-turno`, payload).subscribe({

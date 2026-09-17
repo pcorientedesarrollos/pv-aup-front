@@ -7,7 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { SyncService } from '../../core/services/sync.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ConfigService } from '../../core/services/config.service';
-import { BaseChartDirective } from 'ng2-charts';
+import {  } from 'ng2-charts';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 Chart.register(...registerables);
 import { filter } from 'rxjs/operators';
