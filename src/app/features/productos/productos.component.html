@@ -379,7 +379,7 @@
 <!-- Modal Historial de Compras del Producto -->
 @if (productoSeleccionado() || cargandoComprasProducto()) {
   <div class="modal-overlay z-50" (click)="cerrarComprasProducto()">
-    <div class="modal-container flex flex-col slideInDown" style="max-width:850px" (click)="$event.stopPropagation()">
+    <div class="modal-container flex flex-col slideInDown" style="max-width:950px" (click)="$event.stopPropagation()">
       <div class="modal-header bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl bg-indigo-500 flex items-center justify-center shrink-0 shadow-sm">
@@ -459,7 +459,7 @@
 <!-- Modal Detalle Factura -->
 @if (compraDetalle() || cargandoCompraDetalle()) {
   <div class="modal-overlay z-[70]" (click)="cerrarDetalleCompra()">
-    <div class="modal-container flex flex-col slideInDown bg-gray-50" style="max-width:850px" (click)="$event.stopPropagation()">
+    <div class="modal-container flex flex-col slideInDown bg-gray-50" style="max-width:950px" (click)="$event.stopPropagation()">
       <div class="modal-header bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
@@ -562,7 +562,7 @@
 
 @if (mostrarModal()) {
   <div class="modal-overlay z-50">
-    <div class="modal-container flex flex-col slideInDown" style="max-width:850px">
+    <div class="modal-container flex flex-col slideInDown" style="max-width:950px">
       <div class="modal-header bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200">
         <div>
         <h2 class="modal-title">{{ esNuevoProducto() ? '+ Nuevo Producto' : 'Editar Producto' }}</h2>
