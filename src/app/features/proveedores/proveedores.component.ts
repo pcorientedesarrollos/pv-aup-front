@@ -5,7 +5,7 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { ImportarModalComponent } from '../../shared/components/importar-modal/importar-modal.component';
@@ -180,7 +180,7 @@ export class ProveedoresComponent implements OnInit {
     return h;
   }
 
-  constructor(private http: HttpClient, private auth: AuthService, private router: Router) {
+  constructor(private http: HttpClient, private auth: AuthService, private router: Router, private route: ActivatedRoute) {
     effect(() => {
       this.busqueda();
       this.filtroEstado();
@@ -191,6 +191,11 @@ export class ProveedoresComponent implements OnInit {
   ngOnInit() {
     this.cargarProveedores();
     this.cargarProductos();
+    this.route.queryParams.subscribe((params: any) => {
+      if (params['modal'] === 'nuevo') {
+        this.abrirModalCrear();
+      }
+    });
   }
 
   cargarProveedores() {
