@@ -170,6 +170,16 @@ export class NuevaCompraComponent implements OnInit {
     this.carrito.set(this.carrito().filter(i => i.idProducto !== idProducto));
   }
 
+  tasaIva = signal<number>(16); // Default 16% as requested
+
+  montoIva = computed(() => {
+    return this.totalCompra() * (this.tasaIva() / 100);
+  });
+
+  totalFinal = computed(() => {
+    return this.totalCompra() + this.montoIva();
+  });
+
   totalCompra = computed(() => {
     return this.carrito().reduce((sum, item) => sum + (item.cantidad * item.precioCosto), 0);
   });
@@ -356,7 +366,7 @@ export class NuevaCompraComponent implements OnInit {
       idProveedor: this.idProveedor(),
       folioFacturaProveedor: this.folioFactura(),
       notas: this.notas(),
-      total: this.totalCompra(),
+      total: this.totalFinal(),
       detalles: this.carrito().map(item => ({
         idProducto: item.idProducto,
         cantidad: item.cantidad,
