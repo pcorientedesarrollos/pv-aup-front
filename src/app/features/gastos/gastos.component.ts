@@ -25,6 +25,8 @@ export class GastosComponent implements OnInit {
   guardando = signal(false);
 
   busqueda = signal('');
+  desde = signal<string>('');
+  hasta = signal<string>('');
   paginaActual = signal(1);
   tamanoPagina = signal(15);
   
@@ -58,7 +60,11 @@ export class GastosComponent implements OnInit {
 
   cargarGastos() {
     this.cargando.set(true);
-    this.http.get<any[]>(environment.apiUrl + '/pos/gastos').subscribe({
+    let url = environment.apiUrl + '/pos/gastos?';
+    if (this.desde()) url += `desde=${this.desde()}&`;
+    if (this.hasta()) url += `hasta=${this.hasta()}&`;
+    
+    this.http.get<any[]>(url).subscribe({
       next: (res) => {
         this.gastos.set(res);
         this.cargando.set(false);

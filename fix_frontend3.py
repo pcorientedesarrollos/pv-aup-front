@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 with open('src/app/features/gastos/gastos.component.html', 'r', encoding='utf-8') as f:
-    text = f.read()
+    gastos = f.read()
 
-# Just replace EVERYTHING that matches idCategoria.set(...) inside (ngModelChange)
-import re
-text = re.sub(r'idCategoria\.set\([^)]*\)', 'idCategoria.set()', text)
+gastos = gastos.replace('idCategoria.set()', 'idCategoria.set()')
+gastos = gastos.replace('idCategoria.set(\\\\)', 'idCategoria.set()')
 
 with open('src/app/features/gastos/gastos.component.html', 'w', encoding='utf-8') as f:
-    f.write(text)
+    f.write(gastos)
