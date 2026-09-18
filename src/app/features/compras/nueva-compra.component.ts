@@ -32,6 +32,71 @@ export class NuevaCompraComponent implements OnInit {
   importandoPdf = signal(false);
   importando = computed(() => this.importandoXml() || this.importandoPdf());
 
+  // Quick Add Modals
+  mostrarModalProductoRapido = signal(false);
+  nuevoProductoRapido = signal({ nombre: '', codigoBarras: '', precioCompra: 0 });
+  guardandoProductoRapido = signal(false);
+
+  mostrarModalProveedorRapido = signal(false);
+  nuevoProveedorRapido = signal({ nombre: '', rfc: '', telefono: '' });
+  guardandoProveedorRapido = signal(false);
+
+  abrirProductoRapido() {
+    this.nuevoProductoRapido.set({ nombre: this.busquedaProducto() || '', codigoBarras: '', precioCompra: 0 });
+    this.mostrarModalProductoRapido.set(true);
+  }
+
+  guardarProductoRapido() {
+    if (!this.nuevoProductoRapido().nombre) return this.toast.show('El nombre es obligatorio', 'error');
+    this.guardandoProductoRapido.set(true);
+    const payload = {
+      nombre: this.nuevoProductoRapido().nombre,
+      codigoBarras: this.nuevoProductoRapido().codigoBarras,
+      precioCompra: this.nuevoProductoRapido().precioCompra,
+      precioUnitario: this.nuevoProductoRapido().precioCompra,
+      idCategoria: null
+    };
+    this.http.post<any>(environment.apiUrl + '/pos/productos', payload).subscribe({
+      next: (res) => {
+        this.toast.show('Producto creado rápidamente', 'success');
+        this.guardandoProductoRapido.set(false);
+        this.mostrarModalProductoRapido.set(false);
+        this.cargarCatalogo();
+        const prod = res.data || res;
+        if (prod) this.agregarAlCarrito(prod);
+        this.busquedaProducto.set('');
+      },
+      error: () => {
+        this.toast.show('Error al crear producto', 'error');
+        this.guardandoProductoRapido.set(false);
+      }
+    });
+  }
+
+  abrirProveedorRapido() {
+    this.nuevoProveedorRapido.set({ nombre: '', rfc: '', telefono: '' });
+    this.mostrarModalProveedorRapido.set(true);
+  }
+
+  guardarProveedorRapido() {
+    if (!this.nuevoProveedorRapido().nombre) return this.toast.show('El nombre es obligatorio', 'error');
+    this.guardandoProveedorRapido.set(true);
+    this.http.post<any>(environment.apiUrl + '/pos/proveedores', this.nuevoProveedorRapido()).subscribe({
+      next: (res) => {
+        this.toast.show('Proveedor creado rápidamente', 'success');
+        this.guardandoProveedorRapido.set(false);
+        this.mostrarModalProveedorRapido.set(false);
+        this.cargarProveedores();
+        const prov = res.data || res;
+        if (prov && prov.idProveedor) this.idProveedor.set(prov.idProveedor);
+      },
+      error: () => {
+        this.toast.show('Error al crear proveedor', 'error');
+        this.guardandoProveedorRapido.set(false);
+      }
+    });
+  }
+
   // XML Modals State
   mostrarModalNuevoProveedorXml = signal(false);
   proveedorXmlPendiente: any = null;
@@ -253,7 +318,7 @@ export class NuevaCompraComponent implements OnInit {
               nombre: p.conceptoXml,
               precioUnitario: p.costoUnitario, // Por ahora el costo es el precio para evitar nulos
               codigoBarras: p.noIdentificacion,
-              idCategoria: 1, // Categoría por defecto "General" si existe
+              idCategoria: null, // Evitar FK error
             }).toPromise();
             
             nuevosItems.push({

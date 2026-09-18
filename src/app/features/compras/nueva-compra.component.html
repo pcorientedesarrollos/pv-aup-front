@@ -72,12 +72,12 @@
                 placeholder="Escribe el nombre, clave o escanea el código de barras...">
             </div>
             
-            <a href="/productos?modal=nuevo" target="_blank"
+            <button (click)="abrirProductoRapido()"
               class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-3 rounded-lg font-bold flex items-center gap-2 whitespace-nowrap shadow-sm transition-colors"
               title="Abre en una nueva pestaña para crear un producto sin perder tu progreso aquí">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               Nuevo
-            </a>
+            </button>
             
             <button (click)="cargarCatalogo()"
               class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-3 rounded-lg font-bold flex items-center justify-center shadow-sm transition-colors"
@@ -211,10 +211,10 @@
                   <button (click)="cargarProveedores()" class="text-xs text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1" title="Recargar lista de proveedores">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                   </button>
-                  <a href="/proveedores?modal=nuevo" target="_blank" class="text-xs text-amber-600 hover:text-amber-800 font-bold flex items-center gap-1" title="Abre en una nueva pestaña para dar de alta un proveedor sin perder tu progreso aquí">
+                  <button (click)="abrirProveedorRapido()" class="text-xs text-amber-600 hover:text-amber-800 font-bold flex items-center gap-1" title="Abre en una nueva pestaña para dar de alta un proveedor sin perder tu progreso aquí">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     Nuevo
-                  </a>
+                  </button>
                 </div>
               </div>
             <select [ngModel]="idProveedor()" (ngModelChange)="idProveedor.set($event)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
@@ -358,6 +358,64 @@
         </button>
         <button (click)="resolveProductosXml?.(true)" class="btn-submit">
           Crear en Catálogo
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Alta Rápida Producto Modal -->
+@if (mostrarModalProductoRapido()) {
+  <div class="modal-overlay z-[100]" (click)="mostrarModalProductoRapido.set(false)">
+    <div class="modal-container flex flex-col slideInDown p-6 max-w-md" (click)="$event.stopPropagation()">
+      <h2 class="text-xl font-bold mb-4 text-slate-800">Alta Rápida de Producto</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Nombre del Producto <span class="text-red-500">*</span></label>
+          <input type="text" [ngModel]="nuevoProductoRapido().nombre" (ngModelChange)="nuevoProductoRapido.update(v => ({...v, nombre: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Código de Barras</label>
+          <input type="text" [ngModel]="nuevoProductoRapido().codigoBarras" (ngModelChange)="nuevoProductoRapido.update(v => ({...v, codigoBarras: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500" placeholder="Opcional">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Costo Unitario</label>
+          <input type="number" [ngModel]="nuevoProductoRapido().precioCompra" (ngModelChange)="nuevoProductoRapido.update(v => ({...v, precioCompra: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500">
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+        <button (click)="mostrarModalProductoRapido.set(false)" class="px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium transition-colors">Cancelar</button>
+        <button (click)="guardarProductoRapido()" [disabled]="guardandoProductoRapido()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold transition-colors">
+          Guardar y Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Alta Rápida Proveedor Modal -->
+@if (mostrarModalProveedorRapido()) {
+  <div class="modal-overlay z-[100]" (click)="mostrarModalProveedorRapido.set(false)">
+    <div class="modal-container flex flex-col slideInDown p-6 max-w-md" (click)="$event.stopPropagation()">
+      <h2 class="text-xl font-bold mb-4 text-slate-800">Alta Rápida de Proveedor</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Nombre / Razón Social <span class="text-red-500">*</span></label>
+          <input type="text" [ngModel]="nuevoProveedorRapido().nombre" (ngModelChange)="nuevoProveedorRapido.update(v => ({...v, nombre: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">RFC</label>
+          <input type="text" [ngModel]="nuevoProveedorRapido().rfc" (ngModelChange)="nuevoProveedorRapido.update(v => ({...v, rfc: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500" placeholder="Opcional">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Teléfono</label>
+          <input type="text" [ngModel]="nuevoProveedorRapido().telefono" (ngModelChange)="nuevoProveedorRapido.update(v => ({...v, telefono: $event}))" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-amber-500" placeholder="Opcional">
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+        <button (click)="mostrarModalProveedorRapido.set(false)" class="px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium transition-colors">Cancelar</button>
+        <button (click)="guardarProveedorRapido()" [disabled]="guardandoProveedorRapido()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold transition-colors">
+          Guardar y Seleccionar
         </button>
       </div>
     </div>
