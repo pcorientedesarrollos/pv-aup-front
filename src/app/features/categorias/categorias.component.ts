@@ -18,7 +18,6 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 class="text-2xl font-black text-slate-800 tracking-tight">Categorías de Productos</h1>
-          <p class="text-sm text-slate-500 mt-0.5">Gestiona las categorías de tu empresa</p>
         </div>
         <div class="flex items-center gap-3">
 
