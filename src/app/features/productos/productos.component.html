@@ -19,36 +19,11 @@
       <p class="text-sm text-slate-500 mt-0.5">Gestión de precios, stock y códigos de barras</p>
     </div>
 
-    <div class="flex gap-3 flex-wrap">
-      <button (click)="filtroStock.set('todos')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
-              [ngClass]="filtroStock() === 'todos' ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-200'">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total</span>
-        <span class="text-2xl font-black text-slate-800">{{ totalProductos() }}</span>
-      </button>
-      <button (click)="filtroStock.set(filtroStock() === 'stock-bajo' ? 'todos' : 'stock-bajo')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
-              [ngClass]="filtroStock() === 'stock-bajo' ? 'border-amber-400 ring-2 ring-amber-300' : 'border-amber-200'">
-        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Stock Bajo</span>
-        <span class="text-2xl font-black text-amber-600">{{ stockBajo() }}</span>
-      </button>
-      <button (click)="filtroStock.set(filtroStock() === 'sin-stock' ? 'todos' : 'sin-stock')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
-              [ngClass]="filtroStock() === 'sin-stock' ? 'border-red-400 ring-2 ring-red-300' : 'border-red-200'">
-        <span class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Sin Stock</span>
-        <span class="text-2xl font-black text-red-600">{{ sinStock() }}</span>
-      </button>
-      <button (click)="filtroStock.set(filtroStock() === 'disponible' ? 'todos' : 'disponible')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
-              [ngClass]="filtroStock() === 'disponible' ? 'border-emerald-400 ring-2 ring-emerald-300' : 'border-emerald-200'">
-        <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Disponible</span>
-        <span class="text-2xl font-black text-emerald-600">{{ disponible() }}</span>
-      </button>
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 px-4 py-2.5 flex flex-col min-w-[100px]">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Visibles</span>
-        <span class="text-2xl font-black text-slate-800">{{ productosFiltrados().length }}</span>
-      </div>
-    </div>
-  </div>
+    <div class="flex flex-col gap-3 items-end">
+
 
   <!-- Resumen de Inventario -->
-  <div class="w-fit ml-auto bg-gradient-to-r from-indigo-50 to-emerald-50 border border-indigo-100/50 rounded-xl p-4 flex flex-wrap gap-x-8 gap-y-4 shadow-sm items-center">
+  <div class="w-fit  bg-gradient-to-r from-indigo-50 to-emerald-50 border border-indigo-100/50 rounded-xl p-4 flex flex-wrap gap-x-8 gap-y-4 shadow-sm items-center">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -84,7 +59,35 @@
     </div>
   </div>
 
-  @if (isSoporte()) {
+  
+<div class="flex gap-3 flex-wrap">
+      <button (click)="filtroStock.set('todos')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+              [ngClass]="filtroStock() === 'todos' ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-200'">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total</span>
+        <span class="text-2xl font-black text-slate-800">{{ totalProductos() }}</span>
+      </button>
+      <button (click)="filtroStock.set(filtroStock() === 'stock-bajo' ? 'todos' : 'stock-bajo')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+              [ngClass]="filtroStock() === 'stock-bajo' ? 'border-amber-400 ring-2 ring-amber-300' : 'border-amber-200'">
+        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Stock Bajo</span>
+        <span class="text-2xl font-black text-amber-600">{{ stockBajo() }}</span>
+      </button>
+      <button (click)="filtroStock.set(filtroStock() === 'sin-stock' ? 'todos' : 'sin-stock')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+              [ngClass]="filtroStock() === 'sin-stock' ? 'border-red-400 ring-2 ring-red-300' : 'border-red-200'">
+        <span class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Sin Stock</span>
+        <span class="text-2xl font-black text-red-600">{{ sinStock() }}</span>
+      </button>
+      <button (click)="filtroStock.set(filtroStock() === 'disponible' ? 'todos' : 'disponible')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+              [ngClass]="filtroStock() === 'disponible' ? 'border-emerald-400 ring-2 ring-emerald-300' : 'border-emerald-200'">
+        <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Disponible</span>
+        <span class="text-2xl font-black text-emerald-600">{{ disponible() }}</span>
+      </button>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 overflow-hidden flex flex-col flex-1 min-h-0 relative z-10 px-4 py-2.5 flex flex-col min-w-[100px]">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Visibles</span>
+        <span class="text-2xl font-black text-slate-800">{{ productosFiltrados().length }}</span>
+      </div>
+    </div>
+</div>
+  </div>@if (isSoporte()) {
     <div class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-900 rounded-xl shadow-inner border border-slate-700">
       <div class="flex items-center gap-3">
         <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏢 Empresa:</label>

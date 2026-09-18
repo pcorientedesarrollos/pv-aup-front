@@ -40,7 +40,8 @@
     <div class="table-filters">
       <div class="filters-row flex flex-col md:flex-row gap-4 items-end p-4 border-b border-gray-100">
         <div class="filter-control w-full md:max-w-xs relative">
-            <select [ngModel]="filtroEstado()" (ngModelChange)="filtroEstado.set($event)" class="filter-input w-full">
+            <label class="filter-label" style="opacity: 0;">&nbsp;</label>
+              <select [ngModel]="filtroEstado()" (ngModelChange)="filtroEstado.set($event)" class="filter-input w-full">
               <option value="todos">Todos los Estados</option>
               <option value="activos">Activos</option>
               <option value="inactivos">Inactivos</option>
