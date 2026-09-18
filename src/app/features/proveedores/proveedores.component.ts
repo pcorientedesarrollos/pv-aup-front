@@ -191,7 +191,7 @@ export class ProveedoresComponent implements OnInit {
   ngOnInit() {
     this.cargarProveedores();
     this.cargarProductos();
-    this.route.queryParams.subscribe((params: any) => {
+    this.route.queryParams.subscribe(params => {
       if (params['modal'] === 'nuevo') {
         this.abrirModalCrear();
       }
