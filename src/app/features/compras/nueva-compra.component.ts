@@ -250,6 +250,8 @@ export class NuevaCompraComponent implements OnInit {
   }
 
   async procesarFacturaResponse(res: any) {
+    this.tasaIva.set(0); // El costo unitario de XML/PDF ya trae el IVA inyectado, así que el subtotal ya es el total
+
     // Auto-asignar Folio
     if (res.folio || res.serie) {
       const folioStr = `${res.serie || ''}${res.folio || ''}`.trim();
