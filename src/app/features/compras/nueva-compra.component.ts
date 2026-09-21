@@ -173,11 +173,19 @@ export class NuevaCompraComponent implements OnInit {
   tasaIva = signal<number>(16); // Default 16% as requested
 
   montoIva = computed(() => {
-    return this.totalCompra() * (this.tasaIva() / 100);
+    const total = this.totalCompra();
+    const tasa = this.tasaIva() / 100;
+    // Si la tasa es > 0, asumimos que totalCompra YA incluye el IVA y hacemos el desglose inverso.
+    return total - (total / (1 + tasa));
   });
 
   totalFinal = computed(() => {
-    return this.totalCompra() + this.montoIva();
+    // totalCompra ya es el total con IVA incluido
+    return this.totalCompra();
+  });
+  
+  subtotalDesglosado = computed(() => {
+    return this.totalCompra() - this.montoIva();
   });
 
   totalCompra = computed(() => {
