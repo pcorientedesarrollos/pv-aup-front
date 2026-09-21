@@ -160,7 +160,7 @@ export class NuevaCompraComponent implements OnInit {
         nombre: producto.nombre,
         cantidad: 1,
         precioCosto: producto.precioUnitario || 0, // precio unitario = costo
-        actualizarCosto: false
+        actualizarCosto: true
       }]);
     }
     this.busquedaProducto.set('');
@@ -306,7 +306,7 @@ export class NuevaCompraComponent implements OnInit {
             nombre: c.productoEncontrado.nombre,
             cantidad: c.cantidad,
             precioCosto: c.costoUnitario || c.productoEncontrado.precioUnitario || 0,
-            actualizarCosto: false
+            actualizarCosto: true
           });
         }
       } else {
@@ -338,7 +338,7 @@ export class NuevaCompraComponent implements OnInit {
               nombre: nuevoProd.nombre,
               cantidad: p.cantidad,
               precioCosto: p.costoUnitario,
-              actualizarCosto: false
+              actualizarCosto: true
             });
           } catch (e) {
             console.error('Error creando producto', p, e);

@@ -367,14 +367,14 @@ export class ProductosComponent implements OnInit {
     sumarStock: '',
     tipoArticulo: prod.tipoArticulo || 'Terminado',
     unidadMedida: prod.unidadMedida || 'Pza',
-    precioCompra: prod.precioCompra || prod.precioUnitario || 0,
+    precioCompra: Number(prod.precioCompra) || Number(prod.precioUnitario) || 0,
     utilidad: prod.utilidad || 18,
     aplicaDescuento: prod.aplicaDescuento || false,
     tipoDescuento: prod.tipoDescuento || 'porcentaje',
     descuento: prod.descuento || 0,
     aplicaIva: prod.aplicaIva || false,
       iva: prod.iva !== undefined ? Number(prod.iva) : 16,
-      precioVenta: prod.precioVenta || prod.precioPublico || 0,
+      precioVenta: Number(prod.precioVenta) || Number(prod.precioPublico) || 0,
   };
   
   this.imagenPreview.set(prod.imagenUrl ? `${environment.apiUrl}${prod.imagenUrl}` : null);
