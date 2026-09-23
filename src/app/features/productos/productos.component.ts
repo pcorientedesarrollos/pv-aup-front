@@ -585,7 +585,8 @@ export class ProductosComponent implements OnInit {
       claveUnidad: this.nuevoProducto.claveUnidad,
       sumarStock: this.nuevoProducto.sumarStock ? Number(this.nuevoProducto.sumarStock) : 0,
       tipoArticulo: this.nuevoProducto.tipoArticulo,
-      unidadMedida: this.nuevoProducto.unidadMedida
+      unidadMedida: this.nuevoProducto.unidadMedida,
+      idCategoria: this.nuevoProducto.idCategoria ?? null
     };
 
     this.http.patch(`${environment.apiUrl}/pos/productos/${id}`, payload).subscribe({
