@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnInit } from '@angular/core';
+import { Component, signal, computed, OnInit, HostListener } from '@angular/core';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,12 @@ import { environment } from '../../../environments/environment';
   templateUrl: './historial.component.html',
 })
 export class HistorialComponent implements OnInit {
+  menuAbierto: number | null = null;
+  
+  @HostListener('document:click')
+  cerrarMenus() {
+    this.menuAbierto = null;
+  }
   ventas = signal<any[]>([]);
   cargando = signal(false);
   fechaInicio = signal(new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10)); // Hoy local
