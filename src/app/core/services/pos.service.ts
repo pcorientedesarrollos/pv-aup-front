@@ -296,8 +296,8 @@ export class PosService {
       items
         .map((item) => {
           if (item.uid !== uid) return item;
-          const nuevaCantidad = item.cantidad + delta;
-            if (nuevaCantidad <= 0) return null;
+          let nuevaCantidad = item.cantidad + delta;
+            if (nuevaCantidad <= 0) nuevaCantidad = 0; // Don't delete, just clamp to 0
             const price = this.getPrecioActivo(item.producto, nuevaCantidad);
             const newSubtotal = nuevaCantidad * price;
             
@@ -323,7 +323,11 @@ export class PosService {
 
   setCantidadExacta(uid: string, cantidad: number) {
     if (cantidad === null || isNaN(cantidad) || cantidad <= 0) {
-      this.eliminarDelCarrito(uid);
+      // Just update it to 0 so the user can keep typing, but do not delete
+      this._carrito.update(items => items.map(item => {
+        if (item.uid !== uid) return item;
+        return { ...item, cantidad: 0, subtotal: 0 }; // Temporarily 0
+      }));
       return;
     }
 
