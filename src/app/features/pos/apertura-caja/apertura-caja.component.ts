@@ -2,6 +2,7 @@ import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 import { PosService } from '../../../core/services/pos.service';
 
 @Component({
@@ -15,10 +16,13 @@ export class AperturaCajaComponent implements OnInit {
   cargando = signal(false);
   error = signal('');
   nombreCajero = '';
+  turnoAntiguoAbierto = false;
+  fechaTurnoAntiguo = '';
 
   constructor(
     private auth: AuthService,
-    private pos: PosService
+    private pos: PosService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -28,15 +32,31 @@ export class AperturaCajaComponent implements OnInit {
     if (idUsuario) {
       this.cargando.set(true);
       this.pos.getTurnoActivo(idUsuario).subscribe({
+        
         next: (turno) => {
           this.cargando.set(false);
           if (turno) {
-            this.auth.marcarTurnoAbierto();
+            const tzOffset = (new Date()).getTimezoneOffset() * 60000;
+            const hoy = new Date(Date.now() - tzOffset).toISOString().slice(0, 10);
+            const fechaTurno = new Date(new Date(turno.fechaApertura).getTime() - tzOffset).toISOString().slice(0, 10);
+            
+            if (fechaTurno < hoy) {
+              this.error.set(`Tienes un turno abierto del día ${new Date(turno.fechaApertura).toLocaleDateString()}. Debes realizar el corte de caja antes de continuar.`);
+              this.turnoAntiguoAbierto = true;
+              this.fechaTurnoAntiguo = fechaTurno;
+            } else {
+              this.auth.marcarTurnoAbierto();
+            }
           }
         },
+
         error: () => this.cargando.set(false)
       });
     }
+  }
+
+  irACorteDeCaja() {
+    this.router.navigate(['/corte-caja']);
   }
 
   abrirTurno() {

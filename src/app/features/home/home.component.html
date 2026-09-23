@@ -40,7 +40,7 @@
         <!-- KPI Esta Semana -->
         <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Esta Semana</p>
-          <p class="text-3xl font-black text-amber-500 tracking-tight">{{ resumen()?.ventasSemana | currency:'USD':'symbol':'1.0-0' }}</p>
+          <p class="text-3xl font-black text-amber-500 tracking-tight">{{ resumen()?.ventasSemanaTotal | currency:'USD':'symbol':'1.0-0' }}</p>
           <p class="text-xs text-gray-400 mt-1">{{ resumen()?.ticketsSemana }} ticket(s)</p>
         </div>
 
