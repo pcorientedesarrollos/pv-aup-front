@@ -40,7 +40,7 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
 
         @if (isSoporte()) {
           <div class="flex items-center gap-3">
-            <label class="text-sm font-bold text-slate-700">🏢 Empresa:</label>
+            <label class="text-sm font-bold text-slate-700">Empresa:</label>
             <select [ngModel]="filtroEmpresa()" (ngModelChange)="filtroEmpresa.set($event)" class="bg-white border-slate-300 text-slate-800 rounded-lg px-3 py-1.5 shadow-sm focus:border-amber-500 focus:ring-amber-500">
               <option value="todas">Todas</option>
               @for (emp of empresas(); track emp.idEmpresa) {

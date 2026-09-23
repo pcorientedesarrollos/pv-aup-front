@@ -540,8 +540,8 @@ export class PosService {
     return this.http.post<any>(`${this.API}/pos/cotizaciones`, payload);
   }
 
-  convertirCotizacionAVenta(idCotizacion: number) {
-    return this.http.patch<any>(`${this.API}/pos/cotizaciones/${idCotizacion}/convertir`, {});
+  convertirCotizacionAVenta(idCotizacion: number, metodoPago: string = 'Efectivo') {
+    return this.http.patch<any>(`${this.API}/pos/cotizaciones/${idCotizacion}/convertir`, { metodoPago });
   }
 
   actualizarCotizacion(idCotizacion: number, payload: any) {

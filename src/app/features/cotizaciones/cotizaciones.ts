@@ -123,7 +123,15 @@ export class CotizacionesComponent implements OnInit {
 
   convertirAVenta(idCotizacion: number) {
     if (confirm('¿Estás seguro de convertir esta cotización a venta? Esto afectará el inventario.')) {
-      this.posService.convertirCotizacionAVenta(idCotizacion).subscribe({
+      let metodoPago = window.prompt('Ingresa el método de pago (Efectivo, Tarjeta, Transferencia):', 'Efectivo');
+      if (!metodoPago) return;
+      metodoPago = metodoPago.trim();
+      metodoPago = metodoPago.charAt(0).toUpperCase() + metodoPago.slice(1).toLowerCase();
+      if (!['Efectivo', 'Tarjeta', 'Transferencia'].includes(metodoPago)) {
+        this.toast.show('Método de pago inválido.', 'error');
+        return;
+      }
+      this.posService.convertirCotizacionAVenta(idCotizacion, metodoPago).subscribe({
         next: (res) => {
           if (res.success) {
             this.toast.show('Cotización convertida a venta exitosamente', 'success');
