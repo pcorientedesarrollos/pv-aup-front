@@ -324,7 +324,7 @@ export class NuevaCotizacionComponent implements OnInit {
   costoBase = computed(() => {
     return this.carrito().reduce((acc, item) => {
       let base = Number(item.precioCompra);
-      if (item.moneda === 'USD') base *= Number(item.tipoCambio || this.tipoCambio());
+      if (item.moneda === 'USD') base /= Number(item.tipoCambio || this.tipoCambio());
       return acc + (base * item.cantidad);
     }, 0);
   });

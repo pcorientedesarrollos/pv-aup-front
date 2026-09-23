@@ -1,5 +1,5 @@
 import { AuthService } from '../../core/services/auth.service';
-import { Component, OnInit, signal, inject, computed } from '@angular/core';
+import { Component, HostListener, OnInit, signal, inject, computed } from '@angular/core';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,11 @@ import { ToastService } from '../../core/services/toast.service';
   templateUrl: './cotizaciones.html',
 })
 export class CotizacionesComponent implements OnInit {
+  menuAbierto: number | null = null;
+
+  @HostListener('document:click')
+  cerrarMenus() { this.menuAbierto = null; }
+
 
   tamanoPagina = signal(10);
   paginaActual = signal(1);
