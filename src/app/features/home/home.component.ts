@@ -1,4 +1,4 @@
-﻿import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -21,13 +21,13 @@ export class HomeComponent implements OnInit {
     labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
     datasets: [
       {
-        data: [1200, 1900, 3000, 2500, 2200, 3200, 4500],
+        data: [0, 0, 0, 0, 0, 0, 0],
         label: 'Ventas de la semana',
         fill: true,
         tension: 0.4,
-        borderColor: '#4f46e5',
-        backgroundColor: 'rgba(79, 70, 229, 0.2)',
-        pointBackgroundColor: '#4f46e5',
+        borderColor: '#f59e0b',
+        backgroundColor: 'rgba(245, 158, 11, 0.15)',
+        pointBackgroundColor: '#f59e0b',
       }
     ]
   };
@@ -35,10 +35,21 @@ export class HomeComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false }
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(ctx.parsed.y);
+          }
+        }
+      }
     },
     scales: {
-      y: { beginAtZero: true, grid: { display: true, color: '#f3f4f6' } },
+      y: {
+        beginAtZero: true,
+        grid: { display: true, color: '#f3f4f6' },
+        ticks: { callback: (v) => '$' + v }
+      },
       x: { grid: { display: false } }
     }
   };
@@ -50,15 +61,19 @@ export class HomeComponent implements OnInit {
   }
 
   cargarResumen() {
-    this.http.get<any>(`/dashboard/resumen`).subscribe({
+    this.http.get<any>(`${environment.apiUrl}/pos/dashboard/stats`).subscribe({
       next: (data) => {
         this.resumen.set(data);
-        
-        if (data.ventasSemana) {
+
+        // graficaDias es un array de {fecha, total} de los últimos 7 días
+        if (data?.graficaDias && data.graficaDias.length > 0) {
           this.lineChartData = {
-            ...this.lineChartData,
+            labels: data.graficaDias.map((d: any) => d.fecha),
             datasets: [
-              { ...this.lineChartData.datasets[0], data: data.ventasSemana }
+              {
+                ...this.lineChartData.datasets[0],
+                data: data.graficaDias.map((d: any) => d.total)
+              }
             ]
           };
         }

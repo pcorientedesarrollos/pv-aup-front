@@ -4,7 +4,6 @@
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
     <div>
       <h1 class="page-title">Dashboard</h1>
-      
     </div>
     
     <div class="flex items-center gap-3">
@@ -26,6 +25,12 @@
       <div class="flex items-center justify-center h-full">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-amber-200 border-t-amber-500"></div>
       </div>
+    } @else if (!resumen()) {
+      <div class="text-center py-16 text-gray-400">
+        <p class="text-4xl mb-4">📊</p>
+        <p class="font-semibold">No se pudieron cargar los datos del dashboard</p>
+        <p class="text-sm mt-1">Verifica que tengas una sucursal asignada</p>
+      </div>
     } @else {
       <!-- Tarjetas de KPIs -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
@@ -33,90 +38,72 @@
         <!-- KPI Ventas Hoy -->
         <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Ventas Hoy</p>
-          <p class="text-3xl font-black text-slate-800 tracking-tight">{{ resumen()?.ventasHoy | currency:'USD':'symbol':'1.0-0' }}</p>
-          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.ticketsHoy }} ticket(s)</p>
+          <p class="text-3xl font-black text-slate-800 tracking-tight">{{ resumen()?.hoy?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.hoy?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Esta Semana -->
         <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Esta Semana</p>
-          <p class="text-3xl font-black text-amber-500 tracking-tight">{{ resumen()?.ventasSemanaTotal | currency:'USD':'symbol':'1.0-0' }}</p>
-          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.ticketsSemana }} ticket(s)</p>
+          <p class="text-3xl font-black text-amber-500 tracking-tight">{{ resumen()?.semana?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.semana?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Este Mes -->
         <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Este Mes</p>
-          <p class="text-3xl font-black text-emerald-600 tracking-tight">{{ resumen()?.ventasMes | currency:'USD':'symbol':'1.0-0' }}</p>
-          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.ticketsMes }} ticket(s)</p>
+          <p class="text-3xl font-black text-emerald-600 tracking-tight">{{ resumen()?.mes?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.mes?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Devoluciones Hoy -->
         <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
-          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Devoluciones Hoy</p>
-          <p class="text-3xl font-black text-indigo-500 tracking-tight">{{ resumen()?.devolucionesHoy | currency:'USD':'symbol':'1.0-0' }}</p>
-          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.ticketsDevolucionesHoy }} devolución(es)</p>
+          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Devoluciones</p>
+          <p class="text-3xl font-black text-indigo-500 tracking-tight">{{ resumen()?.devoluciones?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
+          <p class="text-xs text-gray-400 mt-1">{{ resumen()?.devoluciones?.cantidad }} devolución(es)</p>
         </div>
 
-        <!-- KPI Sin Stock -->
-        <div class="metric-card bg-red-50/50 rounded-lg shadow-sm border border-red-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
-          <p class="text-[11px] font-bold text-red-400 uppercase tracking-wider mb-1">Sin Stock</p>
-          <p class="text-3xl font-black text-red-600 tracking-tight">{{ resumen()?.sinStock }}</p>
-          <p class="text-xs text-red-400 mt-1">productos sin existencias</p>
-        </div>
+        <!-- KPI Caja / Sin Stock -->
+        @if (resumen()?.caja?.abierta) {
+          <div class="metric-card bg-emerald-50/50 rounded-lg shadow-sm border border-emerald-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+            <p class="text-[11px] font-bold text-emerald-500 uppercase tracking-wider mb-1">💰 Caja Abierta</p>
+            <p class="text-3xl font-black text-emerald-700 tracking-tight">{{ resumen()?.caja?.saldo | currency:'MXN':'symbol':'1.0-0' }}</p>
+            <p class="text-xs text-emerald-500 mt-1">efectivo estimado</p>
+          </div>
+        } @else {
+          <div class="metric-card bg-red-50/50 rounded-lg shadow-sm border border-red-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+            <p class="text-[11px] font-bold text-red-400 uppercase tracking-wider mb-1">Sin Stock</p>
+            <p class="text-3xl font-black text-red-600 tracking-tight">{{ resumen()?.sinStock }}</p>
+            <p class="text-xs text-red-400 mt-1">productos sin existencias</p>
+          </div>
+        }
 
+      </div>
+
+      <!-- Fila de info extra: Ticket Promedio / Sin facturar / Cotizaciones -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div class="bg-white rounded-lg border border-gray-100 p-3 text-center shadow-sm">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">Ticket Prom.</p>
+          <p class="text-lg font-bold text-slate-700 mt-0.5">{{ resumen()?.ticketPromedio | currency:'MXN':'symbol':'1.0-0' }}</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-100 p-3 text-center shadow-sm">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">Sin Facturar</p>
+          <p class="text-lg font-bold text-orange-500 mt-0.5">{{ resumen()?.ventasSinFacturar }}</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-100 p-3 text-center shadow-sm">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">Cotiz. Hoy</p>
+          <p class="text-lg font-bold text-blue-500 mt-0.5">{{ resumen()?.cotizacionesHoy }}</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-100 p-3 text-center shadow-sm">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">Stock Bajo</p>
+          <p class="text-lg font-bold text-yellow-500 mt-0.5">{{ resumen()?.stockBajo }}</p>
+        </div>
       </div>
 
       <!-- Gráfica y Lista de Movimientos -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         <div class="flex flex-col gap-8">
-          <!-- Últimos Movimientos -->
-          <div class="form-section bg-white rounded-lg shadow-md p-6">
-            <h2 class="section-title">Últimos Movimientos</h2>
-            
-            <div class="honey-table-container">
-              <div class="table-wrapper overflow-x-auto w-full">
-                <table class="honey-table table-hoverable min-w-full divide-y divide-gray-200">
-                  <thead class="bg-gray-50">
-                    <tr>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto</th>
-                      <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Importe</th>
-                      <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    @for (mov of resumen()?.ultimosMovimientos; track mov.idDetalle) {
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ mov.concepto | slice:0:20 }}{{ mov.concepto.length > 20 ? '...' : '' }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-bold" [ngClass]="mov.movimiento === 'ENTRADA' ? 'text-emerald-600' : 'text-rose-600'">
-                          {{ mov.importe | currency }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-center flex justify-center">
-                          @if(mov.movimiento === 'ENTRADA') {
-                            <span class="badge-success">
-                              Ingreso
-                            </span>
-                          } @else {
-                            <span class="badge-danger">
-                              Salida
-                            </span>
-                          }
-                        </td>
-                      </tr>
-                    } @empty {
-                      <tr>
-                        <td colspan="3" class="empty-state">
-                          No hay movimientos recientes
-                        </td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
           <!-- Top 5 Productos -->
           <div class="form-section bg-white rounded-lg shadow-md p-6">
             <h2 class="section-title">
@@ -133,12 +120,38 @@
                     <p class="font-medium text-gray-800 text-sm">{{ prod.nombre }}</p>
                   </div>
                   <div class="text-right">
-                    <p class="font-bold text-emerald-600">{{ prod.cantidad | number:'1.0-0' }}<span class="text-xs text-gray-400 font-medium ml-1">uds</span></p>
+                    <p class="font-bold text-emerald-600">{{ prod.unidades | number:'1.0-0' }}<span class="text-xs text-gray-400 font-medium ml-1">uds</span></p>
+                    <p class="text-xs text-gray-400">{{ prod.ingresos | currency:'MXN':'symbol':'1.0-0' }}</p>
                   </div>
                 </div>
               } @empty {
                 <p class="text-center py-4 text-gray-400 text-sm">Aún no hay ventas este mes</p>
               }
+            </div>
+          </div>
+
+          <!-- Métodos de Pago Hoy -->
+          <div class="form-section bg-white rounded-lg shadow-md p-6">
+            <h2 class="section-title">💳 Métodos de Pago Hoy</h2>
+            <div class="space-y-3 mt-4">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>Efectivo
+                </span>
+                <span class="font-bold text-emerald-600">{{ resumen()?.metodosPago?.Efectivo | currency:'MXN':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span>Tarjeta
+                </span>
+                <span class="font-bold text-blue-600">{{ resumen()?.metodosPago?.Tarjeta | currency:'MXN':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-purple-500 inline-block"></span>Transferencia
+                </span>
+                <span class="font-bold text-purple-600">{{ resumen()?.metodosPago?.Transferencia | currency:'MXN':'symbol':'1.2-2' }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -147,7 +160,7 @@
         <div class="form-section bg-white rounded-lg shadow-md p-6 flex flex-col h-[420px] self-start w-full border-amber-100 border-t-4">
           <div class="flex justify-between items-center mb-6">
             <h2 class="section-title">
-              <span class="text-amber-500">🕒</span> Resumen Semanal
+              <span class="text-amber-500">🕒</span> Últimos 7 días
             </h2>
             <button routerLink="/historial" class="text-sm font-bold text-amber-500 hover:text-amber-600 transition-colors focus:outline-none">
               Ver Todos →
