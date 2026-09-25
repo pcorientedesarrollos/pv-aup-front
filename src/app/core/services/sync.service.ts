@@ -1,4 +1,4 @@
-﻿import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { get, set } from 'idb-keyval';
@@ -66,7 +66,7 @@ export class SyncService {
 
     for (const venta of pendientes) {
       try {
-        await this.http.post(`${this.API}/cajachica/checkout`, venta.payload).toPromise();
+        await this.http.post(`${this.API}/pos/checkout`, venta.payload).toPromise();
         
         // Marcar como sincronizada
         const idx = allVentas.findIndex(v => v.idLocal === venta.idLocal);
