@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       tooltip: {
         callbacks: {
           label: (ctx) => {
-            return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(ctx.parsed.y);
+            return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(ctx.parsed.y ?? 0);
           }
         }
       }
