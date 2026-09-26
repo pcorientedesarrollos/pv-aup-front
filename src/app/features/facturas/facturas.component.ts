@@ -1,4 +1,5 @@
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Component, OnInit, signal, computed, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
@@ -18,6 +19,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   }
 })
 export class FacturasComponent implements OnInit {
+
+  private destroyRef = inject(DestroyRef);
 
   paginaActual = signal(1);
   tamanoPagina = signal(10);
@@ -201,7 +204,7 @@ export class FacturasComponent implements OnInit {
       
       this.cargarClientes();
       
-      this.route.queryParams.subscribe((params: any) => {
+      this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params: any) => {
         if (params['facturarVenta']) {
           const val = params['facturarVenta'];
           this.abrirModalFactura();
