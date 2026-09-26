@@ -10,12 +10,12 @@
   <!-- Tabs -->
   <div class="flex items-center gap-2 border-b border-gray-200 dark:border-gray-800">
     <button (click)="vistaActiva.set('nuevo')"
-            class="px-5 py-2.5 text-sm font-semibold border-b-2 transition-all"
+            class="px-5 py-2.5 text-sm font-semibold border-b-2 transition"
             [ngClass]="vistaActiva() === 'nuevo' ? 'border-amber-500 text-amber-500' : 'border-transparent text-gray-500 hover:text-gray-700'">
       Nuevo Traspaso
     </button>
     <button (click)="vistaActiva.set('historial')"
-            class="px-5 py-2.5 text-sm font-semibold border-b-2 transition-all"
+            class="px-5 py-2.5 text-sm font-semibold border-b-2 transition"
             [ngClass]="vistaActiva() === 'historial' ? 'border-amber-500 text-amber-500' : 'border-transparent text-gray-500 hover:text-gray-700'">
       Historial
     </button>
@@ -147,7 +147,7 @@
               } @else {
                 <div class="space-y-3">
                   @for (item of carrito(); track item.producto.idProducto) {
-                    <div class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 transition-all hover:shadow-md hover:border-gray-200">
+                    <div class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 transition hover:shadow-md hover:border-gray-200">
                        <div class="flex-1">
                          <p class="text-sm font-bold text-gray-800 dark:text-white">{{ item.producto.nombre }}</p>
                          <p class="text-[11px] text-gray-500 mt-0.5">Stock en Origen: {{ item.producto.stockActual }}</p>
@@ -168,7 +168,7 @@
 
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 rounded-b-xl" [ngClass]="{'hidden': tipoTraspaso() === 'Intercambio'}">
                <button (click)="confirmarTraspaso()" [disabled]="guardando() || carrito().length === 0"
-                       class="w-full flex justify-center items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-amber-500/30 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+                       class="w-full flex justify-center items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-amber-500/30 transition active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
                  @if (guardando()) {
                    <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                    Procesando...
@@ -229,7 +229,7 @@
                 } @else {
                   <div class="space-y-3">
                     @for (item of carritoRecibe(); track item.producto.idProducto) {
-                      <div class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 transition-all hover:shadow-md hover:border-gray-200">
+                      <div class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 transition hover:shadow-md hover:border-gray-200">
                          <div class="flex-1">
                            <p class="text-sm font-bold text-gray-800 dark:text-white">{{ item.producto.nombre }}</p>
                          </div>
@@ -249,7 +249,7 @@
 
               <div class="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 rounded-b-xl">
                  <button (click)="confirmarTraspaso()" [disabled]="guardando() || carrito().length === 0 || carritoRecibe().length === 0"
-                         class="w-full flex justify-center items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+                         class="w-full flex justify-center items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
                    @if (guardando()) {
                      <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                      Procesando...

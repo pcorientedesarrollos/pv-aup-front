@@ -30,7 +30,7 @@ import { ConfirmService } from '../../../core/services/confirm.service';
               <button 
                 (click)="confirmService.respond(true)"
                 [ngClass]="confirmService.modalState()!.config.isDanger ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-[var(--color-primario)] hover:brightness-110 text-[var(--texto-on-primario)]'"
-                class="flex-1 px-4 py-2.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                class="flex-1 px-4 py-2.5 rounded-xl font-bold shadow-md hover:shadow-lg transition"
               >
                 {{ confirmService.modalState()!.config.confirmText || 'Aceptar' }}
               </button>

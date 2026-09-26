@@ -30,28 +30,28 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         
         <!-- KPI Ventas Hoy -->
-        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Ventas Hoy</p>
           <p class="text-3xl font-black text-slate-800 tracking-tight">{{ resumen()?.hoy?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
           <p class="text-xs text-gray-400 mt-1">{{ resumen()?.hoy?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Esta Semana -->
-        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Esta Semana</p>
           <p class="text-3xl font-black text-amber-500 tracking-tight">{{ resumen()?.semana?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
           <p class="text-xs text-gray-400 mt-1">{{ resumen()?.semana?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Este Mes -->
-        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Este Mes</p>
           <p class="text-3xl font-black text-emerald-600 tracking-tight">{{ resumen()?.mes?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
           <p class="text-xs text-gray-400 mt-1">{{ resumen()?.mes?.cantidad }} ticket(s)</p>
         </div>
 
         <!-- KPI Devoluciones Hoy -->
-        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+        <div class="metric-card bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Devoluciones</p>
           <p class="text-3xl font-black text-indigo-500 tracking-tight">{{ resumen()?.devoluciones?.total | currency:'MXN':'symbol':'1.0-0' }}</p>
           <p class="text-xs text-gray-400 mt-1">{{ resumen()?.devoluciones?.cantidad }} devolución(es)</p>
@@ -59,13 +59,13 @@
 
         <!-- KPI Caja / Sin Stock -->
         @if (resumen()?.caja?.abierta) {
-          <div class="metric-card bg-emerald-50/50 rounded-lg shadow-sm border border-emerald-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+          <div class="metric-card bg-emerald-50/50 rounded-lg shadow-sm border border-emerald-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
             <p class="text-[11px] font-bold text-emerald-500 uppercase tracking-wider mb-1">💰 Caja Abierta</p>
             <p class="text-3xl font-black text-emerald-700 tracking-tight">{{ resumen()?.caja?.saldo | currency:'MXN':'symbol':'1.0-0' }}</p>
             <p class="text-xs text-emerald-500 mt-1">efectivo estimado</p>
           </div>
         } @else {
-          <div class="metric-card bg-red-50/50 rounded-lg shadow-sm border border-red-200 p-4 flex flex-col justify-center transition-all hover:-translate-y-1 hover:shadow-md">
+          <div class="metric-card bg-red-50/50 rounded-lg shadow-sm border border-red-200 p-4 flex flex-col justify-center transition hover:-translate-y-1 hover:shadow-md">
             <p class="text-[11px] font-bold text-red-400 uppercase tracking-wider mb-1">Sin Stock</p>
             <p class="text-3xl font-black text-red-600 tracking-tight">{{ resumen()?.sinStock }}</p>
             <p class="text-xs text-red-400 mt-1">productos sin existencias</p>

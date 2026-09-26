@@ -28,7 +28,7 @@ import { environment } from "../../../../environments/environment";
             <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
               <p class="text-sm font-semibold text-slate-700 mb-2">Paso 1 — Descarga la plantilla</p>
               <p class="text-xs text-slate-500 mb-3">Llénala con tus datos en Excel y guárdala.</p>
-              <button (click)="descargarPlantilla()" class="flex items-center gap-2 bg-white border border-slate-300 hover:border-amber-400 hover:bg-amber-50 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg transition-all shadow-sm">
+              <button (click)="descargarPlantilla()" class="flex items-center gap-2 bg-white border border-slate-300 hover:border-amber-400 hover:bg-amber-50 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg transition shadow-sm">
                 📄 Descargar Plantilla .xlsx
               </button>
             </div>

@@ -51,22 +51,22 @@
 
   
 <div class="flex gap-3 flex-wrap">
-      <button (click)="filtroStock.set('todos')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+      <button (click)="filtroStock.set('todos')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition hover:shadow-md"
               [ngClass]="filtroStock() === 'todos' ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-200'">
         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total</span>
         <span class="text-2xl font-black text-slate-800">{{ totalProductos() }}</span>
       </button>
-      <button (click)="filtroStock.set(filtroStock() === 'stock-bajo' ? 'todos' : 'stock-bajo')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+      <button (click)="filtroStock.set(filtroStock() === 'stock-bajo' ? 'todos' : 'stock-bajo')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition hover:shadow-md"
               [ngClass]="filtroStock() === 'stock-bajo' ? 'border-amber-400 ring-2 ring-amber-300' : 'border-amber-200'">
         <span class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Stock Bajo</span>
         <span class="text-2xl font-black text-amber-600">{{ stockBajo() }}</span>
       </button>
-      <button (click)="filtroStock.set(filtroStock() === 'sin-stock' ? 'todos' : 'sin-stock')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+      <button (click)="filtroStock.set(filtroStock() === 'sin-stock' ? 'todos' : 'sin-stock')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition hover:shadow-md"
               [ngClass]="filtroStock() === 'sin-stock' ? 'border-red-400 ring-2 ring-red-300' : 'border-red-200'">
         <span class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Sin Stock</span>
         <span class="text-2xl font-black text-red-600">{{ sinStock() }}</span>
       </button>
-      <button (click)="filtroStock.set(filtroStock() === 'disponible' ? 'todos' : 'disponible')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition-all hover:shadow-md"
+      <button (click)="filtroStock.set(filtroStock() === 'disponible' ? 'todos' : 'disponible')" class="bg-white rounded-xl shadow-sm border px-4 py-2.5 flex flex-col min-w-[100px] text-left transition hover:shadow-md"
               [ngClass]="filtroStock() === 'disponible' ? 'border-emerald-400 ring-2 ring-emerald-300' : 'border-emerald-200'">
         <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Disponible</span>
         <span class="text-2xl font-black text-emerald-600">{{ disponible() }}</span>
@@ -121,7 +121,7 @@
         <select
       [ngModel]="filtroFamilia()"
       (ngModelChange)="filtroFamilia.set($event === 'todas' ? 'todas' : +$event)"
-      class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all w-full sm:w-72  cursor-pointer"
+      class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition w-full sm:w-72  cursor-pointer"
     >
       <option value="todas"> Todas las Categorías</option>
       @for (cat of categoriasFiltradas(); track cat.idCategoria) {
@@ -263,7 +263,7 @@
                   <td class="py-3 px-4 text-center">
                     <button
                       (click)="verComprasProducto(prod)"
-                      class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all"
+                      class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition"
                       [ngClass]="productoSeleccionado()?.idProducto === prod.idProducto
                         ? 'bg-amber-100 text-amber-700 ring-1 ring-amber-300'
                         : 'bg-slate-100 text-slate-500 hover:bg-amber-50 hover:text-amber-600'"
@@ -316,7 +316,7 @@
         } @else {
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
             @for (prod of productosPaginados(); track prod.idProducto) {
-              <div class="bg-white border rounded-xl shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 group flex flex-col"
+              <div class="bg-white border rounded-xl shadow-sm hover:shadow-md transition hover:-translate-y-0.5 group flex flex-col"
                    [ngClass]="{
                      'border-red-200': getStockClass(prod) === 'stock-cero',
                      'border-amber-200': getStockClass(prod) === 'stock-bajo',
@@ -434,7 +434,7 @@
                   </td>
                   <td class="py-3 px-4 text-center">
                     <button (click)="verDetalleCompra(compra)"
-                            class="px-2.5 py-1.5 text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50/80 transition-colors hover:border-slate-300 rounded shadow-sm transition-all inline-flex items-center gap-1.5">
+                            class="px-2.5 py-1.5 text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50/80 transition-colors hover:border-slate-300 rounded shadow-sm transition inline-flex items-center gap-1.5">
                       <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                       Ver Detalle
                     </button>

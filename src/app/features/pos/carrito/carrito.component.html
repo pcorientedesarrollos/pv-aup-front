@@ -245,7 +245,7 @@
             id="btn-cobrar"
             (click)="cobrar()"
             [disabled]="pos.carrito().length === 0 || cargando()"
-            class="w-full py-4 mt-2 bg-emerald-500 text-white font-black text-lg uppercase tracking-widest rounded-lg shadow-lg hover:bg-emerald-400 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+            class="w-full py-4 mt-2 bg-emerald-500 text-white font-black text-lg uppercase tracking-widest rounded-lg shadow-lg hover:bg-emerald-400 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
           >
             @if (cargando()) {
               <svg class="animate-spin w-6 h-6" viewBox="0 0 24 24" fill="none">
@@ -404,7 +404,7 @@
                 @if (auth.tienePermiso('facturar') || auth.sesion()?.idPerfil === 2) {
                   <button
                   (click)="irAFacturar()"
-                  class="flex-1 py-2 px-4 bg-indigo-600 text-white hover:bg-indigo-500 border border-indigo-200 rounded font-bold shadow-sm hover:shadow-md transition-all flex justify-center items-center gap-2"
+                  class="flex-1 py-2 px-4 bg-indigo-600 text-white hover:bg-indigo-500 border border-indigo-200 rounded font-bold shadow-sm hover:shadow-md transition flex justify-center items-center gap-2"
                   >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                   Facturar Venta

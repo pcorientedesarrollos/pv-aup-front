@@ -164,7 +164,7 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
             <div>
               <label class="block text-sm font-medium text-slate-400 mb-1">Nombre de la Categoría</label>
               <input type="text" [(ngModel)]="formulario.nombre" name="nombre" required
-                     class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 placeholder-slate-600 transition-all"
+                     class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 placeholder-slate-600 transition"
                      placeholder="Ej. Cera">
             </div>
 
@@ -173,7 +173,7 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
               <div class="flex flex-wrap gap-2">
                 @for (c of colores; track c) {
                   <button type="button" (click)="formulario.color = c" 
-                          class="w-8 h-8 rounded border-2 transition-all"
+                          class="w-8 h-8 rounded border-2 transition"
                           [ngClass]="[c, formulario.color === c ? 'border-white scale-110 shadow-lg' : 'border-transparent opacity-60 hover:opacity-100']"></button>
                 }
               </div>
@@ -197,7 +197,7 @@ import { PaginacionComponent } from '../../shared/components/paginacion/paginaci
               <button type="button" (click)="cerrarModal()" class="px-4 py-2 text-slate-400 hover:text-white transition-colors font-medium">
                 Cancelar
               </button>
-              <button type="submit" [disabled]="cargando()" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold rounded-lg shadow-lg hover:shadow-amber-500/20 transition-all flex items-center gap-2">
+              <button type="submit" [disabled]="cargando()" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold rounded-lg shadow-lg hover:shadow-amber-500/20 transition flex items-center gap-2">
                 @if (cargando()) {
                   <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>

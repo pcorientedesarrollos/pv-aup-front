@@ -51,7 +51,7 @@
 
         <!-- Cerrar sesión (opcional en header si ya está en sidebar, pero se adapta al estilo) -->
         <button (click)="cerrarSesion()"
-          class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-all focus:outline-none">
+          class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition focus:outline-none">
           Salir
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -104,7 +104,7 @@
             </svg>
           </span>
           <input type="text" placeholder="Buscar..." (input)="menuSearch.set($any($event.target).value)"
-            class="w-full pl-10 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-honey-primary/50 focus:border-honey-primary transition-all">
+            class="w-full pl-10 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-honey-primary/50 focus:border-honey-primary transition">
         </div>
       </div>
 
@@ -117,7 +117,7 @@
         </p>
 
         <button [hidden]="!matchSearch('home Dashboard')" (click)="navegar('/home')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/home')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@
         </button>
 
         <button [hidden]="!matchSearch('pos') || !auth.tienePermiso('menu_pos')" (click)="navegar('/pos')"
-          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/pos')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <span class="flex items-center gap-2.5">
@@ -142,7 +142,7 @@
         </button>
 
         <button [hidden]="!matchSearch('historial Historial Ventas') || !auth.tienePermiso('menu_historial')" (click)="navegar('/historial')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/historial')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@
         </button>
 
         <button [hidden]="!matchSearch('cotizaciones') || !auth.tienePermiso('menu_cotizaciones')" (click)="navegar('/cotizaciones')"
-          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/cotizaciones')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <span class="flex items-center gap-2.5">
@@ -166,7 +166,7 @@
         </button>
 
         <button [hidden]="!matchSearch('facturas Facturas CFDI') || !auth.tienePermiso('menu_facturas')" (click)="navegar('/facturas')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/facturas')
                       ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +177,7 @@
         </button>
 
         <button [hidden]="!matchSearch('corte-caja Corte de Caja') || !auth.tienePermiso('menu_corte')" (click)="navegar('/corte-caja')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/corte-caja')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,7 +189,7 @@
 
         <!-- Gastos -->
         <button [hidden]="!matchSearch('gastos Gastos') || !auth.tienePermiso('menu_gastos')" (click)="navegar('/gastos')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/gastos') ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
@@ -203,7 +203,7 @@
         </p>
 
         <button [hidden]="!matchSearch('productos') || !auth.tienePermiso('menu_productos')" (click)="navegar('/productos')"
-          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/productos')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <span class="flex items-center gap-2.5">
@@ -218,7 +218,7 @@
 
         
         <button [hidden]="!matchSearch('categorias Categorías') || !auth.tienePermiso('menu_categorias')" (click)="navegar('/categorias')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/categorias')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +229,7 @@
         </button>
 
         <button [hidden]="!matchSearch('inventario') || !auth.tienePermiso('menu_kardex')" (click)="navegar('/inventario')"
-          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/inventario')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <span class="flex items-center gap-2.5">
@@ -244,7 +244,7 @@
 
         
         <button [hidden]="!matchSearch('inventario/traspasos Traspasos') || !auth.tienePermiso('menu_traspasos')" (click)="navegar('/inventario/traspasos')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/inventario/traspasos')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,7 +255,7 @@
         </button>
 
         <button [hidden]="!matchSearch('produccion Producción') || !auth.tienePermiso('menu_produccion')" (click)="navegar('/produccion')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/produccion')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -269,7 +269,7 @@
 
         
         <button [hidden]="!matchSearch('compras Compras') || !auth.tienePermiso('menu_compras')" (click)="navegar('/compras')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/compras')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -281,7 +281,7 @@
 
         
         <button [hidden]="!matchSearch('proveedores Proveedores') || !auth.tienePermiso('menu_proveedores')" (click)="navegar('/proveedores')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/proveedores')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,7 +297,7 @@
         </p>
 
         <button [hidden]="!matchSearch('clientes Clientes') || !auth.tienePermiso('menu_clientes')" (click)="navegar('/clientes')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/clientes')
                   ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -309,7 +309,7 @@
 
         
         <button [hidden]="!matchSearch('sucursales Sucursales') || !auth.tienePermiso('menu_sucursales')" (click)="navegar('/sucursales')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/sucursales')
           ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
 
@@ -324,7 +324,7 @@
         </button>
 
         <button [hidden]="!matchSearch('devoluciones Devoluciones') || !auth.tienePermiso('menu_devoluciones')" (click)="navegar('/devoluciones')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/devoluciones')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -335,7 +335,7 @@
         </button>
 
         <button [hidden]="!matchSearch('usuarios Usuarios') || !auth.tienePermiso('menu_usuarios')" (click)="navegar('/usuarios')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/usuarios')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -347,7 +347,7 @@
 
         <!-- Configurar Ticket -->
         <button [hidden]="!matchSearch('configurar ticket comprobante') || !auth.tienePermiso('menu_configuracion')" (click)="mostrarModalConfig = true"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="mostrarModalConfig
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -359,7 +359,7 @@
 
         <!-- Config. Empresa -->
         <button [hidden]="!matchSearch('configuracion Config. de Empresa') || !auth.tienePermiso('menu_configuracion')" (click)="navegar('/configuracion')"
-          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+          class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
           [ngClass]="isActive('/configuracion')
                     ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -382,14 +382,14 @@
           </div>
 
           <button [hidden]="!matchSearch('empresas Empresas')" (click)="navegar('/empresas')"
-            class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+            class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
             [ngClass]="isActive('/empresas')
                       ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
             <span class="text-sm">🏢</span> Empresas
           </button>
 
           <button [hidden]="!matchSearch('diagnostico Diagnóstico de Red')" (click)="navegar('/diagnostico')"
-            class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none select-none"
+            class="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none select-none"
             [ngClass]="isActive('/diagnostico')
                       ? 'bg-honey-primary text-white shadow-md' : 'text-gray-600 hover:bg-amber-50 hover:text-honey-primary'">
             <span class="text-sm">🛠️</span> Diagnóstico de Red
@@ -401,7 +401,7 @@
       <!-- Footer del sidebar -->
       <div class="p-4 border-t border-gray-100 shrink-0 bg-white">
         <button (click)="cerrarSesion()"
-          class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 hover:border-red-300 font-semibold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-red-500/50">
+          class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 hover:border-red-300 font-semibold text-sm transition focus:outline-none focus:ring-2 focus:ring-red-500/50">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

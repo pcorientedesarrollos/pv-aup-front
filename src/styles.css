@@ -54,7 +54,7 @@
     @apply fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 transition-opacity;
   }
   .modal-panel {
-    @apply bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all;
+    @apply bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform transition;
   }
   .modal-panel-sm {
     @apply max-w-sm;
@@ -79,7 +79,7 @@
   .btn-primary {
     background-color: var(--color-primario, #f59e0b);
     color: var(--texto-on-primario, #ffffff);
-    @apply font-bold py-2 px-4 rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50;
+    @apply font-bold py-2 px-4 rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50;
   }
   .btn-primary:hover:not(:disabled) {
     filter: brightness(0.9);
@@ -314,7 +314,7 @@ tbody td {
 
 /* Filter Pills */
 .filter-pill {
-    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 cursor-pointer;
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 cursor-pointer;
 }
 
 /* Pill Colors */
@@ -532,7 +532,7 @@ tbody td {
 
 /* Input Field */
 .editable-input {
-    @apply flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-honey-primary focus:border-transparent transition-all;
+    @apply flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-honey-primary focus:border-transparent transition;
 }
 
 .editable-input:hover:not(:disabled) {
@@ -893,7 +893,7 @@ tbody td {
 .modal-close-button {
     @apply ml-4 p-2 rounded-lg;
     @apply text-gray-400 hover:text-gray-600 hover:bg-gray-100;
-    @apply transition-all duration-200;
+    @apply transition duration-200;
     @apply flex-shrink-0;
     @apply focus:outline-none focus:ring-2 focus:ring-honey-primary;
 }
@@ -1277,7 +1277,7 @@ body.modal-open {
 }
 
 .tab-button {
-    @apply flex items-center space-x-2 px-6 py-3 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:bg-gray-50 hover:text-gray-900 transition-all;
+    @apply flex items-center space-x-2 px-6 py-3 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:bg-gray-50 hover:text-gray-900 transition;
 }
 
 .tab-button.active {
@@ -1382,7 +1382,7 @@ body.modal-open {
 }
 
 .footer-button {
-    @apply flex items-center space-x-2 px-6 py-2.5 rounded-lg font-medium transition-all;
+    @apply flex items-center space-x-2 px-6 py-2.5 rounded-lg font-medium transition;
 }
 
 .footer-button.secondary {
@@ -1794,7 +1794,7 @@ body.modal-open {
 .form-input {
     @apply px-4 py-2.5 border border-gray-300 rounded-lg;
     @apply focus:ring-2 focus:ring-honey-primary focus:border-honey-primary;
-    @apply transition-all text-gray-900 placeholder-gray-400;
+    @apply transition text-gray-900 placeholder-gray-400;
 }
 
 .form-input:disabled {
@@ -1857,7 +1857,7 @@ body.modal-open {
 .btn-geolocation {
     @apply w-full md:w-auto flex items-center justify-center space-x-2;
     @apply px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white;
-    @apply font-medium rounded-lg transition-all;
+    @apply font-medium rounded-lg transition;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
@@ -1894,7 +1894,7 @@ body.modal-open {
 .btn-cancel,
 .btn-submit {
     @apply flex items-center justify-center space-x-2;
-    @apply px-5 py-2.5 font-medium rounded-lg transition-all;
+    @apply px-5 py-2.5 font-medium rounded-lg transition;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
@@ -2263,7 +2263,7 @@ body.modal-open {
 }
 
 .miel-card {
-    @apply bg-gradient-to-br from-white to-amber-50 border border-amber-200 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg;
+    @apply bg-gradient-to-br from-white to-amber-50 border border-amber-200 rounded-xl shadow-md overflow-hidden transition hover:shadow-lg;
 }
 
 .card-header {
@@ -2421,7 +2421,7 @@ body.modal-open {
 }
 
 .tab-button {
-    @apply flex items-center space-x-2 px-6 py-3 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:bg-gray-50 hover:text-gray-900 transition-all;
+    @apply flex items-center space-x-2 px-6 py-3 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:bg-gray-50 hover:text-gray-900 transition;
 }
 
 .tab-button.active {
@@ -2500,7 +2500,7 @@ body.modal-open {
 }
 
 .inventario-card {
-    @apply bg-gradient-to-br from-white to-amber-50 border border-amber-200 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg;
+    @apply bg-gradient-to-br from-white to-amber-50 border border-amber-200 rounded-xl shadow-md overflow-hidden transition hover:shadow-lg;
 }
 
 .card-header {
@@ -2577,7 +2577,7 @@ body.modal-open {
 }
 
 .footer-button {
-    @apply flex items-center space-x-2 px-6 py-2.5 rounded-lg font-medium transition-all;
+    @apply flex items-center space-x-2 px-6 py-2.5 rounded-lg font-medium transition;
 }
 
 .footer-button.secondary {
@@ -2733,7 +2733,7 @@ body.modal-open {
 .form-input,
 .form-select,
 .form-textarea {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-honey-primary focus:border-transparent transition-all;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-honey-primary focus:border-transparent transition;
 }
 
 .form-input.error,
@@ -2761,7 +2761,7 @@ body.modal-open {
    BUTTONS
    ============================================================================ */
 .btn {
-    @apply inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg font-medium transition-all;
+    @apply inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg font-medium transition;
 }
 
 .btn-primary {
@@ -2868,7 +2868,7 @@ body.modal-open {
 
 .form-input,
 .form-select {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-honey-primary focus:border-transparent transition-all;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-honey-primary focus:border-transparent transition;
 }
 
 .form-input[readonly] {
@@ -3004,7 +3004,7 @@ body.modal-open {
 .alert-error { @apply bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3; }
 
 .tipo-options  { @apply flex gap-3; }
-.tipo-option   { @apply flex-1 text-center px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer transition-all hover:border-honey-primary; }
+.tipo-option   { @apply flex-1 text-center px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer transition hover:border-honey-primary; }
 .tipo-selected { @apply border-honey-primary bg-honey-primary/10 text-honey-dark; }
 
 .btn           { @apply px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2; }
@@ -3111,7 +3111,7 @@ body.modal-open {
 
 .alert-base {
     @apply rounded-lg border-l-4 shadow-md;
-    @apply transition-all duration-300 ease-in-out;
+    @apply transition duration-300 ease-in-out;
     @apply overflow-hidden;
     @apply animate-slide-in;
 }
@@ -3158,7 +3158,7 @@ body.modal-open {
 
 .alert-close {
     @apply flex-shrink-0 p-1 rounded-md;
-    @apply transition-all duration-150;
+    @apply transition duration-150;
     @apply hover:opacity-70;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
@@ -3335,7 +3335,7 @@ body.modal-open {
 .badge-base {
     @apply inline-flex items-center justify-center;
     @apply font-medium rounded-full;
-    @apply transition-all duration-200 ease-in-out;
+    @apply transition duration-200 ease-in-out;
     @apply whitespace-nowrap;
 }
 
@@ -3484,7 +3484,7 @@ body.modal-open {
 .button-base {
     @apply inline-flex items-center justify-center;
     @apply font-semibold rounded-lg;
-    @apply transition-all duration-200 ease-in-out;
+    @apply transition duration-200 ease-in-out;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply cursor-pointer;
     @apply border border-transparent;
@@ -3613,7 +3613,7 @@ body.modal-open {
 
 .card-base {
     @apply bg-white rounded-lg;
-    @apply transition-all duration-200 ease-in-out;
+    @apply transition duration-200 ease-in-out;
     @apply overflow-hidden;
 }
 
@@ -3727,7 +3727,7 @@ body.modal-open {
    ============================================================================ */
 
 .autocomplete-input-wrapper {
-    @apply relative flex items-center bg-white border border-gray-300 rounded-lg transition-all;
+    @apply relative flex items-center bg-white border border-gray-300 rounded-lg transition;
 }
 
 .autocomplete-input-wrapper:focus-within {
