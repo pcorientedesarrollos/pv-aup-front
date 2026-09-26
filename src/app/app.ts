@@ -64,12 +64,12 @@ export class App {
 
     // Si el usuario ya tiene sesión y hay una ruta guardada, restaurarla
     if (this.auth.isLoggedIn()) {
-      const isInitialRoutePos = typeof window !== 'undefined' && window.location.pathname.startsWith('/pos');
-      if (!isInitialRoutePos) {
+      const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+      if (path === '/' || path === '/home') {
         const saved = sessionStorage.getItem(this.LAST_ROUTE_KEY);
         if (saved && !this.SKIP_ROUTES.includes(saved)) {
-          // Navegar a la ruta guardada después de que el router esté listo
-          setTimeout(() => this.router.navigateByUrl(saved), 0);
+          // Navegar sincronamente a la ruta guardada para evitar parpadeos
+          this.router.navigateByUrl(saved);
         }
       }
     }

@@ -179,6 +179,17 @@ export class DashboardComponent implements OnInit {
   navegar(ruta: string) { this.router.navigate([ruta]); }
   isActive(ruta: string): boolean { return this.rutaActual().includes(ruta); }
 
+  @HostListener('window:resize')
+  onResize() {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024 && !this.menuAbierto()) {
+        this.menuAbierto.set(true);
+      } else if (window.innerWidth < 1024 && this.menuAbierto()) {
+        this.menuAbierto.set(false);
+      }
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   manejarAtajos(event: KeyboardEvent) {
     switch (event.key) {
