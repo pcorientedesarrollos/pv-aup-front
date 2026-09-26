@@ -1,5 +1,6 @@
 import { ConfirmService } from '../../core/services/confirm.service';
-import { Component, inject, signal, computed, effect, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, effect, OnInit, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ExportService } from '../../core/services/export.service';
 import { PaginacionComponent } from '../../shared/components/paginacion/paginacion.component';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ import { SearchableSelectComponent } from '../../shared/components/searchable-se
 })
 export class ProductosComponent implements OnInit {
   confirmService = inject(ConfirmService);
+  private destroyRef = inject(DestroyRef);
 
   apiUrl = environment.apiUrl;
   
@@ -311,7 +313,7 @@ export class ProductosComponent implements OnInit {
       this.cargarCatalogosSoporte();
     }
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       if (params['modal'] === 'nuevo' && this.isAdmin()) {
         this.abrirModalNuevo();
       }

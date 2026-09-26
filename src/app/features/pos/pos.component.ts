@@ -1,4 +1,5 @@
-import { Component, signal, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, signal, OnInit, ViewChild, HostListener, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -25,6 +26,7 @@ import { Cliente } from '../../core/interfaces';
   templateUrl: './pos.component.html',
 })
 export class PosComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
   @ViewChild('carritoRef') carritoRef!: CarritoComponent;
   @ViewChild(CatalogoComponent) catalogoRef!: CatalogoComponent;
 
@@ -127,7 +129,7 @@ export class PosComponent implements OnInit {
     }
     this.turnoAbierto.set(this.auth.turnoAbierto());
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       if (params['duplicarVenta']) {
         this.pos.cargarDesdeHistorial(params['duplicarVenta'], false, 'venta');
       } else if (params['editarVenta']) {
