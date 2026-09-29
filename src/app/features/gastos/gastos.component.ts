@@ -16,6 +16,7 @@ export class GastosComponent implements OnInit {
   gastos = signal<any[]>([]);
   cargando = signal(false);
   
+  
   mostrarModal = signal(false);
   concepto = signal('');
   monto = signal<number | null>(null);
