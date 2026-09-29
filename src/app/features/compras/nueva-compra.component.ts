@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+﻿import { environment } from '../../../environments/environment';
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -34,6 +34,9 @@ export class NuevaCompraComponent implements OnInit {
 
   // Quick Add Modals
   mostrarModalProductoRapido = signal(false);
+  mostrarModalVincularAlias = signal(false);
+  idProductoVincular = signal<number | null>(null);
+  vinculandoAlias = signal(false);
   nuevoProductoRapido = signal({ nombre: '', codigoBarras: '', precioCompra: 0 });
   guardandoProductoRapido = signal(false);
 
@@ -44,6 +47,36 @@ export class NuevaCompraComponent implements OnInit {
   abrirProductoRapido() {
     this.nuevoProductoRapido.set({ nombre: this.busquedaProducto() || '', codigoBarras: '', precioCompra: 0 });
     this.mostrarModalProductoRapido.set(true);
+  }
+
+  abrirModalVincularAlias() {
+    this.idProductoVincular.set(null);
+    this.mostrarModalVincularAlias.set(true);
+  }
+
+  vincularAliasYAgregar() {
+    const id = this.idProductoVincular();
+    const aliasText = this.busquedaProducto().trim();
+    if (!id || !aliasText) return;
+
+    this.vinculandoAlias.set(true);
+    this.http.post(`${environment.apiUrl}/pos/productos/${id}/alias`, { alias: aliasText }).subscribe({
+      next: () => {
+         const realProd = this.catalogoProductos().find(p => p.idProducto === id);
+         if (realProd) {
+           this.agregarAlCarrito(realProd);
+         }
+         this.vinculandoAlias.set(false);
+         this.mostrarModalVincularAlias.set(false);
+         this.busquedaProducto.set("");
+         this.toast.show("Producto vinculado. El sistema recordar este nombre.", "success");
+         this.cargarCatalogo(); // Reload catalog to get the new alias loaded locally
+      },
+      error: () => {
+         this.vinculandoAlias.set(false);
+         this.toast.show("Error al vincular producto", "error");
+      }
+    });
   }
 
   guardarProductoRapido() {
@@ -143,7 +176,8 @@ export class NuevaCompraComponent implements OnInit {
     if (!term) return [];
     return this.catalogoProductos().filter(p => 
       (p.nombre || '').toLowerCase().includes(term) || 
-      (p.codigoBarras || '').toLowerCase().includes(term)
+      (p.codigoBarras || '').toLowerCase().includes(term) ||
+      (p.aliasBusqueda || '').toLowerCase().includes(term)
     );
   });
 

@@ -80,7 +80,7 @@
   </div>@if (isSoporte()) {
     <div class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-900 rounded-xl shadow-inner border border-slate-700">
       <div class="flex items-center gap-3">
-        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏢 Empresa:</label>
+        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg> Empresa:</label>
         <select [ngModel]="filtroEmpresa()" (ngModelChange)="filtroEmpresa.set($event)" class="bg-slate-800 border-slate-700 text-white rounded-lg px-3 py-1.5 focus:ring-amber-500 focus:border-amber-500">
           <option value="todas">Todas</option>
           @for (emp of empresas(); track emp.idEmpresa) {
@@ -89,7 +89,7 @@
         </select>
       </div>
       <div class="flex items-center gap-3">
-        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏪 Sucursal:</label>
+        <label class="text-sm font-bold text-amber-500 uppercase tracking-wider"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Sucursal:</label>
         <select [ngModel]="filtroSucursal()" (ngModelChange)="filtroSucursal.set($event)" class="bg-slate-800 border-slate-700 text-white rounded-lg px-3 py-1.5 focus:ring-amber-500 focus:border-amber-500">
           <option value="todas">Todas</option>
           @for (suc of sucursalesFiltradas(); track suc.idSucursal) {
@@ -288,7 +288,7 @@
                 <tr>
                   <td colspan="8" class="px-6 py-4 text-sm text-gray-900 text-center">
                     <div class="empty-state">
-                      <span class="text-5xl">🔍</span>
+                      <span class="text-5xl"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
                       <p class="font-semibold text-gray-500 mt-2">No se encontraron productos</p>
                       <p class="text-sm mt-1">Prueba con otro término de búsqueda o categoría</p>
                     </div>
@@ -310,7 +310,7 @@
           </div>
         } @else if (productosFiltrados().length === 0) {
           <div class="flex flex-col items-center gap-2 text-slate-400 py-16">
-            <span class="text-5xl">🔍</span>
+            <span class="text-5xl"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
             <p class="font-semibold text-slate-500">No se encontraron productos</p>
           </div>
         } @else {
@@ -387,7 +387,7 @@
             </p>
           </div>
         </div>
-        <button (click)="cerrarComprasProducto()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
+        <button (click)="cerrarComprasProducto()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
       
       <div class="flex-1 overflow-auto max-h-[60vh]">
@@ -398,7 +398,7 @@
           </div>
         } @else if (comprasProducto().length === 0) {
           <div class="p-12 text-center text-slate-400">
-            <span class="text-5xl block mb-3">📭</span>
+            <span class="text-5xl block mb-3"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
             <p class="font-bold text-slate-500">No hay compras registradas</p>
           </div>
         } @else {
@@ -466,7 +466,7 @@
             </h2>
           </div>
         </div>
-        <button (click)="cerrarDetalleCompra()" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-1.5 transition-colors focus:outline-none">✕</button>
+        <button (click)="cerrarDetalleCompra()" class="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full p-1.5 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="flex-1 overflow-auto p-6">
@@ -564,7 +564,7 @@
           @else { Completa los campos para dar de alta el producto. }
         </p>
       </div>
-        <button (click)="cerrarModal()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
+        <button (click)="cerrarModal()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="modal-body flex-1 overflow-y-auto p-6 space-y-4 max-h-[70vh]">
@@ -575,7 +575,7 @@
               @if (imagenPreview()) {
                 <img [src]="imagenPreview()!" class="w-full h-full object-cover rounded-xl">
               } @else {
-                <span class="text-3xl">📷</span>
+                <span class="text-3xl"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></span>
               }
             </div>
             <div class="flex-1">
@@ -618,7 +618,7 @@
                      (input)="onSatProductSearch()" 
                      (focus)="onSatProductSearch(true)"
                      (blur)="onSatProductBlur()"
-                     placeholder="🔍 Escribe para buscar entre 52,000+ claves SAT..."
+                     placeholder=" Escribe para buscar entre 52,000+ claves SAT..."
                      class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500">
               
               @if (satProductQuery.length > 0 && satProductQuery.length < 3) {
@@ -645,7 +645,7 @@
                      (input)="onSatUnitSearch()"
                      (focus)="onSatUnitSearch(true)"
                      (blur)="onSatUnitBlur()"
-                     placeholder="🔍 Buscar unidad..."
+                     placeholder=" Buscar unidad..."
                      class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500">
               
               @if (satUnitQuery.length > 0 && satUnitQuery.length < 2) {
@@ -833,9 +833,9 @@
             'bg-emerald-50 border border-emerald-200': getStockClass(nuevoProducto) === 'stock-ok'
           }">
             <span class="text-2xl">
-              @if (getStockClass(nuevoProducto) === 'stock-cero') { 🚨 }
-              @else if (getStockClass(nuevoProducto) === 'stock-bajo') { ⚠️ }
-              @else { ✅ }
+              @if (getStockClass(nuevoProducto) === 'stock-cero') { <svg class="w-5 h-5 inline-block mr-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> }
+              @else if (getStockClass(nuevoProducto) === 'stock-bajo') { <svg class="w-5 h-5 inline-block mr-1 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>️ }
+              @else { <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> }
             </span>
             <div>
               <p class="text-sm font-bold" [ngClass]="{
@@ -854,7 +854,7 @@
         <div>
           @if (!esNuevoProducto()) {
             <button (click)="abrirModalReceta(nuevoProducto)" class="btn-cancel border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100 flex items-center gap-2">
-              <span>📋</span> Gestionar Receta / Config.
+              <span><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span> Gestionar Receta / Config.
             </button>
           }
         </div>
@@ -865,7 +865,7 @@
               <div class="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white"></div>
               Guardando...
             } @else {
-              💾 Guardar Cambios
+              <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg> Guardar Cambios
             }
           </button>
         </div>
@@ -879,7 +879,7 @@
   <div class="modal-overlay flex items-center justify-center z-[100]" (click)="codigoBarrasVisualizar.set(null)">
     <div class="bg-white rounded-2xl p-8 shadow-2xl relative max-w-sm w-full text-center slideInDown" (click)="$event.stopPropagation()">
       <button (click)="codigoBarrasVisualizar.set(null)"
-              class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors">✕</button>
+              class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       <h3 class="font-black text-slate-900 mb-6 text-xl">Código de Barras</h3>
       <div class="flex justify-center bg-white p-6 rounded-xl border-2 border-dashed border-slate-200">
         <svg [appBarcode]="codigoBarrasVisualizar() || ''" class="w-full h-32"></svg>
@@ -906,7 +906,7 @@
             {{ productoReceta()?.nombre }}
           </p>
         </div>
-        <button (click)="cerrarModalReceta()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none">✕</button>
+        <button (click)="cerrarModalReceta()" class="text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="modal-body flex-1 overflow-y-auto p-6 bg-slate-50">
@@ -938,7 +938,7 @@
             </div>
           } @else if (ingredientes().length === 0) {
             <div class="text-center py-10 text-slate-400">
-              <span class="text-4xl block mb-2">🤷‍♂️</span>
+              <span class="text-4xl block mb-2">‍️</span>
               <p>No hay elementos registrados para este producto.</p>
             </div>
           } @else {

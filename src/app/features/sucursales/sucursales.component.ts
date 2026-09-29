@@ -27,7 +27,7 @@ import { AuthModalComponent } from '../../shared/components/auth-modal/auth-moda
       @if (isSoporte()) {
         <div class="flex gap-4 p-4 bg-slate-900 rounded-xl shadow-inner border border-slate-700">
           <div class="flex items-center gap-3">
-            <label class="text-sm font-bold text-amber-500 uppercase tracking-wider">🏢 Empresa:</label>
+            <label class="text-sm font-bold text-amber-500 uppercase tracking-wider"> Empresa:</label>
             <select [ngModel]="filtroEmpresa()" (ngModelChange)="filtroEmpresa.set($event)" class="bg-slate-700 border-slate-600 text-white rounded-lg px-3 py-1.5 focus:ring-amber-500 focus:border-amber-500">
               <option value="todas">Todas</option>
               @for (emp of empresas(); track emp.idEmpresa) {

@@ -1,4 +1,4 @@
-<div class="h-full flex flex-col bg-transparent max-w-7xl mx-auto w-full gap-4">
+﻿<div class="h-full flex flex-col bg-transparent max-w-7xl mx-auto w-full gap-4">
   
   <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
     <div>
@@ -35,10 +35,18 @@
 
       <div class="flex flex-col w-full sm:w-auto mt-4 sm:mt-0">
         <label class="text-xs font-bold text-transparent mb-1 hidden sm:block">.</label>
-        <button (click)="abrirModal()" class="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-xl text-sm transition-colors flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          <span>Nuevo Gasto</span>
-        </button>
+        <div class="flex gap-2">
+          @if (isDev) {
+            <button (click)="abrirModalCategorias()" class="w-full sm:w-auto px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-xl text-sm transition-colors flex items-center justify-center gap-2 shadow-sm whitespace-nowrap" title="Solo local/desarrollo">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+              <span>Catálogos (Dev)</span>
+            </button>
+          }
+          <button (click)="abrirModal()" class="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-xl text-sm transition-colors flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Nuevo Gasto</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +59,8 @@
           <tr class="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
             <th class="p-4 font-semibold">ID</th>
             <th class="p-4 font-semibold">Fecha y Hora</th>
-                        <th class="p-4 font-semibold">Concepto</th>
+            <th class="p-4 font-semibold">Concepto</th>
+            <th class="p-4 font-semibold">Categoría</th>
             <th class="p-4 font-semibold">Cajero</th>
             <th class="p-4 font-semibold text-right">Monto</th>
           </tr>
@@ -86,6 +95,11 @@
                   @if (g.observaciones) {
                     <div class="text-xs text-slate-500 font-normal mt-1">{{ g.observaciones }}</div>
                   }
+                </td>
+                <td class="p-4">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400">
+                    {{ g.categoria?.nombre || 'General' }}
+                  </span>
                 </td>
                 <td class="p-4 text-slate-600 dark:text-slate-400">
                   <div class="flex items-center gap-2">
@@ -146,11 +160,31 @@
                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition dark:text-white"
                  placeholder="Ej. Insumos">
         </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Categoría</label>
+          <select [ngModel]="idCategoria()" (ngModelChange)="idCategoria.set($event ? +$event : null)"
+                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition dark:text-white">
+            <option [ngValue]="null">Sin categoría</option>
+            @for (cat of categorias(); track cat.idCategoria) {
+              <option [ngValue]="cat.idCategoria">{{ cat.nombre }}</option>
+            }
+          </select>
+        </div>
+
         <div class="space-y-1.5">
           <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Monto ($)</label>
           <input type="number" min="1" [ngModel]="monto()" (ngModelChange)="monto.set($event)"
                  class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition dark:text-white"
                  placeholder="0.00">
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Descripción / De qué es</label>
+          <textarea [ngModel]="observaciones()" (ngModelChange)="observaciones.set($event)"
+                    rows="2"
+                    class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition dark:text-white resize-none"
+                    placeholder="Ej. Compra de servilletas y bolsas..."></textarea>
         </div>
       </div>
 
@@ -168,6 +202,42 @@
         </button>
       </div>
 
+    </div>
+  </div>
+}
+
+<!-- Modal Nueva Categoría (Dev) -->
+@if (mostrarModalCategorias()) {
+  <div class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" (click)="cerrarModalCategorias()"></div>
+    <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
+          Catálogo de Categorías
+        </h3>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Nombre de la nueva categoría</label>
+          <input type="text" [ngModel]="nuevaCategoria()" (ngModelChange)="nuevaCategoria.set($event)"
+                 class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-slate-500 outline-none transition dark:text-white"
+                 placeholder="Ej. Viáticos, Transporte...">
+        </div>
+        <div class="mt-4 bg-slate-50 rounded-lg p-3 border border-slate-200">
+            <p class="text-xs font-bold text-slate-600 mb-2">Categorías actuales:</p>
+            <div class="flex flex-wrap gap-2">
+                @for (cat of categorias(); track cat.idCategoria) {
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-slate-200 text-slate-700">{{ cat.nombre }}</span>
+                }
+            </div>
+        </div>
+      </div>
+      <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 flex justify-end gap-3 border-t border-slate-200 dark:border-slate-800">
+        <button (click)="cerrarModalCategorias()" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">Cancelar</button>
+        <button (click)="guardarCategoria()" [disabled]="guardandoCategoria() || !nuevaCategoria().trim()" class="px-4 py-2 text-sm font-medium text-white bg-slate-800 hover:bg-slate-900 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50">
+          Guardar
+        </button>
+      </div>
     </div>
   </div>
 }

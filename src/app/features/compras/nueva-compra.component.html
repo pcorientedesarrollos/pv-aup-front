@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
+﻿<div class="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
   <!-- ENCABEZADO -->
   <header class="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
     <div class="flex items-center gap-4">
@@ -101,11 +101,15 @@
               </li>
             }
             @if (productosFiltrados().length === 0) {
-              <li class="p-4 flex flex-col items-center justify-center text-slate-500 gap-2">
-                <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="text-sm font-medium">No se encontraron productos</span>
-              </li>
-            }
+  <li class="p-4 flex flex-col items-center justify-center text-slate-500 gap-3 text-center bg-slate-50 border-t border-slate-100">
+    <span class="text-sm font-bold text-slate-700">No encontramos "{{ busquedaProducto() }}"</span>
+    <p class="text-xs text-slate-500 max-w-xs">¿Es un producto nuevo o ya lo tenemos registrado con otro nombre?</p>
+    <div class="flex gap-2 w-full justify-center mt-2 px-2">
+        <button (click)="abrirModalVincularAlias()" class="flex-1 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-bold transition shadow-sm">Ya existe</button>
+        <button (click)="abrirProductoRapido()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition shadow-sm">Es nuevo</button>
+    </div>
+  </li>
+}
           </ul>
         }
       </div>
@@ -426,6 +430,46 @@
         <button (click)="mostrarModalProveedorRapido.set(false)" class="px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium transition-colors">Cancelar</button>
         <button (click)="guardarProveedorRapido()" [disabled]="guardandoProveedorRapido()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold transition-colors">
           Guardar y Seleccionar
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+
+<!-- MODAL VINCULAR ALIAS -->
+@if (mostrarModalVincularAlias()) {
+  <div class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" (click)="mostrarModalVincularAlias.set(false)"></div>
+    <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="px-6 py-4 border-b border-slate-100 bg-indigo-50/50 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-800">Vincular a producto existente</h3>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+            El nombre <span class="font-bold">"{{ busquedaProducto() }}"</span> se guardar como alias. La prxima vez que lo busques, lo encontraremos automticamente.
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Busca el producto real de tu catlogo <span class="text-red-500">*</span></label>
+          <select [ngModel]="idProductoVincular()" (ngModelChange)="idProductoVincular.set($event ? +$event : null)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-indigo-500">
+             <option [ngValue]="null">Seleccione el producto correcto...</option>
+             @for (prod of catalogoProductos(); track prod.idProducto) {
+                <option [ngValue]="prod.idProducto">{{ prod.nombre }}</option>
+             }
+          </select>
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50">
+        <button (click)="mostrarModalVincularAlias.set(false)" class="px-4 py-2 text-slate-600 hover:bg-slate-200 rounded-lg font-medium transition-colors">Cancelar</button>
+        <button (click)="vincularAliasYAgregar()" [disabled]="vinculandoAlias() || !idProductoVincular()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold transition-colors disabled:opacity-50">
+          @if(vinculandoAlias()){
+             Vinculando...
+          }@else{
+             Vincular y Agregar
+          }
         </button>
       </div>
     </div>

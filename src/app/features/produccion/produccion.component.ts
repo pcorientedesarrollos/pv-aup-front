@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+﻿import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -186,6 +186,11 @@ export class ProduccionComponent implements OnInit {
   }
 
   // --- Lógica Producir ---
+  onCantidadProducirChange(cant: number) {
+    this.cantidadProducirP.set(cant);
+    this.ingredientesP.update(ings => ings.map(ing => ({...ing, cantidadCustom: ing.cantidad * cant})));
+  }
+
   onProductoProducirChange() {
     const id = this.idProductoTerminadoP();
     if (!id) {

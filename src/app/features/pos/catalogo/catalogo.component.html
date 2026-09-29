@@ -130,9 +130,9 @@
           <div class="modal-container md:max-w-md">
             <div class="modal-header">
               <h3 class="modal-title flex items-center gap-2">
-                <span class="text-honey-primary">📷</span> Escáner Activo
+                <span class="text-honey-primary"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></span> Escáner Activo
               </h3>
-              <button (click)="cerrarCamara()" class="close-button text-slate-500 hover:text-red-500 font-bold">✕</button>
+              <button (click)="cerrarCamara()" class="close-button text-slate-500 hover:text-red-500 font-bold"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             
             <div class="modal-body flex flex-col items-center justify-start gap-4">
@@ -147,7 +147,7 @@
                       <div class="flex items-center gap-3 p-2 rounded-lg border"
                            [ngClass]="scan.exito ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'">
                         <span class="text-lg" [ngClass]="scan.exito ? 'text-emerald-500' : 'text-red-500'">
-                          {{ scan.exito ? '✓' : '✗' }}
+                          {{ scan.exito ? '' : '' }}
                         </span>
                         <div class="flex-1 min-w-0">
                           <p class="text-sm font-medium truncate" [ngClass]="scan.exito ? 'text-emerald-800' : 'text-red-800'">

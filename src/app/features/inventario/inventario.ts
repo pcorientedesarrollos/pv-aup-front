@@ -333,7 +333,7 @@ export class InventarioComponent implements OnInit {
         if (activeTab !== null) {
           this.cargarDatos(activeTab); // Refresca los movimientos
         }
-        alert(`✅ Ajuste aplicado. Stock anterior: ${res.stockAnterior} → Stock nuevo: ${res.stockNuevo}`);
+        alert(` Ajuste aplicado. Stock anterior: ${res.stockAnterior} → Stock nuevo: ${res.stockNuevo}`);
       },
       error: (err) => {
         (function(...args: any[]){})('Error al ajustar stock', err);
@@ -566,7 +566,7 @@ export class InventarioComponent implements OnInit {
         if (activeTab !== null) {
           this.cargarDatos(activeTab); // Refresca los movimientos
         }
-        alert(`✔️ Merma registrada. Stock descontado: ${this.merma.cantidad}. Pérdida costeada: $${res.costoPerdido}`);
+        alert(`️ Merma registrada. Stock descontado: ${this.merma.cantidad}. Pérdida costeada: $${res.costoPerdido}`);
       },
       error: (err) => {
         (function(...args: any[]){})('Error al registrar merma', err);

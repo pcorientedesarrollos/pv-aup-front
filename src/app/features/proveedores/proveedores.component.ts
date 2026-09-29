@@ -226,7 +226,7 @@ export class ProveedoresComponent implements OnInit {
     });
   }
 
-  // 🛒 CRUD PROVEEDOR 🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒🛒
+  //  CRUD PROVEEDOR 
   onConstanciaSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;

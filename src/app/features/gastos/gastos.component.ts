@@ -24,6 +24,11 @@ export class GastosComponent implements OnInit {
   categorias = signal<any[]>([]);
   guardando = signal(false);
 
+  isDev = !environment.production;
+  mostrarModalCategorias = signal(false);
+  nuevaCategoria = signal("");
+  guardandoCategoria = signal(false);
+
   busqueda = signal('');
   desde = signal<string>('');
   hasta = signal<string>('');
@@ -76,11 +81,41 @@ export class GastosComponent implements OnInit {
   abrirModal() {
     this.concepto.set('');
     this.monto.set(null);
+    this.idCategoria.set(null);
+    this.observaciones.set('');
     this.mostrarModal.set(true);
   }
 
   cerrarModal() {
     this.mostrarModal.set(false);
+  }
+
+  abrirModalCategorias() {
+    this.nuevaCategoria.set("");
+    this.mostrarModalCategorias.set(true);
+  }
+
+  cerrarModalCategorias() {
+    this.mostrarModalCategorias.set(false);
+  }
+
+  guardarCategoria() {
+    if (!this.nuevaCategoria().trim()) return;
+    this.guardandoCategoria.set(true);
+    this.http.post(environment.apiUrl + "/pos/gastos/categorias", {
+      nombre: this.nuevaCategoria().trim()
+    }).subscribe({
+      next: () => {
+        this.guardandoCategoria.set(false);
+        this.nuevaCategoria.set("");
+        this.cargarCategorias();
+        this.cerrarModalCategorias();
+      },
+      error: (err) => {
+        this.guardandoCategoria.set(false);
+        console.error("Error al crear categoria", err);
+      }
+    });
   }
 
   registrarGasto() {
@@ -92,7 +127,9 @@ export class GastosComponent implements OnInit {
     
     this.http.post(environment.apiUrl + '/pos/gastos', {
       concepto: this.concepto(),
-      monto: this.monto()
+      monto: this.monto(),
+      idCategoria: this.idCategoria(),
+      observaciones: this.observaciones()
     }).subscribe({
       next: () => {
         this.guardando.set(false);

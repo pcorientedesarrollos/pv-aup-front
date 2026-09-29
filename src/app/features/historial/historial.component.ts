@@ -644,7 +644,7 @@ export class HistorialComponent implements OnInit {
       next: (res) => {
         this.guardandoDevolucion.set(false);
         this.mostrarModalDevolucion.set(false);
-        alert(`✅ Devolución registrada. Monto a devolver: $${Number(res.montoDevuelto).toFixed(2)}`);
+        alert(` Devolución registrada. Monto a devolver: $${Number(res.montoDevuelto).toFixed(2)}`);
         this.cargarHistorial();
       },
       error: (err) => {

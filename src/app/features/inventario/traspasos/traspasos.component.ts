@@ -38,7 +38,14 @@ export class TraspasosComponent implements OnInit {
   carrito = signal<{ producto: any, cantidad: number }[]>([]);
 
   tipoTraspaso = signal<'Simple' | 'ConCosto' | 'Intercambio'>('Simple');
-  montoTotal = signal<number>(0);
+
+  // Monto reactivo: montoManual permite override manual; si es null se usa el calculado
+  montoManual = signal<number | null>(null);
+  montoCalculado = computed(() =>
+    this.carrito().reduce((sum, i) => sum + (Number(i.producto.precioCompra || 0) * i.cantidad), 0)
+  );
+  montoFinal = computed(() => this.montoManual() !== null ? this.montoManual()! : this.montoCalculado());
+
   metodoPago = signal<string>('Efectivo');
   
   // Para intercambio
@@ -116,10 +123,14 @@ export class TraspasosComponent implements OnInit {
     }
     this.carrito.update(c => [...c, { producto, cantidad: 1 }]);
     this.busquedaProducto.set('');
+    // Resetear override manual para que recalcule automáticamente
+    this.montoManual.set(null);
   }
 
   removerDelCarrito(idProducto: number) {
     this.carrito.update(c => c.filter(i => i.producto.idProducto !== idProducto));
+    // Resetear override manual para que recalcule automáticamente
+    this.montoManual.set(null);
   }
 
   agregarAlCarritoRecibe(producto: any) {
@@ -167,7 +178,7 @@ export class TraspasosComponent implements OnInit {
       idSucursalDestino: this.idSucursalDestino(),
       observaciones: this.observaciones(),
       tipoTraspaso: this.tipoTraspaso(),
-      montoTotal: this.tipoTraspaso() === 'ConCosto' ? this.montoTotal() : 0,
+      montoTotal: this.tipoTraspaso() === 'ConCosto' ? this.montoFinal() : 0,
       metodoPago: this.tipoTraspaso() === 'ConCosto' ? this.metodoPago() : null,
       productos: this.carrito().map(i => ({
         idProducto: i.producto.idProducto,
@@ -182,6 +193,7 @@ export class TraspasosComponent implements OnInit {
         this.guardando.set(false);
         this.carrito.set([]);
         this.observaciones.set('');
+        this.montoManual.set(null);
         this.cargarHistorial();
         this.vistaActiva.set('historial');
       },

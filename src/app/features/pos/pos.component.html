@@ -1,4 +1,4 @@
-<div class="h-screen flex flex-col bg-gray-50 transition-colors overflow-hidden" style="font-family: 'Inter', system-ui, sans-serif;">
+﻿<div class="h-screen flex flex-col bg-gray-50 transition-colors overflow-hidden" style="font-family: 'Inter', system-ui, sans-serif;">
 
   <!-- Navbar superior (Estilo Enterprise) -->
   <header class="bg-white text-gray-900 border-b border-gray-200 flex-shrink-0 z-20 shadow-sm transition-colors">
@@ -9,8 +9,8 @@
         <button (click)="navegar('/home')" class="text-honey-primary hover:text-honey-dark transition-colors mr-2 hidden md:block focus:outline-none focus:text-honey-primary" title="Volver al Dashboard">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
-        <div class="hidden sm:flex items-center" [title]="config.config()?.empresaNombre">
-          <img [src]="config.config()?.logoUrl" [alt]="config.config()?.empresaNombre" class="h-8 object-contain drop-shadow-[0_2px_4px_rgba(245,158,11,0.3)]" />
+        <div class="hidden sm:flex items-center" [title]="config.config().empresaNombre">
+          <img [src]="config.config().logoUrl" [alt]="config.config().empresaNombre" class="h-8 object-contain drop-shadow-[0_2px_4px_rgba(245,158,11,0.3)]" />
         </div>
         <div class="hidden sm:block border-l border-gray-200 pl-3 ml-1">
           <p class="text-gray-900 font-bold text-sm tracking-tight leading-none">Punto de Venta</p>
@@ -21,7 +21,7 @@
       <!-- Total en mobile (siempre visible) -->
       <div class="sm:hidden flex items-center gap-1 bg-honey-primary/10 border border-honey-primary/20 rounded px-3 py-1.5 shadow-sm">
         <span class="text-honey-primary text-sm font-bold">
-          🛒 {{ pos.totalPagar() | currency }}
+          <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> {{ pos.totalPagar() | currency }}
         </span>
       </div>
 
@@ -43,7 +43,7 @@
           (click)="carritoVisible.set(!carritoVisible())"
           class="md:hidden relative bg-slate-100 border border-gray-200 text-gray-900 rounded p-2 hover:bg-slate-200 transition focus:outline-none focus:ring-2 focus:ring-honey-primary"
         >
-          🛒
+          <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
           @if (pos.totalItems() > 0) {
             <span class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
               {{ pos.totalItems() }}

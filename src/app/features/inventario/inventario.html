@@ -125,7 +125,7 @@
           </div>
         } @else if (registrosFiltrados().length === 0) {
           <div class="flex flex-col items-center justify-center h-full text-gray-400 text-center py-20 px-4">
-            <span class="text-6xl mb-4">📋</span>
+            <span class="text-6xl mb-4"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span>
             <p class="font-medium text-lg text-gray-600">Historial Vacío</p>
             <p class="text-sm mt-1">No hay movimientos registrados.</p>
           </div>
@@ -215,7 +215,7 @@
       <div class="modal-container w-full sm:w-auto mx-4 sm:mx-auto max-w-2xl">
         <div class="modal-header">
           <h2 class="modal-title">Registrar Entrada</h2>
-          <button (click)="cerrarModal()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none">✕</button>
+          <button (click)="cerrarModal()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         
         <div class="modal-body space-y-4">
@@ -301,7 +301,7 @@
       <div class="modal-container w-full sm:w-auto mx-4 sm:mx-auto max-w-lg">
         <div class="modal-header">
           <h2 class="modal-title">Editar Movimiento</h2>
-          <button (click)="cerrarModalEditar()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none">✕</button>
+          <button (click)="cerrarModalEditar()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div class="modal-body space-y-4">
           <div class="form-grid">
@@ -334,7 +334,7 @@
       <div class="modal-container w-full sm:w-auto mx-4 sm:mx-auto max-w-3xl">
         <div class="modal-header">
           <h2 class="modal-title">Detalles del Movimiento</h2>
-          <button (click)="cerrarModalDetalles()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none">✕</button>
+          <button (click)="cerrarModalDetalles()" class="close-button text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
           <div class="modal-body">
             <div class="overflow-hidden border border-slate-200 rounded-xl shadow-sm">
@@ -418,7 +418,7 @@
           <h2 class="modal-title">Ajuste de Stock</h2>
           <p class="text-xs text-gray-500 mt-0.5">Corrige el conteo físico real de un producto</p>
         </div>
-        <button (click)="cerrarModalAjuste()" class="close-button text-gray-400 hover:text-gray-600 focus:outline-none shrink-0">✕</button>
+        <button (click)="cerrarModalAjuste()" class="close-button text-gray-400 hover:text-gray-600 focus:outline-none shrink-0"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="modal-body space-y-4">
@@ -426,7 +426,7 @@
         <div class="form-group space-y-2">
           <label class="form-label">Buscar Producto</label>
           <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">🔍</span>
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
             <input type="text" [(ngModel)]="busquedaAjuste" placeholder="Escribe para filtrar..."
                    class="form-input pl-9 w-full">
           </div>
@@ -477,7 +477,7 @@
           @if (guardandoAjuste()) {
             <div class="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white"></div> Guardando...
           } @else {
-            ✅ Aplicar Ajuste
+            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Aplicar Ajuste
           }
         </button>
       </div>
@@ -485,7 +485,7 @@
   </div>
 }
 
-<!-- 🗑️ MODAL MERMA 🗑️ -->
+<!-- <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>️ MODAL MERMA <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>️ -->
 @if (mostrarModalMerma()) {
   <div class="modal-overlay z-50">
     <div class="modal-container max-w-md w-full mx-4 sm:mx-auto">
@@ -494,7 +494,7 @@
           <h2 class="modal-title text-red-700 font-black text-lg sm:text-xl flex items-center gap-2">Registrar Merma</h2>
           <p class="text-xs text-red-500 mt-0.5">Registra mercancía dañada, robada o caducada.</p>
         </div>
-        <button (click)="cerrarModalMerma()" class="close-button text-red-400 hover:text-red-600 focus:outline-none shrink-0">✖</button>
+        <button (click)="cerrarModalMerma()" class="close-button text-red-400 hover:text-red-600 focus:outline-none shrink-0"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="modal-body space-y-4">
@@ -502,7 +502,7 @@
         <div class="form-group">
           <label class="form-label">Buscar Producto</label>
           <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">🔍</span>
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
             <input type="text" [(ngModel)]="busquedaMerma" placeholder="Nombre del producto..." class="form-input pl-9 w-full">
           </div>
         </div>

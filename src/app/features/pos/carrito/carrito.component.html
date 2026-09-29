@@ -135,7 +135,7 @@
                   <div class="flex items-center gap-2">
                     <p class="text-sm font-semibold text-gray-900 truncate">{{ item.producto.nombre }}</p>
                   @if (pos.stockActual()[item.producto.idProducto] <= 5) {
-                    <span class="text-amber-500 font-bold text-xs" title="¡Inventario Bajo!">⚠️</span>
+                    <span class="text-amber-500 font-bold text-xs" title="¡Inventario Bajo!"><svg class="w-5 h-5 inline-block mr-1 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>️</span>
                   }
                 </div>
                 <div class="flex items-center gap-2 mt-1 text-xs text-slate-500">
@@ -145,7 +145,7 @@
                   }
                   @if (auth.tienePermiso('aplicar_descuentos')) {
                     <button (click)="abrirModalDescuentoItem(item.uid!, item.descuento || 0)" class="bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors ml-2 flex items-center gap-1 shadow-sm" title="Aplicar descuento por ítem">
-                    🏷️ Descuento
+                    <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>️ Descuento
                   </button>
                     }
                   </div>
@@ -364,7 +364,7 @@
                 Procesando...
               } @else {
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                ✓ Aceptar
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Aceptar
               }
             </button>
           </div>

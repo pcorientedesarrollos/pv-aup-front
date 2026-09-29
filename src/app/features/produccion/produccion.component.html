@@ -1,163 +1,154 @@
-<div class="h-full flex flex-col bg-transparent max-w-5xl mx-auto w-full gap-4">
-
+﻿<div class="h-full flex flex-col bg-transparent max-w-5xl mx-auto px-4 w-full gap-4">
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div>
       <h1 class="text-2xl font-black text-slate-800 tracking-tight">Producción y Fraccionamiento</h1>
-      
     </div>
   </div>
-
   <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col">
     <!-- Tabs -->
     <div class="flex border-b border-slate-200">
-      <button (click)="activeTab.set('fraccionar')" class="flex-1 py-4 px-6 text-center font-bold text-sm transition-colors focus:outline-none rounded-tl-xl"
-              [ngClass]="activeTab() === 'fraccionar' ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50/30' : 'text-slate-500 hover:bg-slate-50'">
-        🔪 Fraccionar
-      </button>
-      <button (click)="activeTab.set('producir')" class="flex-1 py-4 px-6 text-center font-bold text-sm transition-colors focus:outline-none rounded-tr-xl"
-              [ngClass]="activeTab() === 'producir' ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50/30' : 'text-slate-500 hover:bg-slate-50'">
-        🏭 Producir
-      </button>
+      <button (click)="activeTab.set('fraccionar')" class="flex-1 py-4 px-6 text-center font-bold text-sm transition-colors focus:outline-none rounded-tl-xl" [ngClass]="activeTab() === 'fraccionar' ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50/30' : 'text-slate-500 hover:bg-slate-50'"><div class="flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg><span>Abrir Empaques (A Granel)</span></div></button>
+      <button (click)="activeTab.set('producir')" class="flex-1 py-4 px-6 text-center font-bold text-sm transition-colors focus:outline-none rounded-tr-xl" [ngClass]="activeTab() === 'producir' ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50/30' : 'text-slate-500 hover:bg-slate-50'"><div class="flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><span>Armar Productos (Fabricar)</span></div></button>
     </div>
-
     <!-- Contenido -->
     <div class="p-6">
-      
       @if (cargando()) {
         <div class="flex justify-center py-10">
           <div class="animate-spin rounded-full h-8 w-8 border-4 border-slate-200 border-t-amber-500"></div>
         </div>
       } @else {
-
         <!-- Tab Fraccionar -->
         @if (activeTab() === 'fraccionar') {
           <div class="space-y-6">
-            
-            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-              <h3 class="font-bold text-slate-700 text-sm mb-3 text-indigo-700">Origen (Producto a descontar)</h3>
-              <div class="flex flex-col sm:flex-row gap-4">
-                <div class="flex-1">
-                  <label class="block text-xs font-semibold text-slate-500 mb-1">Selecciona el Comodín o Materia Prima</label>
-                  <app-searchable-select 
-                    [ngModel]="idProductoOrigenF()" 
-                    (ngModelChange)="idProductoOrigenF.set($event); onProductoOrigenChange()"
-                    [options]="productosOrigenFraccionar()" 
-                    bindLabel="nombre" 
-                    bindValue="idProducto">
-                  </app-searchable-select>
-                </div>
-                <div class="w-full sm:w-1/3">
-                  <label class="block text-xs font-semibold text-slate-500 mb-1">Cantidad a descontar</label>
-                  <input type="number" [ngModel]="cantidadOrigenF()" (ngModelChange)="cantidadOrigenF.set($event); onCantidadOrigenChange()" min="1" step="1" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+            <div class="text-center max-w-2xl mx-auto mb-4 mt-2">
+              <h2 class="text-xl font-black text-slate-800">Abrir Empaques (Convertir a Granel)</h2>
+              <p class="text-slate-500 text-sm mt-1">Saca el producto que viene dentro de un empaque grande (cajas, costales, bolsas de 1kg) para que quede suelto en tu sistema.</p>
+            </div>
+            <div class="flex flex-col items-stretch gap-2 bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200">
+              <!-- ARRIBA: Lo que abro -->
+              <div class="w-full bg-white p-5 rounded-xl border-2 border-rose-200 shadow-sm relative flex flex-col justify-center">
+                <div class="absolute top-0 left-0 w-1 h-full bg-rose-500 rounded-l-xl"></div>
+                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2 mb-4 ml-2">
+                  <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs">1</span>
+                  ¿Qué vas a abrir o romper?
+                </h3>
+                <div class="flex flex-col sm:flex-row gap-4 items-end ml-2">
+                  <div class="flex-1 w-full">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Empaque cerrado (Ej. Bolsa 1Kg)</label>
+                    <app-searchable-select [(ngModel)]="idProductoOrigenF" (ngModelChange)="onProductoOrigenChange()" [options]="productos()" bindLabel="nombre" bindValue="idProducto"></app-searchable-select>
+                  </div>
+                  <div class="w-full sm:w-48">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">¿Cuántos vas a abrir?</label>
+                    <input type="number" min="0.01" step="0.01" [(ngModel)]="cantidadOrigenF" class="w-full border-2 border-rose-100 rounded-xl px-4 py-3 text-lg focus:ring-rose-500 focus:border-rose-500 text-center font-black text-rose-700 bg-rose-50/30">
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm text-emerald-700 mb-4">Destinos por Unidad</h3>
-
-              <div class="space-y-4">
-                @for (unidad of unidadesFraccionamiento(); track unidad.indice) {
-                  <div class="bg-white border border-emerald-100 rounded-xl shadow-sm">
-                    <div class="bg-emerald-50/50 px-4 py-2 border-b border-emerald-100 flex justify-between items-center">
-                      <span class="font-bold text-emerald-800 text-xs uppercase tracking-wider">Unidad {{ unidad.indice }}</span>
-                      <button (click)="agregarSalidaF($index)" class="text-[10px] bg-white border border-emerald-200 hover:bg-emerald-100 text-emerald-700 font-bold px-2 py-1 rounded transition-colors shadow-sm">
-                        + Agregar salida
-                      </button>
-                    </div>
-                    
-                    <div class="p-4 space-y-3">
+              <!-- CENTRO: Flecha -->
+              <div class="flex flex-col items-center justify-center text-slate-400 py-2">
+                <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-500 mt-1">Se convierte en</span>
+              </div>
+              <!-- ABAJO: Lo que saco -->
+              <div class="w-full bg-white p-5 rounded-xl border-2 border-emerald-200 shadow-sm relative">
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500 rounded-l-xl"></div>
+                <div class="flex justify-between items-center mb-4 ml-2">
+                  <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">2</span>
+                    ¿Qué vas a sacar de ahí adentro?
+                  </h3>
+                </div>
+                <div class="space-y-4 ml-2">
+                  @for (unidad of unidadesFraccionamiento(); track unidad.indice) {
+                    <div class="space-y-3">
                       @for (salida of unidad.salidas; track $index) {
-                        <div class="flex flex-col sm:flex-row gap-3 items-end">
-                          <div class="flex-1">
-                            <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Producto a sumar</label>
-                            <app-searchable-select 
-                              [(ngModel)]="salida.idProducto" 
-                              [options]="productos()" 
-                              bindLabel="nombre" 
-                              bindValue="idProducto">
-                            </app-searchable-select>
+                        <div class="flex flex-col sm:flex-row gap-3 items-end bg-slate-50 p-4 rounded-xl border border-slate-200">
+                          <div class="flex-1 w-full">
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Producto suelto (A Granel)</label>
+                            <app-searchable-select [(ngModel)]="salida.idProducto" [options]="productos()" bindLabel="nombre" bindValue="idProducto"></app-searchable-select>
                           </div>
-                          <div class="w-full sm:w-32">
-                            <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Cantidad Resultante</label>
-                            <input type="number" min="0.01" step="0.01" [(ngModel)]="salida.cantidad" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-emerald-500 focus:border-emerald-500 text-center">
+                          <div class="w-full sm:w-48">
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Cantidad obtenida</label>
+                            <input type="number" min="0.01" step="0.01" [(ngModel)]="salida.cantidad" class="w-full border-2 border-emerald-100 rounded-xl px-4 py-3 text-lg focus:ring-emerald-500 focus:border-emerald-500 text-center font-black text-emerald-700 bg-emerald-50/30">
                           </div>
-                          <div class="pb-1">
-                            <button (click)="eliminarSalidaF(unidad.indice - 1, $index)" [disabled]="unidad.salidas.length === 1" class="text-rose-500 hover:bg-rose-50 p-2 rounded transition-colors disabled:opacity-30" title="Eliminar fila">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
+                          <div class="pb-1 sm:pb-3">
+                            <button (click)="eliminarSalidaF(unidad.indice - 1, $index)" [disabled]="unidad.salidas.length === 1" class="text-rose-500 hover:bg-rose-100 p-2 rounded transition-colors disabled:opacity-30" title="Eliminar"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                           </div>
                         </div>
                       }
+                      <button (click)="agregarSalidaF(unidad.indice - 1)" class="text-[11px] uppercase font-bold text-emerald-600 hover:text-emerald-800 bg-emerald-50 px-4 py-2.5 rounded-lg border border-emerald-200 w-full sm:w-auto text-center flex items-center justify-center gap-2 transition-colors hover:bg-emerald-100"><span class="text-xl leading-none">+</span> Agregar otro producto resultante</button>
                     </div>
-                  </div>
-                }
+                  }
+                </div>
               </div>
             </div>
-
-            <div class="pt-4 border-t border-slate-200 flex justify-end">
-              <button (click)="ejecutarFraccionamiento()" [disabled]="procesando() || !idProductoOrigenF()" class="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition-colors flex items-center gap-2 shadow">
+            <div class="pt-4 flex justify-center">
+              <button (click)="ejecutarFraccionamiento()" [disabled]="procesando() || !idProductoOrigenF()" class="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-black px-8 py-4 rounded-xl text-lg transition-transform transform hover:-translate-y-0.5 shadow-lg flex items-center gap-3">
                 @if (procesando()) {
-                  <div class="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white"></div>
+                  <div class="animate-spin rounded-full h-5 w-5 border-2 border-white/30 border-t-white"></div>
                   Procesando...
                 } @else {
-                  <span>🔪</span> Ejecutar Fraccionamiento
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Guardar en Inventario</span>
                 }
               </button>
             </div>
-
           </div>
         }
 
         <!-- Tab Producir -->
         @if (activeTab() === 'producir') {
           <div class="space-y-6">
-            
-            <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200">
-              <h3 class="font-bold text-amber-800 text-sm mb-3">Producto a Producir</h3>
-              <div class="flex flex-col sm:flex-row gap-4 items-end">
-                <div class="flex-1">
-                  <label class="block text-xs font-semibold text-amber-700 mb-1">Selecciona el Producto Terminado</label>
-                  <app-searchable-select 
-                    [(ngModel)]="idProductoTerminadoP" 
-                    (change)="onProductoProducirChange()"
-                    [options]="productosTerminados()" 
-                    bindLabel="nombre" 
-                    bindValue="idProducto">
-                  </app-searchable-select>
+            <div class="text-center max-w-2xl mx-auto mb-4 mt-2">
+              <h2 class="text-xl font-black text-slate-800">Armar Productos (Fabricar)</h2>
+              <p class="text-slate-500 text-sm mt-1">Crea productos listos para la venta juntando varios ingredientes o insumos (Ej. armar una canasta de regalo o envasar miel).</p>
+            </div>
+            <!-- CAJA PRINCIPAL: QUÉ VOY A FABRICAR -->
+            <div class="bg-white p-6 rounded-2xl border-2 border-amber-400 shadow-md relative mt-6">
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-900 font-black px-6 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">1. ¿Qué quieres fabricar?</div>
+              <div class="flex flex-col sm:flex-row gap-4 items-end mt-2">
+                <div class="flex-1 w-full">
+                  <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Producto Terminado</label>
+                  <app-searchable-select [ngModel]="idProductoTerminadoP()" (ngModelChange)="idProductoTerminadoP.set($event); onProductoProducirChange()" [options]="productosTerminados()" bindLabel="nombre" bindValue="idProducto"></app-searchable-select>
                 </div>
-                <div class="w-full sm:w-40">
-                  <label class="block text-xs font-semibold text-amber-700 mb-1">Cantidad a Producir</label>
-                  <input type="number" min="1" step="1" [(ngModel)]="cantidadProducirP" class="w-full border border-amber-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500 text-center font-bold">
+                <div class="w-full sm:w-48">
+                  <label class="block text-xs font-bold text-slate-500 uppercase mb-1">¿Cuántas piezas harás?</label>
+                  <input type="number" min="1" step="1" [ngModel]="cantidadProducirP()" (ngModelChange)="onCantidadProducirChange($event)" class="w-full border-2 border-amber-200 bg-amber-50 rounded-xl px-4 py-3 text-lg focus:ring-amber-500 focus:border-amber-500 text-center font-black text-amber-900">
                 </div>
               </div>
             </div>
-
+            <!-- FLECHA ABAJO -->
+            <div class="flex flex-col items-center justify-center text-slate-400 py-1">
+              <svg class="w-8 h-8 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-rose-500 mt-1">Para hacer esto se descontará:</span>
+            </div>
             @if (idProductoTerminadoP()) {
-              <div>
-                <h3 class="font-bold text-slate-700 text-sm mb-3">Requerimientos (Receta) por unidad:</h3>
-                
+              <div class="bg-white p-6 rounded-2xl border-2 border-rose-200 shadow-sm relative">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-rose-200 text-rose-800 font-black px-6 py-1.5 rounded-full text-xs uppercase tracking-widest">2. Receta a descontar</div>
                 @if (ingredientesP().length === 0) {
-                  <div class="text-sm text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-200 flex items-center gap-2">
-                    <span>⚠️</span> Este producto no tiene receta registrada. Se sumará stock sin descontar ingredientes.
+                  <div class="text-sm text-amber-600 bg-amber-50 p-4 rounded-xl flex items-center justify-center gap-2 mt-4 font-bold border border-amber-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> Este producto no tiene receta registrada. Se sumará stock sin descontar ingredientes.
                   </div>
                 } @else {
-                  <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+                  <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
                     <table class="w-full text-left text-sm whitespace-nowrap">
                       <thead class="bg-slate-50 text-slate-500">
                         <tr>
-                          <th class="px-4 py-2.5 font-semibold">Ingrediente</th>
-                          <th class="px-4 py-2.5 font-semibold text-center">Cant. Unitaria</th>
-                          <th class="px-4 py-2.5 font-semibold text-center text-amber-700 bg-amber-50/50">Total a Descontar</th>
+                          <th class="px-4 py-3 font-bold uppercase text-[11px] tracking-wider">Ingrediente</th>
+                          <th class="px-4 py-3 font-bold uppercase text-[11px] tracking-wider text-center text-rose-700 bg-rose-50/50">Total a Descontar</th>
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-slate-100">
                         @for (ing of ingredientesP(); track ing.idReceta) {
-                          <tr>
-                            <td class="px-4 py-3 font-medium text-slate-800">{{ ing.productoHijo?.nombre }}</td>
-                            <td class="px-4 py-3 text-center text-slate-600">{{ ing.cantidad }} {{ ing.productoHijo?.unidadMedida }}</td>
-                            <td class="px-4 py-3 text-center font-bold text-rose-600 bg-rose-50/30">
-                              -{{ (ing.cantidad * cantidadProducirP()) | number:'1.2-2' }} {{ ing.productoHijo?.unidadMedida }}
+                          <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 font-bold text-slate-800 flex flex-col">
+                               <span>{{ ing.productoHijo?.nombre }}</span>
+                               <span class="text-[10px] text-slate-400 font-normal mt-0.5">La receta pide {{ ing.cantidad }} {{ ing.productoHijo?.unidadMedida }} por cada pieza fabricada.</span>
+                            </td>
+                            <td class="px-4 py-4 bg-rose-50/30 w-48">
+                              <div class="flex items-center justify-center gap-2">
+                                <span class="text-rose-600 font-black text-lg">-</span>
+                                <input type="number" step="0.01" [(ngModel)]="ing.cantidadCustom" class="w-24 border border-rose-300 text-rose-800 bg-white font-black rounded-lg px-2 py-2 text-center focus:ring-rose-500 focus:border-rose-500 shadow-inner">
+                                <span class="text-xs font-bold text-rose-600 w-8">{{ ing.productoHijo?.unidadMedida }}</span>
+                              </div>
                             </td>
                           </tr>
                         }
@@ -166,22 +157,19 @@
                   </div>
                 }
               </div>
-
-              <div class="pt-4 border-t border-slate-200 flex justify-end">
-                <button (click)="ejecutarProduccion()" [disabled]="procesando()" class="bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition-colors flex items-center gap-2 shadow">
+              <div class="pt-6 flex justify-center">
+                <button (click)="ejecutarProduccion()" [disabled]="procesando()" class="bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-black px-8 py-4 rounded-xl text-lg transition-transform transform hover:-translate-y-0.5 shadow-xl flex items-center gap-3">
                   @if (procesando()) {
-                    <div class="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white"></div>
+                    <div class="animate-spin rounded-full h-5 w-5 border-2 border-white/30 border-t-white"></div>
                     Procesando...
                   } @else {
-                    <span>🏭</span> Ejecutar Producción
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><span>Crear Producto Terminado</span>
                   }
                 </button>
               </div>
             }
-
           </div>
         }
-
       }
     </div>
   </div>

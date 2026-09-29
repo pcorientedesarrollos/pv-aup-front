@@ -35,7 +35,7 @@
     <div class="flex flex-col sm:flex-row justify-between gap-4">
       <div class="filter-control w-full max-w-md">
         <input type="text" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"
-               placeholder="🔍 Buscar por folio de venta, motivo o tipo..."
+               placeholder=" Buscar por folio de venta, motivo o tipo..."
                class="filter-input">
       </div>
       <div class="flex items-center gap-2">
@@ -120,7 +120,7 @@
         <div>
           <h2 class="modal-title">Detalle de Devolución</h2>
         </div>
-        <button (click)="cerrarDetalles()" class="close-button flex items-center justify-center text-gray-500 text-xl">✕</button>
+        <button (click)="cerrarDetalles()" class="close-button flex items-center justify-center text-gray-500 text-xl"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       </div>
 
       <div class="modal-body space-y-4 p-0">

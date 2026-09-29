@@ -178,9 +178,9 @@ export class ProductosComponent implements OnInit {
   getLabelFiltroStock(): string {
     const labels: Record<string, string> = {
       'todos': 'Stock ↕',
-      'sin-stock': 'Sin Stock 🔴',
-      'stock-bajo': 'Stock Bajo 🟡',
-      'disponible': 'Disponible 🟢'
+      'sin-stock': 'Sin Stock ',
+      'stock-bajo': 'Stock Bajo ',
+      'disponible': 'Disponible '
     };
     return labels[this.filtroStock()] || 'Stock';
   }
