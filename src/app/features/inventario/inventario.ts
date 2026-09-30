@@ -255,11 +255,12 @@ export class InventarioComponent implements OnInit {
   }
 
   cargarCatalogo() {
-    this.http.get<any[]>(`${environment.apiUrl}/pos/productos?limit=10000`).subscribe({
-      next: (data) => {
+    this.http.get<any>(`${environment.apiUrl}/pos/productos?limit=10000`).subscribe({
+      next: (response) => {
         const unicos = [];
         const vistos = new Set<string>();
-        for (const p of data) {
+        const items = Array.isArray(response) ? response : (response?.data || []);
+        for (const p of items) {
           const nombreLimpio = p.nombre.trim().toUpperCase();
           if (!vistos.has(nombreLimpio)) {
             unicos.push(p);

@@ -422,22 +422,18 @@
       </div>
 
       <div class="modal-body space-y-4">
-        <!-- Buscador de producto -->
-        <div class="form-group space-y-2">
-          <label class="form-label">Buscar Producto</label>
-          <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
-            <input type="text" [(ngModel)]="busquedaAjuste" placeholder="Escribe para filtrar..."
-                   class="form-input pl-9 w-full">
+        <!-- Seleccionar Producto -->
+          <div class="form-group space-y-2">
+            <label class="form-label">Seleccionar Producto</label>
+            <app-searchable-select 
+                [ngModel]="ajuste.idProducto" 
+                (ngModelChange)="ajuste.idProducto = $event; onProductoAjusteChange($event)"
+                [options]="catalogoProductos()" 
+                bindLabel="nombre" 
+                bindValue="idProducto"
+                placeholder="Busca por nombre...">
+            </app-searchable-select>
           </div>
-          <app-searchable-select 
-              [ngModel]="ajuste.idProducto" 
-              (ngModelChange)="ajuste.idProducto = $event; onProductoAjusteChange($event)"
-              [options]="getProductosAjusteFiltrados()" 
-              bindLabel="nombre" 
-              bindValue="idProducto">
-          </app-searchable-select>
-        </div>
 
         <!-- Stock actual vs nuevo -->
         @if (ajuste.idProducto) {
@@ -498,26 +494,18 @@
       </div>
 
       <div class="modal-body space-y-4">
-        <!-- Buscador -->
-        <div class="form-group">
-          <label class="form-label">Buscar Producto</label>
-          <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
-            <input type="text" [(ngModel)]="busquedaMerma" placeholder="Nombre del producto..." class="form-input pl-9 w-full">
+        <!-- Seleccionar Producto -->
+          <div class="form-group space-y-2">
+            <label class="form-label">Seleccionar Producto</label>
+            <app-searchable-select 
+                [ngModel]="merma.idProducto" 
+                (ngModelChange)="merma.idProducto = $event; onProductoMermaChange($event)"
+                [options]="catalogoProductos()" 
+                bindLabel="nombre" 
+                bindValue="idProducto"
+                placeholder="Busca por nombre...">
+            </app-searchable-select>
           </div>
-        </div>
-
-        <!-- Resultados de Búsqueda -->
-        @if (busquedaMerma.length > 0) {
-          <ul class="border border-gray-200 rounded-md divide-y divide-slate-100 max-h-40 overflow-y-auto">
-            @for (prod of getProductosMermaFiltrados(); track prod.idProducto) {
-              <li class="p-2 hover:bg-red-50 cursor-pointer flex justify-between items-center text-sm" (click)="onProductoMermaChange(prod.idProducto); busquedaMerma = ''">
-                <span class="font-medium text-gray-700 truncate pr-2">{{ prod.nombre }}</span>
-                <span class="text-gray-500 text-xs bg-gray-100 px-2 py-0.5 rounded whitespace-nowrap shrink-0">Stock: {{ prod.stockActual }}</span>
-              </li>
-            }
-          </ul>
-        }
 
         <!-- Formulario de Merma (si hay producto seleccionado) -->
         @if (merma.idProducto) {
